@@ -11,8 +11,8 @@ class Character extends MovableObject {
         "./img/2_character_pepe/2_walk/W-25.png",
         "./img/2_character_pepe/2_walk/W-26.png"
     ]
-    
-
+    world;
+   
     constructor() {
 
         super();
@@ -22,11 +22,13 @@ class Character extends MovableObject {
     }
     animate() {
         setInterval(() => {
-            let repeate = this.currentImage % this.imagesWalking.length; // let repeate = 0 % 6;  % =>Matematischer REST => 0, Rest 0
-            // repeate geht das array 0, 1, 2, 3, 4, 5 und dann kommt % und es ist wieder 0 und wird dadurch unendlich
-            let path = this.imagesWalking[repeate]
-            this.img = this.imageCache[path];
-            this.currentImage++;
+            if (world.keyboard.right) {
+                let repeate = this.currentImage % this.imagesWalking.length; // let repeate = 0 % 6;  % =>Matematischer REST => 0, Rest 0
+                // repeate geht das array 0, 1, 2, 3, 4, 5 und dann kommt % und es ist wieder 0 und wird dadurch unendlich
+                let path = this.imagesWalking[repeate]
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
         }, 180);
     }
 }

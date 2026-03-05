@@ -1,4 +1,4 @@
-class air extends MovableObject {
+class Air extends MovableObject {
 
     x = 0;
     y = 0;

@@ -1,4 +1,4 @@
-class thirdBGLayer extends MovableObject {
+class ThirdBGLayer extends MovableObject {
 
     x = 0;
     y = 0;

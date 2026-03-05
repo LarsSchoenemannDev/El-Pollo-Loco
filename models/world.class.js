@@ -6,20 +6,28 @@ class World {
         new Chicken(),
         new Chicken(),
     ];
-    air = new air();
-    weather = new clouds();
-    firstBGLayer = new firstBGLayer();
-    secoundBGLayer = new secoundBGLayer();
-    thirdBGLayer = new thirdBGLayer();
+    air = new Air();
+    weather = new Clouds();
+    firstBGLayer = new FirstBGLayer();
+    secoundBGLayer = new SecoundBGLayer();
+    thirdBGLayer = new ThirdBGLayer();
+    
 
     ctx;
     canvas;
-    constructor(canvas) {
+    keyboard;
+
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
     }
 
+    setWorld() {
+        this.character.world = this;
+    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -37,7 +45,7 @@ class World {
 
         let self = this // this ist in der function nicht mehr sichtbar
         requestAnimationFrame(function () { // die function wird dauert ausgeführt 
-            
+
             self.draw()
             console.log("Self Draw ")
         })

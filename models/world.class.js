@@ -30,7 +30,7 @@ class World {
         this.addObjectToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectToMap(this.enemies);
-        this.addToMap(this.clouds);
+        this.addObjectToMap(this.clouds);
 
         this.ctx.translate(-this.cameraX, 0);
 

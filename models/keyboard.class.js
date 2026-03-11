@@ -7,6 +7,4 @@ throw = false;
 esc = false;
 resetGame = false
 
-
-
 }

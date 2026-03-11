@@ -1,21 +1,14 @@
 class World {
 
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-    ];
-    air = new Air();
-    weather = new Clouds();
-    firstBGLayer = new FirstBGLayer();
-    secoundBGLayer = new SecoundBGLayer();
-    thirdBGLayer = new ThirdBGLayer();
-    
+    enemies = level1.enemies;
+    clouds = level1.clouds;
+    backgroundObjects = level1.backgroundObjects;
 
     ctx;
     canvas;
     keyboard;
+    cameraX = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -31,23 +24,42 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.air.img, this.air.x, this.air.y, this.air.width, this.air.height);
-        this.ctx.drawImage(this.weather.img, this.weather.x, this.weather.y, this.weather.width, this.weather.height);
-        this.ctx.drawImage(this.thirdBGLayer.img, this.thirdBGLayer.x, this.thirdBGLayer.y, this.thirdBGLayer.width, this.thirdBGLayer.height);
-        this.ctx.drawImage(this.secoundBGLayer.img, this.secoundBGLayer.x, this.secoundBGLayer.y, this.secoundBGLayer.width, this.secoundBGLayer.height);
-        this.ctx.drawImage(this.firstBGLayer.img, this.firstBGLayer.x, this.firstBGLayer.y, this.firstBGLayer.width, this.firstBGLayer.height);
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
 
-        for (let i = 0; i < this.enemies.length; i++) {
-            this.ctx.drawImage(this.enemies[i].img, this.enemies[i].x, this.enemies[i].y, this.enemies[i].width, this.enemies[i].height);
-        }
+        this.ctx.translate(this.cameraX, 0);
+
+        this.addObjectToMap(this.backgroundObjects);
+        this.addToMap(this.character);
+        this.addObjectToMap(this.enemies);
+        this.addToMap(this.clouds);
+
+        this.ctx.translate(-this.cameraX, 0);
 
 
-        let self = this // this ist in der function nicht mehr sichtbar
+
+        let self = this; // this ist in der function nicht mehr sichtbar
         requestAnimationFrame(function () { // die function wird dauert ausgeführt 
-
             self.draw()
             console.log("Self Draw ")
         })
+    }
+
+    addObjectToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o)
+        })
+    }
+
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(mo.width, 0);
+            this.ctx.scale(-1, 1)
+            mo.x = mo.x * -1;
+        }
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height)
+        if (mo.otherDirection) {
+            mo.x = mo.x * -1;
+            this.ctx.restore();
+        }
     }
 }   

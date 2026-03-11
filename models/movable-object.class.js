@@ -6,7 +6,9 @@ class MovableObject {
     width = 100
     imageCache = {};
     currentImage = 0;
+    speed = 0.15;
     movementWalkSpeed = 0.10
+    otherDirection = false;
 
     // LoadImage ("img/test.png")
     loadImage(path) {
@@ -22,15 +24,10 @@ class MovableObject {
         });
     }
 
-    movementWalk() {
+    moveLeft() {
         setInterval(() => {
-            this.x -= 0.10 + Math.random() * 0.25;
-        }), 800 / 60;
-        // this.loadImage.forEach(img => {
-        //     img."./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png"
-        //     img."./img/3_enemies_chicken/chicken_normal/1_walk/2_w.png"
-        //     img."./img/3_enemies_chicken/chicken_normal/1_walk/3_w.png"
-        // });
+            this.x -= this.speed;
+        }, 1000 / 60)
     }
 
     moveRight() {

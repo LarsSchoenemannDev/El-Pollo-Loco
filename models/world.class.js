@@ -1,10 +1,7 @@
 class World {
 
     character = new Character();
-    enemies = level1.enemies;
-    clouds = level1.clouds;
-    backgroundObjects = level1.backgroundObjects;
-
+    level = level1;
     ctx;
     canvas;
     keyboard;
@@ -27,10 +24,10 @@ class World {
 
         this.ctx.translate(this.cameraX, 0);
 
-        this.addObjectToMap(this.backgroundObjects);
+        this.addObjectToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectToMap(this.enemies);
-        this.addObjectToMap(this.clouds);
+        this.addObjectToMap(this.level.enemies);
+        this.addObjectToMap(this.level.clouds);
 
         this.ctx.translate(-this.cameraX, 0);
 
@@ -39,7 +36,6 @@ class World {
         let self = this; // this ist in der function nicht mehr sichtbar
         requestAnimationFrame(function () { // die function wird dauert ausgeführt 
             self.draw()
-            console.log("Self Draw ")
         })
     }
 
@@ -56,7 +52,15 @@ class World {
             this.ctx.scale(-1, 1)
             mo.x = mo.x * -1;
         }
+
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height)
+        this.ctx.beginPath();
+        this.ctx.lineWidth = "2";
+        this.ctx.strokeStyle = "blue";
+        this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
+        this.ctx.stroke();
+
+
         if (mo.otherDirection) {
             mo.x = mo.x * -1;
             this.ctx.restore();

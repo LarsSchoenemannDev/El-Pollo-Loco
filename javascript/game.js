@@ -8,8 +8,7 @@ function init() {
 
 }
 
-window.addEventListener("keydown", (event) => {
-    console.log(event);
+window.addEventListener("keydown", (event) => {    
     if (event.code === "ArrowLeft")
         keyboard.left = true;
     if (event.code === "ArrowRight")

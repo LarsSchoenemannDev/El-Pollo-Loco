@@ -1,7 +1,7 @@
 class Character extends MovableObject {
- 
-    height = 180
-    width = 140
+    y = 80;
+    height = 180;
+    width = 140;
     speed = 10;
     imagesWalking = [
         "./img/2_character_pepe/2_walk/W-21.png",
@@ -10,6 +10,18 @@ class Character extends MovableObject {
         "./img/2_character_pepe/2_walk/W-24.png",
         "./img/2_character_pepe/2_walk/W-25.png",
         "./img/2_character_pepe/2_walk/W-26.png"
+    ];
+    imagesJumping = [
+        "./img/2_character_pepe/3_jump/J-31.png",
+        "./img/2_character_pepe/3_jump/J-32.png",
+        "./img/2_character_pepe/3_jump/J-33.png",
+        "./img/2_character_pepe/3_jump/J-34.png",
+        "./img/2_character_pepe/3_jump/J-35.png",
+        "./img/2_character_pepe/3_jump/J-36.png",
+        "./img/2_character_pepe/3_jump/J-37.png",
+        "./img/2_character_pepe/3_jump/J-38.png",
+        "./img/2_character_pepe/3_jump/J-39.png"
+
     ]
     world;
 
@@ -18,37 +30,42 @@ class Character extends MovableObject {
         super();
         this.loadImage("./img/2_character_pepe/2_walk/W-21.png");
         this.loadImages(this.imagesWalking);
+        this.loadImages(this.imagesJumping);
+        this.applyGravity();
         this.animate();
     }
+    
     animate() {
-
         setInterval(() => {
-            if (world.keyboard.right) {
-                this.x += this.speed;
-                this.otherDirection = false;
+            if (world.keyboard.right && this.x < this.world.level.level_EndX) {
+                this.moveRight()
             }
 
-            if (world.keyboard.left) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+            if (world.keyboard.left && this.x > 0) {
+                this.moveLeft();
+                this.otherDirection = true     
             }
-            this.world.cameraX = -this.x;
+
+            this.world.cameraX = -this.x + 60;
+
+            if (this.world.keyboard.space && !this.isAbouveGround()) {
+                this.jump();
+            }
+
         }, 1000 / 60);
 
-
-
         setInterval(() => {
-            if (world.keyboard.right || world.keyboard.left) {
-                //Walk animation
-                let repeate = this.currentImage % this.imagesWalking.length; // let repeate = 0 % 6;  % =>Matematischer REST => 0, Rest 0
-                // repeate geht das array 0, 1, 2, 3, 4, 5 und dann kommt % und es ist wieder 0 und wird dadurch unendlich
-                let path = this.imagesWalking[repeate]
-                this.img = this.imageCache[path];
-                this.currentImage++;
+            if (this.isAbouveGround()) {
+                this.playAnimation(this.imagesJumping)
+            } else {
+                if (world.keyboard.right || world.keyboard.left) {
+                    this.playAnimation(this.imagesWalking)
+                }
             }
         }, 50);
     }
 }
+
 
 
 // jump() {

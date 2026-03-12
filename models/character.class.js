@@ -23,6 +23,17 @@ class Character extends MovableObject {
         "./img/2_character_pepe/3_jump/J-39.png"
 
     ]
+
+    imagesDead = [
+        "img/2_character_pepe/5_dead/D-51.png",
+        "img/2_character_pepe/5_dead/D-52.png",
+        "img/2_character_pepe/5_dead/D-53.png",
+        "img/2_character_pepe/5_dead/D-54.png",
+        "img/2_character_pepe/5_dead/D-55.png",
+        "img/2_character_pepe/5_dead/D-56.png",
+        "img/2_character_pepe/5_dead/D-57.png",
+    ]
+
     world;
 
     constructor() {
@@ -31,10 +42,11 @@ class Character extends MovableObject {
         this.loadImage("./img/2_character_pepe/2_walk/W-21.png");
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
+        this.loadImages(this.imagesDead);
         this.applyGravity();
         this.animate();
     }
-    
+
     animate() {
         setInterval(() => {
             if (world.keyboard.right && this.x < this.world.level.level_EndX) {
@@ -43,7 +55,7 @@ class Character extends MovableObject {
 
             if (world.keyboard.left && this.x > 0) {
                 this.moveLeft();
-                this.otherDirection = true     
+                this.otherDirection = true
             }
 
             this.world.cameraX = -this.x + 60;
@@ -55,16 +67,25 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isAbouveGround()) {
-                this.playAnimation(this.imagesJumping)
-            } else {
+            if (this.isDead()) {
+                console.log("Ich bin tot", this.isDead());
+                this.playAnimation(this.imagesDead);
+            } else if (this.isAbouveGround()) {
+                this.playAnimation(this.imagesJumping);
+            }
+            else if (this.world.character.hit()) {
+                
+
+            }
+            else {
                 if (world.keyboard.right || world.keyboard.left) {
-                    this.playAnimation(this.imagesWalking)
+                    this.playAnimation(this.imagesWalking);
                 }
             }
         }, 50);
     }
 }
+
 
 
 

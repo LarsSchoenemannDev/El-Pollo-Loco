@@ -8,7 +8,7 @@ function init() {
 
 }
 
-window.addEventListener("keydown", (event) => {    
+window.addEventListener("keydown", (event) => {
     if (event.code === "ArrowLeft")
         keyboard.left = true;
     if (event.code === "ArrowRight")
@@ -19,6 +19,8 @@ window.addEventListener("keydown", (event) => {
         keyboard.throw = true;
     if (event.code === "Escape")
         keyboard.esc = true;
+    if (event.code === "KeyD")
+        keyboard.d = true;
 })
 
 window.addEventListener("keyup", (event) => {
@@ -32,4 +34,6 @@ window.addEventListener("keyup", (event) => {
         keyboard.throw = false;
     if (event.code === "Escape")
         keyboard.esc = false;
+    if (event.code === "KeyD")
+        keyboard.d = false;
 });

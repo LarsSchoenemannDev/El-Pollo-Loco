@@ -93,13 +93,3 @@ class Character extends MovableObject {
 
 
 
-
-// jump() {
-//     console.log("Character Jump");
-
-// }
-
-// throw() {
-//     console.log("Character throw");
-// }
-

@@ -9,6 +9,10 @@ class Chicken extends MovableObject {
         "./img/3_enemies_chicken/chicken_normal/1_walk/3_w.png"
     ]
 
+    test =[
+        "img/5_background/layers/1_first_layer/1.png",
+        
+    ]
 
     constructor() {
         super();

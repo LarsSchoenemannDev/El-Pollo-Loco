@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    y = 80;
+    y = 80; // luft spwan
     height = 180;
     width = 140;
     speed = 10;
@@ -34,6 +34,12 @@ class Character extends MovableObject {
         "img/2_character_pepe/5_dead/D-57.png",
     ]
 
+    imagesHurt = [
+        "img/2_character_pepe/4_hurt/H-41.png",
+        "img/2_character_pepe/4_hurt/H-42.png",
+        "img/2_character_pepe/4_hurt/H-43.png"
+    ]
+
     world;
 
     constructor() {
@@ -43,6 +49,7 @@ class Character extends MovableObject {
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);
+        this.loadImages(this.imagesHurt);
         this.applyGravity();
         this.animate();
     }
@@ -68,16 +75,14 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.isDead()) {
-                console.log("Ich bin tot", this.isDead());
                 this.playAnimation(this.imagesDead);
-            } else if (this.isAbouveGround()) {
+            }
+            else if (this.isHurt()) {
+                this.playAnimation(this.imagesHurt);  
+            } 
+            else if (this.isAbouveGround()) {
                 this.playAnimation(this.imagesJumping);
-            }
-            else if (this.world.character.hit()) {
-                
-
-            }
-            else {
+            } else {
                 if (world.keyboard.right || world.keyboard.left) {
                     this.playAnimation(this.imagesWalking);
                 }

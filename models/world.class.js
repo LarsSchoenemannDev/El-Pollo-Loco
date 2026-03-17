@@ -6,7 +6,9 @@ class World {
     canvas;
     keyboard;
     cameraX = 0;
-    statusBar = new StatusBar();
+    StatusBarImageHealt = new StatusBarImageHealt();
+    StatusBarImageCoin = new StatusBarImageCoin();
+    StatusBarImageBottel = new StatusBarImageBottel();
     ThrowableObject = [new ThrowableObject()];
 
     constructor(canvas, keyboard) {
@@ -36,7 +38,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy))
                 this.character.hit();
-            this.statusBar.setPercentage(this.character.energy)
+            this.statusBar.setPercentageHealt(this.character.energy)
             console.log("leben", this.character.energy);
         })
     }
@@ -53,9 +55,11 @@ class World {
         this.addObjectToMap(this.level.backgroundObjects);
 
         this.ctx.translate(-this.cameraX, 0);
-        this.addToMap(this.statusBar)
+        this.addToMap(this.StatusBarImageHealt)
+        this.addToMap(this.StatusBarImageCoin)
+        this.addToMap(this.StatusBarImageBottel)
         this.ctx.translate(this.cameraX, 0);
-        
+
         this.addObjectToMap(this.ThrowableObject)
 
         this.addToMap(this.character);

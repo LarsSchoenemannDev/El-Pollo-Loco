@@ -1,7 +1,5 @@
 class ThrowableObject extends MovableObject {
 
-
-
     constructor(x, y) {
         super();
         this.x = x;
@@ -10,7 +8,6 @@ class ThrowableObject extends MovableObject {
         this.height = 83;
         this.width = 69;
         this.throw();
-
     }
 
     throw() {

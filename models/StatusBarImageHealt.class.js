@@ -18,7 +18,6 @@ class StatusBarImageHealt extends DrawableObject {
         this.height = 65;
         this.x = 20;
         this.y = 0;
-
     }
 
 

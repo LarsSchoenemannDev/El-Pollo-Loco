@@ -8,7 +8,7 @@ class StatusBarImageCoin extends DrawableObject {
         "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png"
     ]
 
-    constructor() {
+    constructor(imagePath, x) {
         super();
         this.loadImages(this.imageCoins);
         this.setPercentageCoin(0);

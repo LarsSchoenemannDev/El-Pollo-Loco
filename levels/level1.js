@@ -55,13 +55,16 @@ const level1 = new Level(
         new CoinObject(2000, 220),
     ],
     [
-        new BottlesObject(600, 370),
-        new BottlesObject(660, 370),
+        new BottlesObject(600, 360),
+        new BottlesObject(660, 360),
 
-        new BottlesObject(1780, 370),
-        new BottlesObject(1830, 370),
-        new BottlesObject(1870, 370),
-        new BottlesObject(2800, 370),
+        new BottlesObject(1240, 360),
+        new BottlesObject(1280, 360),
+
+        new BottlesObject(1780, 360),
+        new BottlesObject(1830, 360),
+        new BottlesObject(1870, 360),
+        new BottlesObject(2180, 360),
     ]
 
 );

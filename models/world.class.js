@@ -2,6 +2,7 @@ class World {
 
     character = new Character();
     level = level1;
+    collect;
     ctx;
     canvas;
     keyboard;
@@ -10,11 +11,16 @@ class World {
     statusBarImageCoin = new StatusBarImageCoin();
     statusBarImageBottel = new StatusBarImageBottle();
     ThrowableObject = [new ThrowableObject()];
+       
+    
+    
+    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.collect = new Collect(this)
         this.draw();
         this.setWorld();
         this.run();

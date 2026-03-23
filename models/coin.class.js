@@ -1,12 +1,16 @@
 class CoinObject extends Collect {
 
+  // Das Schlüsselwort static bedeutet: Diese Eigenschaft gehört zur Klasse selbst, 
+  // nicht zu den einzelnen Objekten.
   static coinImage = ["img/8_coin/coin_1.png"]
-    // "img/8_coin/coin_2.png"];
 
+  offset = { top: 0, bottom: 0, left: 210, right: 0 };
 
   constructor(x, y) {
-    super(x, y, 80, 80, CoinObject.coinImage, "coin");
-    this.offset = { top: 20, bottom: 20, left: 20, right: 20 };
-  }
-}
 
+    // console.log("Images received:", CoinObject.coinImage);
+    super(x, y, 70, 70, CoinObject.coinImage, "coin");
+
+  }
+
+}

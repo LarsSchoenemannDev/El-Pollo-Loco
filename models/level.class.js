@@ -1,4 +1,4 @@
-class Level {
+class Level  {
     enemies;
     clouds;
     backgroundObjects;
@@ -11,8 +11,6 @@ class Level {
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;
-        this.bottles = bottles;
-        console.log("HI");
-        
+        this.bottles = bottles;      
     }
 }

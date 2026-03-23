@@ -48,9 +48,13 @@ class MovableObject extends DrawableObject {
 
     // Collision 
     // charcter is colliding chicken
-    isColliding(mo) {
-        return this.x + this.width > mo.x && this.y + this.height > mo.y &&
-            this.x < mo.x && this.y < mo.y + mo.height
+    isColliding(enemy) {
+        // console.log("enemy", enemy);
+
+        return this.x + this.width > enemy.x && this.y + this.height > enemy.y &&
+            this.x < enemy.x && this.y < enemy.y + enemy.height
+
+
     }
 
     hit() {

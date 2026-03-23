@@ -6,7 +6,8 @@ class Air extends MovableObject {
     width = 720
 
     constructor() {
-        super().loadImage("./img/5_background/layers/air.png")
+        super()
+        this.loadImage("./img/5_background/layers/air.png")
         
     }
 

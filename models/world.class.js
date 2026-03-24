@@ -19,8 +19,7 @@ class World {
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
-        this.keyboard = keyboard;
-        this.collect = new Collect(this)
+        this.keyboard = keyboard;        
         this.draw();
         this.setWorld();
         this.run();

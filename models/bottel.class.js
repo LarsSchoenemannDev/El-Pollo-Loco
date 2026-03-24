@@ -1,14 +1,25 @@
-class BottlesObject extends Collect {
+class BottlesObject extends DrawableObject {
+    imageBottle = [
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',        
+    ];
 
-    // Das Schlüsselwort static bedeutet: Diese Eigenschaft gehört zur Klasse selbst, 
-    // nicht zu den einzelnen Objekten.
-    static bottlesImage = ["img/6_salsa_bottle/1_salsa_bottle_on_ground.png"];
+    currentImageIndex = 0;
 
-    offset = { top: 0, bottom: 0, left: 210, right: 0 };
-
-    constructor(x, y) {       
-        // console.log("Images received:", BottlesObject.bottlesImage);
-        super(x, y, 70, 70, BottlesObject.bottlesImage, "bottles");
-
+    constructor(x, y) {
+        super();
+        this.loadImages(this.imageBottle);
+        this.y = y;
+        this.x = x;
+        this.width = 70;
+        this.height = 100;
+        this.displayImage();       
     }
+
+
+    displayImage() {
+        let path = this.imageBottle[this.currentImageIndex];
+        this.img = this.imageCache[path];
+    }
+
+
 }

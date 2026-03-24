@@ -11,10 +11,6 @@ class World {
     statusBarImageCoin = new StatusBarImageCoin();
     statusBarImageBottel = new StatusBarImageBottle();
     ThrowableObject = [new ThrowableObject()];
-       
-    
-    
-    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -79,8 +75,8 @@ class World {
 
 
 
-        let self = this; // this ist in der function nicht mehr sichtbar
-        requestAnimationFrame(function () { // die function wird dauert ausgeführt 
+        let self = this; 
+        requestAnimationFrame(function () { 
             self.draw()
         })
     }

@@ -3,6 +3,20 @@ class Character extends MovableObject {
     height = 180;
     width = 140;
     speed = 10;
+
+    imagesNormals = [
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png",
+        "img/2_character_pepe/1_idle/idle/I-1.png"
+    ];
+
     imagesWalking = [
         "./img/2_character_pepe/2_walk/W-21.png",
         "./img/2_character_pepe/2_walk/W-22.png",
@@ -22,7 +36,7 @@ class Character extends MovableObject {
         "./img/2_character_pepe/3_jump/J-38.png",
         "./img/2_character_pepe/3_jump/J-39.png"
 
-    ]
+    ];
 
     imagesDead = [
         "img/2_character_pepe/5_dead/D-51.png",
@@ -31,25 +45,39 @@ class Character extends MovableObject {
         "img/2_character_pepe/5_dead/D-54.png",
         "img/2_character_pepe/5_dead/D-55.png",
         "img/2_character_pepe/5_dead/D-56.png",
-        "img/2_character_pepe/5_dead/D-57.png",
-    ]
+        "img/2_character_pepe/5_dead/D-57.png"
+    ];
 
     imagesHurt = [
         "img/2_character_pepe/4_hurt/H-41.png",
         "img/2_character_pepe/4_hurt/H-42.png",
         "img/2_character_pepe/4_hurt/H-43.png"
-    ]
+    ];
+
+    imagesWaiting = [
+        "img/2_character_pepe/1_idle/long_idle/I-11.png",
+        "img/2_character_pepe/1_idle/long_idle/I-12.png",
+        "img/2_character_pepe/1_idle/long_idle/I-13.png",
+        "img/2_character_pepe/1_idle/long_idle/I-14.png",
+        "img/2_character_pepe/1_idle/long_idle/I-15.png",
+        "img/2_character_pepe/1_idle/long_idle/I-16.png",
+        "img/2_character_pepe/1_idle/long_idle/I-17.png",
+        "img/2_character_pepe/1_idle/long_idle/I-18.png",
+        "img/2_character_pepe/1_idle/long_idle/I-19.png",
+        "img/2_character_pepe/1_idle/long_idle/I-20.png"     
+    ];
 
     world;
 
     constructor() {
 
         super();
-        this.loadImage("./img/2_character_pepe/2_walk/W-21.png");
+        this.loadImage(this.imagesNormals);
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
+        this.loadImages(this.imagesWaiting);
         this.applyGravity();
         this.animate();
     }

@@ -9,18 +9,19 @@ class Chicken extends MovableObject {
         "./img/3_enemies_chicken/chicken_normal/1_walk/3_w.png"
     ]
 
-    test =[
-        "img/5_background/layers/1_first_layer/1.png",
-        
-    ]
+    imageDead = [
+        "img/3_enemies_chicken/chicken_normal/2_dead/dead.png"
+    ];
 
     constructor() {
         super();
         this.loadImage("./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
         this.loadImages(this.imagesWalking);
+        this.loadImage(this.imageDead);
         this.x = 400 + Math.random() * 300;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();       
+        
 
     }
 

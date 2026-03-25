@@ -46,12 +46,13 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.world = this;
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.ctx.translate(this.cameraX, 0);
+        this.ctx.translate(this.cameraX, 0);     
 
         this.addObjectToMap(this.level.backgroundObjects);
         
@@ -72,9 +73,7 @@ class World {
         
 
         this.ctx.translate(-this.cameraX, 0);
-
-
-
+        
         let self = this; 
         requestAnimationFrame(function () { 
             self.draw()

@@ -1,10 +1,11 @@
 class Character extends MovableObject {
-    y = 80; // luft spwan
+    y = 250;
     height = 180;
     width = 140;
     speed = 10;
+    
 
-    imagesNormals = [
+    imagesNormal = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -64,15 +65,15 @@ class Character extends MovableObject {
         "img/2_character_pepe/1_idle/long_idle/I-17.png",
         "img/2_character_pepe/1_idle/long_idle/I-18.png",
         "img/2_character_pepe/1_idle/long_idle/I-19.png",
-        "img/2_character_pepe/1_idle/long_idle/I-20.png"     
+        "img/2_character_pepe/1_idle/long_idle/I-20.png"
     ];
 
-    world;
 
-    constructor() {
-
-        super();
-        this.loadImage(this.imagesNormals);
+    constructor(world) {
+        super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
+        this.world = world
+        this.keyTrigger = this.world.keyboard;
+        this.loadImages(this.imagesNormal);
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);
@@ -80,43 +81,66 @@ class Character extends MovableObject {
         this.loadImages(this.imagesWaiting);
         this.applyGravity();
         this.animate();
+        this.animateFrame()
     }
 
     animate() {
         setInterval(() => {
-            if (world.keyboard.right && this.x < this.world.level.levelEndX) {
-                this.moveRight()
+            
+            this.world.cameraX = -this.x + 50;
+
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
             }
 
-            if (world.keyboard.left && this.x > 0) {
+            if (this.keyTrigger.right && this.x < this.world.level.levelEndX) {
+                this.moveRight();
+                this.otherDirection = false;
+                this.lastAction = new Date().getTime();
+            }
+            if (this.keyTrigger.left && this.x > 0) {
                 this.moveLeft();
-                this.otherDirection = true
+                this.otherDirection = true;
+                this.lastAction = new Date().getTime();
             }
 
-            this.world.cameraX = -this.x + 60;
-
-            if (this.world.keyboard.space && !this.isAbouveGround()) {
+            if (this.keyTrigger.space && !this.isAboveGround()) {
                 this.jump();
+                this.lastAction = new Date().getTime();
             }
-
         }, 1000 / 60);
+    }
 
+
+    animateFrame() {
         setInterval(() => {
+            let idleTime = (new Date().getTime() - this.lastAction) / 200;            
+
             if (this.isDead()) {
                 this.playAnimation(this.imagesDead);
             }
             else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);  
-            } 
-            else if (this.isAbouveGround()) {
+                this.playAnimation(this.imagesHurt);
+            }
+            else if (this.isAboveGround()) {
                 this.playAnimation(this.imagesJumping);
-            } else {
-                if (world.keyboard.right || world.keyboard.left) {
-                    this.playAnimation(this.imagesWalking);
+            }
+            else if (this.keyTrigger.right || this.keyTrigger.left) {
+                this.playAnimation(this.imagesWalking);
+            }
+            else {
+                if (idleTime > 8) {
+                    this.playAnimation(this.imagesWaiting);
+                }
+                else if (idleTime > 3) {
+                    this.playAnimation(this.imagesNormal);
                 }
             }
-        }, 50);
+        }, 100);
     }
+
+
 }
 
 

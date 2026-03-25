@@ -7,28 +7,26 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
 
-    applyGravity() {
-        setInterval(() => {
-            if (this.isAbouveGround() || this.speedY > 0) {
+    applyGravity() {        
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration
-            }
-        }, 1000 / 25);
+            }     
     }
 
-    isAbouveGround() {
+    isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y < 220;
+            return this.y < 250;
         }
     }
 
-    playAnimation(images) {
-        let repeate = this.currentImage % images.length;
-        let path = images[repeate];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+    playAnimation(images) {     
+            let repeate = this.currentImage % images.length;
+            let path = images[repeate];
+            this.img = this.imageCache[path];
+            this.currentImage++;     
     }
 
 
@@ -46,11 +44,8 @@ class MovableObject extends DrawableObject {
         this.speedY = 30;
     }
 
-    // Collision 
-    // charcter is colliding chicken
-    isColliding(enemy) {
-        // console.log("enemy", enemy);
 
+    isColliding(enemy) {
         return this.x + this.width > enemy.x && this.y + this.height > enemy.y &&
             this.x < enemy.x && this.y < enemy.y + enemy.height
 
@@ -73,7 +68,7 @@ class MovableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // diff. in ms
         timepassed = timepassed / 1000; // diff in s
-        return timepassed < 2;
+        return timepassed < 3;
 
     }
 

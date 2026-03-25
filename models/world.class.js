@@ -1,6 +1,4 @@
-class World {
-
-    character = new Character();
+class World { // nur die Maske  Bauplan
     level = level1;
     collect;
     ctx;
@@ -12,20 +10,22 @@ class World {
     statusBarImageBottel = new StatusBarImageBottle();
     ThrowableObject = [new ThrowableObject()];
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard) { // der constructor macht erst die verbindung zum abgleichen weiter reichen 
         this.ctx = canvas.getContext("2d");
+        this.keyboard = keyboard;
+        this.character = new Character(this);
         this.canvas = canvas;
-        this.keyboard = keyboard;        
         this.draw();
         this.setWorld();
         this.run();
+
     }
 
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 1000 / 60);
     }
 
     checkThrowObjects() {
@@ -52,11 +52,9 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.ctx.translate(this.cameraX, 0);     
+        this.ctx.translate(this.cameraX, 0);
 
         this.addObjectToMap(this.level.backgroundObjects);
-        
-        
         this.addObjectToMap(this.level.clouds);
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusBarImageHealt)
@@ -70,12 +68,12 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
-        
+
 
         this.ctx.translate(-this.cameraX, 0);
-        
-        let self = this; 
-        requestAnimationFrame(function () { 
+
+        let self = this;
+        requestAnimationFrame(function () {
             self.draw()
         })
     }

@@ -68,9 +68,7 @@ class World { // nur die Maske  Bauplan
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.cameraX, 0);
-
         this.addObjectToMap(this.level.backgroundObjects);
         this.addObjectToMap(this.level.clouds);
         this.ctx.translate(-this.cameraX, 0);
@@ -80,24 +78,15 @@ class World { // nur die Maske  Bauplan
         this.ctx.translate(this.cameraX, 0);
         this.addObjectToMap(this.level.coins)
         this.addObjectToMap(this.level.bottles)
-
         this.addObjectToMap(this.ThrowableObject)
-
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
-
-
         this.ctx.translate(-this.cameraX, 0);
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw()
         })
     }
-
-
-
-
 
     addObjectToMap(objects) {
         objects.forEach(o => {

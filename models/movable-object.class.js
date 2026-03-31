@@ -54,8 +54,6 @@ class MovableObject extends DrawableObject {
             this.y + this.hitboxOffsetY + this.hitboxHeight > otherObject.y
     }
 
-
-
     hitHurt() {
         this.energy -= 8;
         if (this.energy < 0) {
@@ -67,13 +65,10 @@ class MovableObject extends DrawableObject {
 
     hitCollectCoin() {
         this.coin += 20;
-
     }
     hitCollectBottles() {
         this.bottles += 20;
-
     }
-
 
     isDead() {
         return this.energy == 0;
@@ -83,7 +78,6 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 3;
-
     }
 
 

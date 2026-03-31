@@ -2,6 +2,7 @@ let level1;
 
 level1 = new Level(
     [
+        new SmallChicken(50),
         new Chicken(400),
         new Chicken(300),
         new Chicken(180),

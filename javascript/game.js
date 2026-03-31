@@ -6,6 +6,10 @@ function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     console.log(world.character);
+    console.log(world.character.coin);
+    console.log(world.character.bottles);
+    
+    
 }
 
 window.addEventListener("keydown", (event) => {

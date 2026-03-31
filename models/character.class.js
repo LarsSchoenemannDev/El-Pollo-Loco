@@ -1,9 +1,12 @@
 class Character extends MovableObject {
+    x = 80;
     y = 250;
     height = 180;
     width = 140;
     speed = 10;
-    
+    // coin = 0;
+    // bottles = 0;
+
 
     imagesNormal = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -70,7 +73,8 @@ class Character extends MovableObject {
 
 
     constructor(world) {
-        super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
+        super();
+        this.loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
         this.world = world
         this.keyTrigger = this.world.keyboard;
         this.loadImages(this.imagesNormal);
@@ -82,11 +86,14 @@ class Character extends MovableObject {
         this.applyGravity();
         this.animate();
         this.animateFrame()
+        this.hitboxOffsetX = +20;
+        this.hitboxOffsetY = +70;
+        this.hitboxWidth = 100;
+        this.hitboxHeight = 100;
     }
 
     animate() {
         setInterval(() => {
-            
             this.world.cameraX = -this.x + 50;
 
             if (this.isAboveGround() || this.speedY > 0) {
@@ -115,7 +122,7 @@ class Character extends MovableObject {
 
     animateFrame() {
         setInterval(() => {
-            let idleTime = (new Date().getTime() - this.lastAction) / 200;            
+            let idleTime = (new Date().getTime() - this.lastAction) / 200;
 
             if (this.isDead()) {
                 this.playAnimation(this.imagesDead);
@@ -139,7 +146,6 @@ class Character extends MovableObject {
             }
         }, 100);
     }
-
 
 }
 

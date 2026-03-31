@@ -1,6 +1,6 @@
 class BottlesObject extends DrawableObject {
     imageBottle = [
-        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',        
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
     ];
 
     currentImageIndex = 0;
@@ -12,7 +12,11 @@ class BottlesObject extends DrawableObject {
         this.x = x;
         this.width = 70;
         this.height = 100;
-        this.displayImage();       
+        this.displayImage();
+        this.hitboxOffsetX = 25;  
+        this.hitboxOffsetY = 25;  
+        this.hitboxWidth = 50;    
+        this.hitboxHeight = 50;  
     }
 
 

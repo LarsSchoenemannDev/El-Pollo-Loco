@@ -18,30 +18,47 @@ class World { // nur die Maske  Bauplan
         this.draw();
         this.setWorld();
         this.run();
-
     }
 
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkThrowObjects();
+            this.checkCollisionsCoin();
+            this.checkCollisionsBottles();
         }, 1000 / 60);
     }
 
-    checkThrowObjects() {
-        if (this.keyboard.d) {
-            let bottle = new ThrowableObject(this.character.y + 100, this.character.x + 100)
-            this.ThrowableObject.push(bottle);
-        }
-    }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy))
-                this.character.hit();
+                this.character.hitHurt();
             this.statusBarImageHealt.setPercentageHealt(this.character.energy)
-            console.log("leben", this.character.energy);
         })
+    }
+
+    checkCollisionsCoin() {
+        this.level.coins.forEach((coinCollect, i) => {
+            if (this.character.isColliding(coinCollect)) {
+                this.level.coins.splice(i, 1)
+                this.character.hitCollectCoin();
+                this.statusBarImageCoin.setPercentageCoin(this.character.coin)
+                console.log("coin", world.character.coin);
+                console.log("bottles", world.character.bottles);
+            }
+        })
+    }
+
+    checkCollisionsBottles() {
+        this.level.bottles.forEach((bottlesCollect, i) => {
+            if (this.character.isColliding(bottlesCollect)) {
+                this.level.bottles.splice(i, 1);
+                this.character.hitCollectBottles();
+                this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
+                console.log("coin", world.character.coin);
+                console.log("bottles", world.character.bottles);
+            }
+        });
     }
 
     setWorld() {
@@ -78,6 +95,10 @@ class World { // nur die Maske  Bauplan
         })
     }
 
+
+
+
+
     addObjectToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o)
@@ -90,6 +111,7 @@ class World { // nur die Maske  Bauplan
         }
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
+        mo.drawFrameHitBox(this.ctx)
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

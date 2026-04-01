@@ -10,10 +10,12 @@ class MovableObject extends DrawableObject {
     bottles = 0;
 
     applyGravity() {
-        if (this.isAboveGround() || this.speedY > 0) {
-            this.y -= this.speedY;
-            this.speedY -= this.acceleration
-        }
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
     }
 
     isAboveGround() {
@@ -79,7 +81,7 @@ class MovableObject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;    
+        timepassed = timepassed / 1000;
         return timepassed < 0.2;
     }
 

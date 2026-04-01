@@ -8,7 +8,7 @@ class World { // nur die Maske  Bauplan
     statusBarImageHealt = new StatusBarImageHealt();
     statusBarImageCoin = new StatusBarImageCoin();
     statusBarImageBottel = new StatusBarImageBottle();
-    ThrowableObject = [new ThrowableObject()];
+    ThrowableObject = [];
 
 
     constructor(canvas, keyboard) { // der constructor macht erst die verbindung zum abgleichen weiter reichen 
@@ -64,7 +64,7 @@ class World { // nur die Maske  Bauplan
 
     checkThrowObjects() {
         if (this.keyboard.d) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y)
+            let bottle = new ThrowableObject(this.character.x +80, this.character.y )
             this.ThrowableObject.push(bottle)
         }
     }

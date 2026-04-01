@@ -10,6 +10,7 @@ class World { // nur die Maske  Bauplan
     statusBarImageBottel = new StatusBarImageBottle();
     ThrowableObject = [new ThrowableObject()];
 
+
     constructor(canvas, keyboard) { // der constructor macht erst die verbindung zum abgleichen weiter reichen 
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
@@ -18,11 +19,14 @@ class World { // nur die Maske  Bauplan
         this.draw();
         this.setWorld();
         this.run();
+        this.audio = new AudioObject();
+
     }
 
     run() {
         setInterval(() => {
             this.checkCollisions();
+            this.checkThrowObjects();
             this.checkCollisionsCoin();
             this.checkCollisionsBottles();
         }, 1000 / 60);
@@ -43,8 +47,6 @@ class World { // nur die Maske  Bauplan
                 this.level.coins.splice(i, 1)
                 this.character.hitCollectCoin();
                 this.statusBarImageCoin.setPercentageCoin(this.character.coin)
-                console.log("coin", world.character.coin);
-                console.log("bottles", world.character.bottles);
             }
         })
     }
@@ -55,10 +57,16 @@ class World { // nur die Maske  Bauplan
                 this.level.bottles.splice(i, 1);
                 this.character.hitCollectBottles();
                 this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
-                console.log("coin", world.character.coin);
-                console.log("bottles", world.character.bottles);
+
             }
         });
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.d) {
+            let bottle = new ThrowableObject(this.character.x, this.character.y)
+            this.ThrowableObject.push(bottle)
+        }
     }
 
     setWorld() {

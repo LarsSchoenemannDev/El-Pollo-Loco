@@ -20,7 +20,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y < 250;
+            return this.y <= 250;
         }
     }
 
@@ -55,9 +55,10 @@ class MovableObject extends DrawableObject {
     }
 
     hitHurt() {
-        this.energy -= 8;
-        if (this.energy < 0) {
+        this.energy -= 3;
+        if (this.energy <= 0) {
             this.energy = 0;
+            this.world.audio.play("gameEnd");
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -65,9 +66,11 @@ class MovableObject extends DrawableObject {
 
     hitCollectCoin() {
         this.coin += 20;
+        this.world.audio.play("coin");
     }
     hitCollectBottles() {
         this.bottles += 20;
+        this.world.audio.play("bottles");
     }
 
     isDead() {
@@ -76,8 +79,8 @@ class MovableObject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
-        return timepassed < 3;
+        timepassed = timepassed / 1000;    
+        return timepassed < 0.2;
     }
 
 

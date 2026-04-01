@@ -1,11 +1,9 @@
 class Character extends MovableObject {
-    x = 2040; // orginal wert ist 80
+    x = 80; // orginal wert ist 80
     y = 250;
     height = 180;
     width = 140;
     speed = 10;
-    // coin = 0;
-    // bottles = 0;
 
 
     imagesNormal = [
@@ -114,6 +112,7 @@ class Character extends MovableObject {
 
             if (this.keyTrigger.space && !this.isAboveGround()) {
                 this.jump();
+                this.world.audio.play("jump");
                 this.lastAction = new Date().getTime();
             }
         }, 1000 / 60);
@@ -125,10 +124,13 @@ class Character extends MovableObject {
             let idleTime = (new Date().getTime() - this.lastAction) / 200;
 
             if (this.isDead()) {
-                this.playAnimation(this.imagesDead);
+                this.playAnimation(this.imagesDead);              
+                
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.imagesHurt);
+                console.log(this.lastHit);
+                
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.imagesJumping);
@@ -146,7 +148,6 @@ class Character extends MovableObject {
             }
         }, 100);
     }
-
 }
 
 

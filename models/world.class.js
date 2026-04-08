@@ -25,12 +25,13 @@ class World { // nur die Maske  Bauplan
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
-            this.checkThrowObjects();
-            this.checkCollisionsCoin();
-            this.checkCollisionsBottles();
-            // this.ThrowableObject.forEach(bottle => bottle.move());
-            this.checkCollisionsThrowableObject();
+            this.checkCollisions(); // chrackter hit enemey noraml  
+            this.checkThrowObjects();   // key press wurf
+            this.checkCollisionsCoin(); // coin collect ground
+            this.checkCollisionsBottles();  // bottle collect ground
+            this.ThrowableObject.forEach(bottle => bottle.move());
+
+            this.checkCollisionsThrowableObject(); // prüfung wenn flasche was getroffen hat 
         }, 1000 / 60);
     }
 
@@ -70,8 +71,14 @@ class World { // nur die Maske  Bauplan
 
 
     checkThrowObjects() {
-        if (this.keyboard.d) {            
-            let bottle = new ThrowableObject(this.character.x + 80, this.character.y)
+        if (this.keyboard.d) {
+            if (this.lastThrow && Date.now() - this.lastThrow < 180) return;
+            this.lastThrow = Date.now();
+            const isFacingLeft = this.character.otherDirection;
+            const offsetX = isFacingLeft ? -20 : 50;
+            const startX = this.character.x + offsetX;
+            const startY = this.character.y + 50;
+            let bottle = new ThrowableObject(startX, startY, isFacingLeft)
             this.ThrowableObject.push(bottle)
         }
     }

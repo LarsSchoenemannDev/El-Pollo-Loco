@@ -78,14 +78,15 @@ class SmallChicken extends MovableObject {
             setTimeout(() => this.applyGravity(), 20);
         }
     }
-    // ✅ NEU: Schaden nehmen
+    
+    
     hit(dmg = 100) {
         this.energy -= dmg;
         this.lastHit = new Date().getTime();
         
     }
 
-    // ✅ NEU: Ist tot?
+    
     isDead() {
         return this.energy <= 0;
     }

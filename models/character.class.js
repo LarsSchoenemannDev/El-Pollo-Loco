@@ -114,6 +114,8 @@ class Character extends MovableObject {
                 this.jump();
                 this.world.audio.play("jump");
                 this.lastAction = new Date().getTime();
+                console.log(world.character.x);
+                
             }
         }, 1000 / 60);
     }
@@ -124,13 +126,10 @@ class Character extends MovableObject {
             let idleTime = (new Date().getTime() - this.lastAction) / 200;
 
             if (this.isDead()) {
-                this.playAnimation(this.imagesDead);              
-                
+                this.playAnimation(this.imagesDead); 
             }
             else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);
-                console.log(this.lastHit);
-                
+                this.playAnimation(this.imagesHurt);  
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.imagesJumping);

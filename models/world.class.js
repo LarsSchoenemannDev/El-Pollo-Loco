@@ -1,6 +1,6 @@
 class World { // nur die Maske  Bauplan
     level = level1;
-    collect;
+
     ctx;
     canvas;
     keyboard;
@@ -29,6 +29,8 @@ class World { // nur die Maske  Bauplan
             this.checkThrowObjects();
             this.checkCollisionsCoin();
             this.checkCollisionsBottles();
+            // this.ThrowableObject.forEach(bottle => bottle.move());
+            this.checkCollisionsThrowableObject();
         }, 1000 / 60);
     }
 
@@ -62,9 +64,14 @@ class World { // nur die Maske  Bauplan
         });
     }
 
+    checkCollisionsThrowableObject() {
+
+    }
+
+
     checkThrowObjects() {
-        if (this.keyboard.d) {
-            let bottle = new ThrowableObject(this.character.x +80, this.character.y )
+        if (this.keyboard.d) {            
+            let bottle = new ThrowableObject(this.character.x + 80, this.character.y)
             this.ThrowableObject.push(bottle)
         }
     }

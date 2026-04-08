@@ -24,8 +24,7 @@ window.addEventListener("keydown", (event) => {
     if (event.code === "Escape") {
         keyboard.esc = true;
     }
-    if (event.code === "KeyD") {
-        console.log("❎");
+    if (event.code === "KeyD") {        
         keyboard.d = true;
     }
 })

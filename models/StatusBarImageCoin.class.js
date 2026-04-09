@@ -25,7 +25,6 @@ class StatusBarImageCoin extends DrawableObject {
         this.percentage = percentage;
         path = this.imageCoins[this.resolveImageIndex()]
         this.img = this.imageCache[path];
-        // add tone
     }
 
     resolveImageIndex() {

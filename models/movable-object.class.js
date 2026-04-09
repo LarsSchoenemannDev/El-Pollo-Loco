@@ -27,8 +27,8 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimation(images) {
-        let repeate = this.currentImage % images.length;
-        let path = images[repeate];
+        let i = this.currentImage % images.length;
+        let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }
@@ -49,11 +49,18 @@ class MovableObject extends DrawableObject {
     }
 
 
-    isColliding(otherObject) {
+    isCollidingCollect(otherObject) {
         return this.x + this.hitboxOffsetX < otherObject.x + otherObject.width &&
             this.x + this.hitboxOffsetX + this.hitboxWidth > otherObject.x &&
             this.y + this.hitboxOffsetY < otherObject.y + otherObject.height &&
             this.y + this.hitboxOffsetY + this.hitboxHeight > otherObject.y
+    }
+
+    isCollidingDMG(enemy) {
+        return this.x < enemy.x + enemy.width &&
+            this.x + this.width > enemy.x &&
+            this.y < enemy.y + enemy.height &&
+            this.y + this.height > enemy.y
     }
 
     hitHurt() {
@@ -70,6 +77,7 @@ class MovableObject extends DrawableObject {
         this.coin += 20;
         this.world.audio.play("coin");
     }
+    
     hitCollectBottles() {
         this.bottles += 20;
         this.world.audio.play("bottles");
@@ -84,9 +92,4 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000;
         return timepassed < 0.2;
     }
-
-
-
-
-
 }

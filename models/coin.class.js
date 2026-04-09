@@ -23,11 +23,4 @@ class CoinObject extends DrawableObject {
 
 
     }
-
-    // update() {
-    //     let path = this.imageCoin[this.currentImageIndex];
-    //     this.img = this.imageCache[path];
-    // }
-
-
 }

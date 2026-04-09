@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 80; // orginal wert ist 80
+    x = 80; 
     y = 250;
     height = 180;
     width = 140;
@@ -114,8 +114,8 @@ class Character extends MovableObject {
                 this.jump();
                 this.world.audio.play("jump");
                 this.lastAction = new Date().getTime();
-                console.log(world.character.x);
-                
+
+
             }
         }, 1000 / 60);
     }
@@ -126,10 +126,10 @@ class Character extends MovableObject {
             let idleTime = (new Date().getTime() - this.lastAction) / 200;
 
             if (this.isDead()) {
-                this.playAnimation(this.imagesDead); 
+                this.playAnimation(this.imagesDead);
             }
             else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);  
+                this.playAnimation(this.imagesHurt);
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.imagesJumping);
@@ -146,6 +146,19 @@ class Character extends MovableObject {
                 }
             }
         }, 100);
+    }
+
+    
+    canStompOn(enemy) {
+        if (this.speedY <= 0) return false;
+        const charFeet = this.y + this.height - this.hitboxOffsetY;
+        const enemyHead = enemy.y + enemy.hitboxOffsetY;
+        const enemyFeet = enemy.y + enemy.height - enemy.hitboxOffsetY;
+        const isAbove = charFeet <= enemyHead + 30 && charFeet >= enemyHead - 10;
+        const horizontalOverlap =
+            this.x + this.width - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX &&
+            this.x + this.hitboxOffsetX < enemy.x + enemy.width - enemy.hitboxOffsetX;
+        return isAbove && horizontalOverlap;
     }
 }
 

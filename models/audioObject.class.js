@@ -1,6 +1,5 @@
 class AudioObject {
-    constructor() {
-        // Sounds laden
+    constructor() {       
         this.sounds = {
             gameMusic: new Audio ("./sfx/gameMusic.mp3"),
             jump: new Audio("sfx/jumpAudio.mp3"),

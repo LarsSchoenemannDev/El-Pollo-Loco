@@ -5,7 +5,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
-    console.log(world.character);
+    
 }
 
 window.addEventListener("keydown", (event) => {
@@ -54,10 +54,14 @@ window.addEventListener("keyup", (event) => {
 
 
 
-// fix flaschen werfen
-// auf gegner von oben springen können
-// dead animation adds
-// jump global anpassen
-// end boss screen
-// menu einfügen
-// game music start 
+// fix flaschen werfen -fertig
+// auf gegner von oben springen können - in arbeit 
+// dead animation adds - splash muss nach einem setintervall raus 
+// jump global anpassen - chrakter hat andere Gravity als adds 
+// end boss screen - da ist noch alles offen 
+// menu einfügen - vorhanden im sideprojekt muss nur eingefügt werden 
+// game music start - ja bei game start im menu erst starten music mute usw 
+// jsdoc für das project erstellen 
+
+// coins zähler ins menu einfügen ?
+// bottle bar anpassung sammeln klappt löschen aber nicht wenn flasche geworfen 

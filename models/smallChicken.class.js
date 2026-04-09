@@ -29,42 +29,41 @@ class SmallChicken extends MovableObject {
         this.hitboxWidth = 50;
         this.hitboxHeight = 50;
         this.startJumpingInterval();
-        
+
     }
 
 
+
     animate() {
-        // Bewegung (bleibt wie ist)
         setInterval(() => {
+            if (this.isDead()) return;
             this.moveLeft();
         }, 1000 / 60);
-
-        // ✅ Animation mit State-Priorität
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.imageDead);  // ✅ Tod hat Priorität
-            }
-            else {
-                this.playAnimation(this.imagesWalking); // ✅ Normal
+                this.playAnimation(this.imageDead);
+            } else {
+                this.playAnimation(this.imagesWalking);
             }
         }, 200);
     }
 
     startJumpingInterval() {
         setInterval(() => {
-            this.Jumping()
+            this.jumping()
         }, 2000 + Math.random() * 2000);
-    }
+    } 
 
-    Jumping() {
+    jumping() {
+        if (this.isDead()) return;
         if (this.isJumping) return;
-        this.isJumping = true;     // startus damit kein doppel jump kommt
-        this.y = 366;             //start
-        this.velocity = -8;       // schritte (sprunghöhe)        
-        this.gravity = 0.5;        // schritte runter
+        this.isJumping = true;    
+        this.y = 366;             
+        this.velocity = -8;             
+        this.gravity = 0.5;        
         this.applyGravity();
-        
-        
+
+
     }
 
     applyGravity() {
@@ -78,15 +77,11 @@ class SmallChicken extends MovableObject {
             setTimeout(() => this.applyGravity(), 20);
         }
     }
-    
-    
-    hit(dmg = 100) {
-        this.energy -= dmg;
-        this.lastHit = new Date().getTime();
-        
+
+    hit() {
+        this.energy -= 100;
     }
 
-    
     isDead() {
         return this.energy <= 0;
     }

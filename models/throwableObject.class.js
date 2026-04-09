@@ -1,21 +1,67 @@
 class ThrowableObject extends MovableObject {
+    bottleImg = ["./img/6_salsa_bottle/salsa_bottle.png"];
+
+    bottleImgSplash = [
+        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
+    ];
 
     constructor(x, y, facingLeft) {
         super();
-        this.loadImage("./img/6_salsa_bottle/salsa_bottle.png");
+        this.loadImage("img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png")
+        this.loadImages(this.bottleImg);
+        this.loadImages(this.bottleImgSplash);
         this.x = x;
         this.y = y;
+        this.width = 69;
         this.height = 83;
-        this.width = 69;        
         this.otherDirection = facingLeft;
-        this.speedX = facingLeft ? -8 : 8;  
-        this.speedY = -15;                    
-        this.gravity = 0.8;                   
+        this.speedX = facingLeft ? -8 : 8;
+        this.speedY = -15;
+        this.gravity = 0.8;
+        this.isThrown = false;
+        this.isSplashing = false;
+        this.animate();
     }
-   
+
     move() {
-        this.x += this.speedX;       
-        this.y += this.speedY;     
-        this.speedY += this.gravity; 
+        
+        if (this.isThrown && !this.isSplashing) {
+            this.x += this.speedX; 
+            this.y += this.speedY;
+            this.speedY += this.gravity; 
+        }
+    }
+
+    isCollidingBottle(otherObject) {
+        return (
+            this.x < otherObject.x + otherObject.width &&
+            this.x + this.width > otherObject.x &&
+            this.y < otherObject.y + otherObject.height &&
+            this.y + this.height > otherObject.y
+        );
+    }
+
+    animate() {
+        setInterval(() => {
+            if (this.isThrown && !this.isSplashing) {
+                this.playAnimation(this.bottleImg);
+            } else if (this.isSplashing) {
+                this.playAnimation(this.bottleImgSplash);
+            }
+        }, 1000 / 60);
+    }
+
+    throw() {
+        this.isThrown = true;
+    }
+
+    playSplashAnimation() {
+        this.isSplashing = true;
+        this.isThrown = false;
     }
 }

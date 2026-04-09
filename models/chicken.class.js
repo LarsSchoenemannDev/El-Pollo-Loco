@@ -5,7 +5,7 @@ class Chicken extends MovableObject {
     width = 70
     energy = 100;
     lastHit = 0;
-    
+
     imagesWalking = [
         "./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
         "./img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
@@ -30,7 +30,7 @@ class Chicken extends MovableObject {
         this.hitboxHeight = 50;
     }
 
-
+ 
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -39,6 +39,14 @@ class Chicken extends MovableObject {
         setInterval(() => {
             this.playAnimation(this.imagesWalking)
         }, 200);
+    }
+
+    hit() {
+        this.energy -= 100;
+    }
+
+    isDead() {
+        return this.energy <= 0;
     }
 
 }

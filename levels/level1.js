@@ -64,7 +64,7 @@ level1 = new Level(
     ],
     [
         new BottlesObject(600, 360),
-        new BottlesObject(660, 360),
+        
 
         new BottlesObject(1240, 360),
         new BottlesObject(1280, 360),

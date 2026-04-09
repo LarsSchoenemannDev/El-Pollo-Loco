@@ -27,8 +27,7 @@ class StatusBarImageHealt extends DrawableObject {
         this.y = 0;
         this.percentage = percentage;
         path = this.imageHealt[this.resolveImageIndex()]
-        this.img = this.imageCache[path];
-        // add tone
+        this.img = this.imageCache[path];       
     }
 
     resolveImageIndex() {

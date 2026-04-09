@@ -11,7 +11,7 @@ class World { // nur die Maske  Bauplan
     ThrowableObject = [];
 
 
-    constructor(canvas, keyboard) { // der constructor macht erst die verbindung zum abgleichen weiter reichen 
+    constructor(canvas, keyboard) { 
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
         this.character = new Character(this);
@@ -20,33 +20,36 @@ class World { // nur die Maske  Bauplan
         this.setWorld();
         this.run();
         this.audio = new AudioObject();
-
     }
 
     run() {
         setInterval(() => {
-            this.checkCollisions(); // chrackter hit enemey noraml  
-            this.checkThrowObjects();   // key press wurf
-            this.checkCollisionsCoin(); // coin collect ground
-            this.checkCollisionsBottles();  // bottle collect ground
+            this.checkCollisions(); 
+            this.checkThrowObjects();  
+            this.checkCollisionsCoin(); 
+            this.checkCollisionsBottles();  
             this.ThrowableObject.forEach(bottle => bottle.move());
-
-            this.checkCollisionsThrowableObject(); // prüfung wenn flasche was getroffen hat 
+            this.checkCollisionsThrowableObject(); 
         }, 1000 / 60);
     }
 
-
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy))
+        this.level.enemies.forEach((enemy) => {            
+            if (this.character.canStompOn(enemy)) {
+                enemy.hit(); 
+                this.character.speedY = -10;  // Charakter hochspringen lassen
+                return; // Weiteren Check überspringen
+            }
+            if (this.character.isCollidingDMG(enemy)) {
                 this.character.hitHurt();
-            this.statusBarImageHealt.setPercentageHealt(this.character.energy)
-        })
+            }
+        });
+        this.statusBarImageHealt.setPercentageHealt(this.character.energy);
     }
 
     checkCollisionsCoin() {
         this.level.coins.forEach((coinCollect, i) => {
-            if (this.character.isColliding(coinCollect)) {
+            if (this.character.isCollidingCollect(coinCollect)) {
                 this.level.coins.splice(i, 1)
                 this.character.hitCollectCoin();
                 this.statusBarImageCoin.setPercentageCoin(this.character.coin)
@@ -56,31 +59,53 @@ class World { // nur die Maske  Bauplan
 
     checkCollisionsBottles() {
         this.level.bottles.forEach((bottlesCollect, i) => {
-            if (this.character.isColliding(bottlesCollect)) {
+            if (this.character.isCollidingCollect(bottlesCollect)) {
                 this.level.bottles.splice(i, 1);
                 this.character.hitCollectBottles();
                 this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
-
             }
         });
     }
 
     checkCollisionsThrowableObject() {
-
+        this.ThrowableObject = this.ThrowableObject.filter((bottle) => {
+            let hitEnemy = false;
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isCollidingBottle(enemy)) {
+                    enemy.hit();
+                    bottle.playSplashAnimation();
+                    hitEnemy = true;
+                }
+            });
+            if (bottle.isSplashing) {
+                if (!bottle.splashTimer) {
+                    bottle.splashTimer = setTimeout(() => {
+                        bottle.isReadyToRemove = true;
+                    }, 300);
+                }
+                if (bottle.isReadyToRemove) return false;
+                return true;
+            }
+            if (!hitEnemy && (bottle.y > 400 || bottle.x < -200 || bottle.x > 2000)) {
+                return false;
+            }
+            return true;
+        });
     }
 
 
     checkThrowObjects() {
-        if (this.keyboard.d) {
-            if (this.lastThrow && Date.now() - this.lastThrow < 180) return;
-            this.lastThrow = Date.now();
-            const isFacingLeft = this.character.otherDirection;
-            const offsetX = isFacingLeft ? -20 : 50;
-            const startX = this.character.x + offsetX;
-            const startY = this.character.y + 50;
-            let bottle = new ThrowableObject(startX, startY, isFacingLeft)
-            this.ThrowableObject.push(bottle)
-        }
+        if (!this.keyboard.d || this.character.bottles <= 0) return;
+        if (this.lastThrow && Date.now() - this.lastThrow < 300) return;
+        this.lastThrow = Date.now();
+        const startX = this.character.x + 50;
+        const startY = this.character.y + 50;
+        const bottle = new ThrowableObject(startX, startY, this.character.otherDirection);
+        this.ThrowableObject.push(bottle);
+        bottle.throw();
+        this.character.bottles -= 20;
+        this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
+        console.log(this.character.bottles);
     }
 
     setWorld() {

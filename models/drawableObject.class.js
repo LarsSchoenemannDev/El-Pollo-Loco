@@ -23,18 +23,9 @@ class DrawableObject {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)   
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof CoinObject) {
-            ctx.beginPath();
-            ctx.lineWidth = "2";
-            ctx.strokeStyle = "red";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
     drawFrameHitBox(ctx) {
         if (this instanceof Character || this instanceof CoinObject || this instanceof Endboss || this instanceof BottlesObject || this instanceof SmallChicken || this instanceof Chicken) {
             ctx.beginPath();

@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     coin = 0;
-    bottles = 0;
+    bottles = 1000;
 
     applyGravity() {
         setInterval(() => {
@@ -48,19 +48,21 @@ class MovableObject extends DrawableObject {
         this.speedY = 30;
     }
 
-
-    isCollidingCollect(otherObject) {
-        return this.x + this.hitboxOffsetX < otherObject.x + otherObject.width &&
-            this.x + this.hitboxOffsetX + this.hitboxWidth > otherObject.x &&
-            this.y + this.hitboxOffsetY < otherObject.y + otherObject.height &&
-            this.y + this.hitboxOffsetY + this.hitboxHeight > otherObject.y
-    }
-
-    isCollidingDMG(enemy) {
-        return this.x < enemy.x + enemy.width &&
-            this.x + this.width > enemy.x &&
-            this.y < enemy.y + enemy.height &&
-            this.y + this.height > enemy.y
+    isColliding(otherObject) {
+            const otherX = otherObject.x + (otherObject.hitboxOffsetX || 0);
+            const otherY = otherObject.y + (otherObject.hitboxOffsetY || 0);
+            const otherW = otherObject.hitboxWidth || otherObject.width;
+            const otherH = otherObject.hitboxHeight || otherObject.height;
+            const selfX = this.x + (this.hitboxOffsetX || 0);
+            const selfY = this.y + (this.hitboxOffsetY || 0);
+            const selfW = this.hitboxWidth || this.width;
+            const selfH = this.hitboxHeight || this.height;            
+            return (
+                selfX < otherX + otherW &&
+                selfX + selfW > otherX &&
+                selfY < otherY + otherH &&
+                selfY + selfH > otherY
+            );        
     }
 
     hitHurt() {
@@ -77,7 +79,7 @@ class MovableObject extends DrawableObject {
         this.coin += 20;
         this.world.audio.play("coin");
     }
-    
+
     hitCollectBottles() {
         this.bottles += 20;
         this.world.audio.play("bottles");

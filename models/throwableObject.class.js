@@ -25,15 +25,16 @@ class ThrowableObject extends MovableObject {
         this.gravity = 0.8;
         this.isThrown = false;
         this.isSplashing = false;
+        this.lastHit = false;
         this.animate();
     }
 
     move() {
-        
+
         if (this.isThrown && !this.isSplashing) {
-            this.x += this.speedX; 
+            this.x += this.speedX;
             this.y += this.speedY;
-            this.speedY += this.gravity; 
+            this.speedY += this.gravity;
         }
     }
 

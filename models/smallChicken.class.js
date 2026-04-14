@@ -6,6 +6,7 @@ class SmallChicken extends MovableObject {
     speedY = 0;
     energy = 100;
     lastHit = 0;
+
     imagesWalking = [
         "./img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
         "./img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -24,15 +25,12 @@ class SmallChicken extends MovableObject {
         this.x = x + 400 + Math.random() * 300;
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
-        this.hitboxOffsetX = 25;
-        this.hitboxOffsetY = 25;
+        this.hitboxOffsetX = 5;
+        this.hitboxOffsetY = 5;
         this.hitboxWidth = 50;
-        this.hitboxHeight = 50;
+        this.hitboxHeight = 40;
         this.startJumpingInterval();
-
     }
-
-
 
     animate() {
         setInterval(() => {
@@ -46,24 +44,27 @@ class SmallChicken extends MovableObject {
                 this.playAnimation(this.imagesWalking);
             }
         }, 200);
+        setInterval(() => {
+            if (this.isDead()) {
+                this.isReadyToRemove = true
+            }
+        }, 3000)
     }
 
     startJumpingInterval() {
         setInterval(() => {
             this.jumping()
         }, 2000 + Math.random() * 2000);
-    } 
+    }
 
     jumping() {
         if (this.isDead()) return;
         if (this.isJumping) return;
-        this.isJumping = true;    
-        this.y = 366;             
-        this.velocity = -8;             
-        this.gravity = 0.5;        
+        this.isJumping = true;
+        this.y = 366;
+        this.velocity = -8;
+        this.gravity = 0.5;
         this.applyGravity();
-
-
     }
 
     applyGravity() {
@@ -85,6 +86,5 @@ class SmallChicken extends MovableObject {
     isDead() {
         return this.energy <= 0;
     }
-
 
 }

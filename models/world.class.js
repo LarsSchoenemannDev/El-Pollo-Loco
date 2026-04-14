@@ -1,6 +1,5 @@
 class World { // nur die Maske  Bauplan
     level = level1;
-
     ctx;
     canvas;
     keyboard;
@@ -8,39 +7,51 @@ class World { // nur die Maske  Bauplan
     statusBarImageHealt = new StatusBarImageHealt();
     statusBarImageCoin = new StatusBarImageCoin();
     statusBarImageBottel = new StatusBarImageBottle();
+    statusBarImageHealtBoss = new StatusBarImageHealtBoss();
+
     ThrowableObject = [];
 
 
-    constructor(canvas, keyboard) { 
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
         this.character = new Character(this);
         this.canvas = canvas;
         this.draw();
         this.setWorld();
+
         this.run();
         this.audio = new AudioObject();
     }
 
     run() {
         setInterval(() => {
-            this.checkCollisions(); 
-            this.checkThrowObjects();  
-            this.checkCollisionsCoin(); 
-            this.checkCollisionsBottles();  
+            this.checkCollisions();
+            this.checkThrowObjects();
+            this.checkCollisionsCoin();
+            this.checkCollisionsBottles();
             this.ThrowableObject.forEach(bottle => bottle.move());
-            this.checkCollisionsThrowableObject(); 
+            this.checkCollisionsThrowableObject();
+            this.bossLayout()
+            this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
         }, 1000 / 60);
     }
 
+    bossLayout() {
+        if (!this.bossFightActive && this.character.x >= this.level.bossArea) {
+            this.bossFightActive = true;
+            // sound ?
+        }
+    }
+
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {            
-            if (this.character.canStompOn(enemy)) {
-                enemy.hit(); 
-                this.character.speedY = -10;  // Charakter hochspringen lassen
-                return; // Weiteren Check überspringen
-            }
-            if (this.character.isCollidingDMG(enemy)) {
+        this.level.enemies.forEach((enemy) => {
+            // if (this.character.canStompOn(enemy)) {
+            //     enemy.hit(); 
+            //     this.character.speedY = -10;  // Charakter hochspringen lassen
+            //     return; // Weiteren Check überspringen
+            // }
+            if (this.character.isColliding(enemy)) {
                 this.character.hitHurt();
             }
         });
@@ -49,7 +60,7 @@ class World { // nur die Maske  Bauplan
 
     checkCollisionsCoin() {
         this.level.coins.forEach((coinCollect, i) => {
-            if (this.character.isCollidingCollect(coinCollect)) {
+            if (this.character.isColliding(coinCollect)) {
                 this.level.coins.splice(i, 1)
                 this.character.hitCollectCoin();
                 this.statusBarImageCoin.setPercentageCoin(this.character.coin)
@@ -59,21 +70,22 @@ class World { // nur die Maske  Bauplan
 
     checkCollisionsBottles() {
         this.level.bottles.forEach((bottlesCollect, i) => {
-            if (this.character.isCollidingCollect(bottlesCollect)) {
+            if (this.character.isColliding(bottlesCollect)) {
                 this.level.bottles.splice(i, 1);
                 this.character.hitCollectBottles();
                 this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
             }
         });
     }
-
+    
     checkCollisionsThrowableObject() {
         this.ThrowableObject = this.ThrowableObject.filter((bottle) => {
             let hitEnemy = false;
-            this.level.enemies.forEach((enemy) => {
-                if (bottle.isCollidingBottle(enemy)) {
-                    enemy.hit();
+            this.level.enemies.forEach((otherObject) => {
+                if (!bottle.hasHit && bottle.isColliding(otherObject)) {
+                    otherObject.hit();
                     bottle.playSplashAnimation();
+                    bottle.hasHit = true;
                     hitEnemy = true;
                 }
             });
@@ -86,7 +98,7 @@ class World { // nur die Maske  Bauplan
                 if (bottle.isReadyToRemove) return false;
                 return true;
             }
-            if (!hitEnemy && (bottle.y > 400 || bottle.x < -200 || bottle.x > 2000)) {
+            if (!hitEnemy && (bottle.y > 800 || bottle.x > this.level.levelEndX)) {
                 return false;
             }
             return true;
@@ -104,13 +116,15 @@ class World { // nur die Maske  Bauplan
         this.ThrowableObject.push(bottle);
         bottle.throw();
         this.character.bottles -= 20;
-        this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
-        console.log(this.character.bottles);
+        this.statusBarImageBottel.setPercentageBottles(this.character.bottles)        
     }
 
     setWorld() {
         this.character.world = this;
         this.level.world = this;
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
+        });
     }
 
     draw() {
@@ -119,13 +133,16 @@ class World { // nur die Maske  Bauplan
         this.addObjectToMap(this.level.backgroundObjects);
         this.addObjectToMap(this.level.clouds);
         this.ctx.translate(-this.cameraX, 0);
-        this.addToMap(this.statusBarImageHealt)
-        this.addToMap(this.statusBarImageCoin)
-        this.addToMap(this.statusBarImageBottel)
+        this.addToMap(this.statusBarImageHealt);
+        this.addToMap(this.statusBarImageCoin);
+        this.addToMap(this.statusBarImageBottel);
+        if (this.bossFightActive && this.statusBarImageHealtBoss) {
+            this.addToMap(this.statusBarImageHealtBoss)
+        }
         this.ctx.translate(this.cameraX, 0);
-        this.addObjectToMap(this.level.coins)
-        this.addObjectToMap(this.level.bottles)
-        this.addObjectToMap(this.ThrowableObject)
+        this.addObjectToMap(this.level.coins);
+        this.addObjectToMap(this.level.bottles);
+        this.addObjectToMap(this.ThrowableObject);
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
         this.ctx.translate(-this.cameraX, 0);
@@ -146,7 +163,6 @@ class World { // nur die Maske  Bauplan
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
         mo.drawFrameHitBox(this.ctx)
 
         if (mo.otherDirection) {

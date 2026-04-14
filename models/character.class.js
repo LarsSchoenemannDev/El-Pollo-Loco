@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 80; 
+    x = 2230; 
     y = 250;
     height = 180;
     width = 140;
@@ -102,7 +102,7 @@ class Character extends MovableObject {
             if (this.keyTrigger.right && this.x < this.world.level.levelEndX) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.lastAction = new Date().getTime();
+                this.lastAction = new Date().getTime();                
             }
             if (this.keyTrigger.left && this.x > 0) {
                 this.moveLeft();
@@ -149,17 +149,17 @@ class Character extends MovableObject {
     }
 
     
-    canStompOn(enemy) {
-        if (this.speedY <= 0) return false;
-        const charFeet = this.y + this.height - this.hitboxOffsetY;
-        const enemyHead = enemy.y + enemy.hitboxOffsetY;
-        const enemyFeet = enemy.y + enemy.height - enemy.hitboxOffsetY;
-        const isAbove = charFeet <= enemyHead + 30 && charFeet >= enemyHead - 10;
-        const horizontalOverlap =
-            this.x + this.width - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX &&
-            this.x + this.hitboxOffsetX < enemy.x + enemy.width - enemy.hitboxOffsetX;
-        return isAbove && horizontalOverlap;
-    }
+    // canStompOn(enemy) {
+    //     if (this.speedY <= 0) return false;
+    //     const charFeet = this.y + this.height - this.hitboxOffsetY;
+    //     const enemyHead = enemy.y + enemy.hitboxOffsetY;
+    //     const enemyFeet = enemy.y + enemy.height - enemy.hitboxOffsetY;
+    //     const isAbove = charFeet <= enemyHead + 30 && charFeet >= enemyHead - 10;
+    //     const horizontalOverlap =
+    //         this.x + this.width - this.hitboxOffsetX > enemy.x + enemy.hitboxOffsetX &&
+    //         this.x + this.hitboxOffsetX < enemy.x + enemy.width - enemy.hitboxOffsetX;
+    //     return isAbove && horizontalOverlap;
+    // }
 }
 
 

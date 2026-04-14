@@ -64,7 +64,7 @@ class Endboss extends MovableObject {
             if (this.isDead()) {
                 this.isReadyToRemove = true
             }
-        }, 2500);
+        }, 1000);
     }
 
     startJumpingInterval() {

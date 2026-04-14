@@ -5,8 +5,10 @@ class AudioObject {
             jump: new Audio("sfx/jumpAudio.mp3"),
             coin: new Audio("sfx/coinCollect.mp3.mp3"),
             bottles: new Audio("sfx/bottleCollect.mp3"),
+            bottlesSplash: new Audio("sfx/bottlesplashfx.mp3"),
             // boss: new Audio('audio/boss.mp3')
             gameEnd: new Audio("sfx/gameEndAudio.mp3")
+
 
         };
     }

@@ -4,8 +4,8 @@ class Level {
     backgroundObjects;
     coins;
     bottles;
-    bossArea = 2200;
-    levelEndX = 2800;
+    bossArea = 1800;
+    levelEndX = 2200;
     levelEnd = 2760;
 
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {

@@ -17,7 +17,7 @@ class StatusBarImageHealtBoss extends DrawableObject {
         this.width = 200;
         this.height = 65;
         this.x = 490;
-        this.y = 20;        
+        this.y = 0;        
     }
 
 

@@ -77,7 +77,7 @@ class World { // nur die Maske  Bauplan
             }
         });
     }
-    
+
     checkCollisionsThrowableObject() {
         this.ThrowableObject = this.ThrowableObject.filter((bottle) => {
             let hitEnemy = false;
@@ -98,7 +98,8 @@ class World { // nur die Maske  Bauplan
                 if (bottle.isReadyToRemove) return false;
                 return true;
             }
-            if (!hitEnemy && (bottle.y > 800 || bottle.x > this.level.levelEndX)) {
+            if (!hitEnemy && (bottle.y > 350 || bottle.x > 2900)) {
+                this.audio.play("bottlesSplash");
                 return false;
             }
             return true;
@@ -116,7 +117,7 @@ class World { // nur die Maske  Bauplan
         this.ThrowableObject.push(bottle);
         bottle.throw();
         this.character.bottles -= 20;
-        this.statusBarImageBottel.setPercentageBottles(this.character.bottles)        
+        this.statusBarImageBottel.setPercentageBottles(this.character.bottles)
     }
 
     setWorld() {

@@ -19,7 +19,6 @@ class World { // nur die Maske  Bauplan
         this.canvas = canvas;
         this.draw();
         this.setWorld();
-
         this.run();
         this.audio = new AudioObject();
     }
@@ -53,6 +52,7 @@ class World { // nur die Maske  Bauplan
             // }
             if (this.character.isColliding(enemy)) {
                 this.character.hitHurt();
+                this.audio.play("hurtCharakter")
             }
         });
         this.statusBarImageHealt.setPercentageHealt(this.character.energy);
@@ -87,6 +87,7 @@ class World { // nur die Maske  Bauplan
                     bottle.playSplashAnimation();
                     bottle.hasHit = true;
                     hitEnemy = true;
+                    this.audio.play("bottlesSplashEnemy");
                 }
             });
             if (bottle.isSplashing) {

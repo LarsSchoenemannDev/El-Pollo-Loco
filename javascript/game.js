@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
+    
 }
 
 window.addEventListener("keydown", (event) => {
@@ -23,7 +24,7 @@ window.addEventListener("keydown", (event) => {
     if (event.code === "Escape") {
         keyboard.esc = true;
     }
-    if (event.code === "KeyD") {        
+    if (event.code === "KeyD") {
         keyboard.d = true;
     }
 })
@@ -53,12 +54,12 @@ window.addEventListener("keyup", (event) => {
 
 
 
-// flaschen löschen wenn auf boden 
+// flaschen löschen wenn auf boden
 // falsche löschen bei max lvl length
-// jump on top on enemy 
-// canvas menu 
+// jump on top on enemy
+// canvas menu
 
-// code clean 
+// code clean
 
-// js doc 
+// js doc
 // abgabe 

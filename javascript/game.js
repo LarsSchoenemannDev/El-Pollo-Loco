@@ -5,7 +5,6 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
-    
 }
 
 window.addEventListener("keydown", (event) => {
@@ -51,13 +50,28 @@ window.addEventListener("keyup", (event) => {
 });
 
 
+function resetGame() {
+    if (world.statusBarImageHealtBoss?.percentage <= 0 || world.statusBarImageHealt?.percentage <= 0) {
+        document.getElementById("main-menu").style.display = "flex";
+
+        // console.log(world);
+        // console.log(level1);
+        // world = 0
+        // level1 = 0
+        // console.log(world);
+        // console.log(level1);
 
 
 
-// flaschen löschen wenn auf boden
-// falsche löschen bei max lvl length
+
+    }
+}
+
+
+
+
 // jump on top on enemy
-// canvas menu
+
 
 // code clean
 

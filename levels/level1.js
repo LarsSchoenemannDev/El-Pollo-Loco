@@ -10,8 +10,7 @@ level1 = new Level(
         new Endboss(),        
         new SmallChicken(750),
         new SmallChicken(860),
-        new SmallChicken(990),
-        // new SmallChicken(1600),    
+        new SmallChicken(990),          
     ],
     [
         new Clouds(100),

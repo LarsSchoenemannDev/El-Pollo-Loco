@@ -8,6 +8,9 @@ class AudioObject {
             bottlesSplash: new Audio("sfx/bottlesplashfx.mp3"),
             bottlesSplashEnemy: new Audio("sfx/splash.mp3"),
             hurtCharakter: new Audio("sfx/hurt.mp3"),
+            gameEnd: new Audio ("sfx/gameEnd.mp3"),
+            gameOver: new Audio ("sfx/gameOver.mp3"),
+            gameStart: new Audio ("sfx/gameStart.mp3"),
 
             // boss: new Audio('audio/boss.mp3')
             gameEnd: new Audio("sfx/gameEndAudio.mp3")

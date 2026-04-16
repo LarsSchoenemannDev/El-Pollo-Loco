@@ -45,6 +45,8 @@ class Endboss extends MovableObject {
         this.hitboxHeight = 260;
         this.startJumpingInterval()
 
+
+
     }
     animate() {
         setInterval(() => {
@@ -54,17 +56,17 @@ class Endboss extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.imageDead);
-
+                return true
             } else {
                 this.playAnimation(this.imagesWalking);
             }
         }, 280)
-
         setInterval(() => {
             if (this.isDead()) {
                 this.isReadyToRemove = true
             }
         }, 1000);
+
     }
 
     startJumpingInterval() {
@@ -94,12 +96,14 @@ class Endboss extends MovableObject {
         }
     }
 
+
+
     hit() {
         this.energy -= 20;
-        this.playAnimation(this.imageHurt)   
-        this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);
+        this.playAnimation(this.imageHurt)
+        this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);       
     }
-    
+
     isDead() {
         return this.energy <= 0;
     }

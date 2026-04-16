@@ -16,6 +16,7 @@ class World { // nur die Maske  Bauplan
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
         this.character = new Character(this);
+        this.endboss = new Endboss(this);
         this.canvas = canvas;
         this.draw();
         this.setWorld();
@@ -31,8 +32,9 @@ class World { // nur die Maske  Bauplan
             this.checkCollisionsBottles();
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
-            this.bossLayout()
+            this.bossLayout();
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
+            resetGame()
         }, 1000 / 60);
     }
 
@@ -47,15 +49,16 @@ class World { // nur die Maske  Bauplan
         this.level.enemies.forEach((enemy) => {
             // if (this.character.canStompOn(enemy)) {
             //     enemy.hit(); 
-            //     this.character.speedY = -10;  // Charakter hochspringen lassen
+            //     this.character.speedY = -10;  // Charakter hochspringen lassen 
             //     return; // Weiteren Check überspringen
             // }
             if (this.character.isColliding(enemy)) {
                 this.character.hitHurt();
                 this.audio.play("hurtCharakter")
             }
-        });
+        });        
         this.statusBarImageHealt.setPercentageHealt(this.character.energy);
+        
     }
 
     checkCollisionsCoin() {

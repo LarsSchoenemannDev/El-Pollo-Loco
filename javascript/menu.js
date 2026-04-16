@@ -1,5 +1,4 @@
-function startGame() {
-    console.log('🎮 Spiel startet...');
+function startGame() {    
     document.getElementById("main-menu").style.display = "none"
     document.querySelector("canvas").style.display = "block"
     init()
@@ -34,7 +33,6 @@ function toggleMute() {
         }
     }
 }
-
 
 function toggleFullscreen() {
     if (!document.fullscreenElement) {

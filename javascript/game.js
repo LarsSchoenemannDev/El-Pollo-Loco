@@ -49,6 +49,21 @@ window.addEventListener("keyup", (event) => {
     }
 });
 
+function toggleWidthLimit() {
+    let windowWidth = window.innerWidth;
+    let element = document.getElementById("controll-mobile");
+    if (windowWidth >= 820) {
+        element.classList.add("hidden");
+        console.log("yes");
+
+    } else {
+        element.classList.remove("hidden");
+        console.log("no");
+
+    }
+}
+
+window.addEventListener('resize', toggleWidthLimit);
 
 function resetGame() {
     if (world.statusBarImageHealtBoss?.percentage <= 0 || world.statusBarImageHealt?.percentage <= 0) {
@@ -67,13 +82,7 @@ function resetGame() {
     }
 }
 
-
-
-
-// jump on top on enemy
-
-
-// code clean
-
-// js doc
-// abgabe 
+// jump on enemy 
+// end screen 
+// mobile fix controll scalierung 
+// last sound add 

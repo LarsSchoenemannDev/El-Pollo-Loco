@@ -194,6 +194,25 @@ canvas {
     color: black
 }
 
+.controll-mobile {
+    width: 720px;
+    height: 680px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: absolute;
+    padding-bottom: 12px;
+    
+}
+
+.run-control,
+.misc-controll {
+    display: flex;
+    padding-left: 16px;
+    gap: 24px;
+
+}
 
 @media only screen and (max-width: 720px) {
     canvas {

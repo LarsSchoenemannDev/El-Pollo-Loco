@@ -48,22 +48,59 @@ class MovableObject extends DrawableObject {
         this.speedY = 30;
     }
 
+
+
     isColliding(otherObject) {
-            const otherX = otherObject.x + (otherObject.hitboxOffsetX || 0);
-            const otherY = otherObject.y + (otherObject.hitboxOffsetY || 0);
-            const otherW = otherObject.hitboxWidth || otherObject.width;
-            const otherH = otherObject.hitboxHeight || otherObject.height;
-            const selfX = this.x + (this.hitboxOffsetX || 0);
-            const selfY = this.y + (this.hitboxOffsetY || 0);
-            const selfW = this.hitboxWidth || this.width;
-            const selfH = this.hitboxHeight || this.height;            
-            return (
-                selfX < otherX + otherW &&
-                selfX + selfW > otherX &&
-                selfY < otherY + otherH &&
-                selfY + selfH > otherY
-            );        
+        const otherX = otherObject.x + (otherObject.hitboxOffsetX || 0);
+        const otherY = otherObject.y + (otherObject.hitboxOffsetY || 0);
+        const otherW = otherObject.hitboxWidth || otherObject.width;
+        const otherH = otherObject.hitboxHeight || otherObject.height;
+        const selfX = this.x + (this.hitboxOffsetX || 0);
+        const selfY = this.y + (this.hitboxOffsetY || 0);
+        const selfW = this.hitboxWidth || this.width;
+        const selfH = this.hitboxHeight || this.height;
+        return (
+            selfX < otherX + otherW &&
+            selfX + selfW > otherX &&
+            selfY < otherY + otherH &&
+            selfY + selfH > otherY
+        );
     }
+    
+    isCollidingFromTop(otherObject) {
+        const otherX = otherObject.x + (otherObject.hitboxOffsetX || 0);
+        const otherY = otherObject.y + (otherObject.hitboxOffsetY || 0);
+        const otherW = otherObject.hitboxWidth || otherObject.width;
+
+        const selfX = this.x + (this.hitboxOffsetX || 0);
+        const selfY = this.y + (this.hitboxOffsetY || 0);
+        const selfW = this.hitboxWidth || this.width;
+        const selfH = this.hitboxHeight || this.height;
+
+        // aktuelle Füße
+        const selfBottom = selfY + selfH;
+
+        // alte Füße (WICHTIG!)
+        const lastSelfBottom =
+            this.lastY + (this.hitboxOffsetY || 0) + (this.hitboxHeight || this.height);
+
+        // Kopf vom Enemy
+        const otherTop = otherY;
+
+        // horizontale Überlappung (gleich wie vorher)
+        const horizontalOverlap =
+            selfX < otherX + otherW &&
+            selfX + selfW > otherX;
+
+        // fällt von oben rein
+        const fallingFromAbove =
+            this.speedY < 0 &&
+            lastSelfBottom <= otherTop &&
+            selfBottom >= otherTop;
+
+        return horizontalOverlap && fallingFromAbove;
+    }
+
 
     hitHurt() {
         this.energy -= 3;
@@ -94,4 +131,5 @@ class MovableObject extends DrawableObject {
         timepassed = timepassed / 1000;
         return timepassed < 0.2;
     }
+
 }

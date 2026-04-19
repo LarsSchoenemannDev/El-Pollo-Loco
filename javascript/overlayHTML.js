@@ -65,7 +65,7 @@ function impressumContentHTML() {
                     <br>
                     <br>
                     <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
-                    <p>Lars Schönemann</p>
+                    <h3>Lars Schönemann</h3>
                     <br>
                     <h3>Hinweis</h3>
                     <p>

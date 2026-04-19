@@ -25,18 +25,20 @@ class World { // nur die Maske  Bauplan
     }
 
     run() {
-        setInterval(() => {
-            this.checkCollisions();
+        setInterval(() => {            
+            // this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollisionsCoin();
             this.checkCollisionsBottles();
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
             this.bossLayout();
+
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
             resetGame()
         }, 1000 / 60);
     }
+
 
     bossLayout() {
         if (!this.bossFightActive && this.character.x >= this.level.bossArea) {
@@ -47,18 +49,18 @@ class World { // nur die Maske  Bauplan
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            // if (this.character.canStompOn(enemy)) {
-            //     enemy.hit(); 
-            //     this.character.speedY = -10;  // Charakter hochspringen lassen 
-            //     return; // Weiteren Check überspringen
-            // }
-            if (this.character.isColliding(enemy)) {
+            if (enemy.isDead && enemy.isDead()) return;
+
+            if (this.character.isCollidingFromTop(enemy)) {
+                enemy.hit();
+                this.character.speedY = +20;
+            } else if (this.character.isColliding(enemy)) {
                 this.character.hitHurt();
-                this.audio.play("hurtCharakter")
+                this.audio.play("hurtCharakter");
             }
-        });        
+        });
+
         this.statusBarImageHealt.setPercentageHealt(this.character.energy);
-        
     }
 
     checkCollisionsCoin() {
@@ -186,4 +188,5 @@ class World { // nur die Maske  Bauplan
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
 }   

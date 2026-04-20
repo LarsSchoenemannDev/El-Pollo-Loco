@@ -1,5 +1,8 @@
+/**
+ * Represents the end boss enemy.
+ * @extends MovableObject
+ */
 class Endboss extends MovableObject {
-
     height = 350;
     width = 150;
     y = 90;
@@ -15,66 +18,95 @@ class Endboss extends MovableObject {
         "./img/4_enemie_boss_chicken/2_alert/G10.png",
         "./img/4_enemie_boss_chicken/2_alert/G11.png",
         "./img/4_enemie_boss_chicken/2_alert/G12.png"
-    ]
+    ];
 
     imageDead = [
         "img/4_enemie_boss_chicken/5_dead/G24.png",
         "img/4_enemie_boss_chicken/5_dead/G25.png",
         "img/4_enemie_boss_chicken/5_dead/G26.png",
-
-    ]
+    ];
 
     imageHurt = [
         "img/4_enemie_boss_chicken/4_hurt/G21.png",
         "img/4_enemie_boss_chicken/4_hurt/G22.png",
         "img/4_enemie_boss_chicken/4_hurt/G23.png"
-    ]
+    ];
 
+    /**
+     * Creates an Endboss instance and starts all animation loops.
+     * @param {World} world - The game world instance.
+     */
     constructor(world) {
         super();
         this.loadImage(this.imagesWalking[0]);
-        this.world = world
+        this.world = world;
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imageDead);
         this.loadImages(this.imageHurt);
         this.x = 2500;
-        this.animate();
-        this.hitboxOffsetX = +0;
-        this.hitboxOffsetY = +80;
+        this.hitboxOffsetX = 0;
+        this.hitboxOffsetY = 80;
         this.hitboxWidth = 130;
         this.hitboxHeight = 260;
-        this.startJumpingInterval()
-
-
-
+        this.animate();
+        this.startJumpingInterval();
     }
+
+    /**
+     * Starts all animation intervals for movement, frames and removal.
+     */
     animate() {
+        this.startMovementLoop();
+        this.startFrameLoop();
+        this.startRemovalLoop();
+    }
+
+    /**
+     * Moves the endboss left at 60fps unless dead.
+     */
+    startMovementLoop() {
         setInterval(() => {
             if (this.isDead()) return;
             this.moveLeft();
         }, 1000 / 60);
+    }
+
+    /**
+     * Updates the animation frame based on alive or dead state.
+     */
+    startFrameLoop() {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.imageDead);
-                return true
             } else {
                 this.playAnimation(this.imagesWalking);
             }
-        }, 280)
-        setInterval(() => {
-            if (this.isDead()) {
-                this.isReadyToRemove = true
-            }
-        }, 1000);
-
+        }, 280);
     }
 
+    /**
+     * Marks the endboss for removal after death animation completes.
+     */
+    startRemovalLoop() {
+        setInterval(() => {
+            if (this.isDead()) {
+                this.isReadyToRemove = true;
+            }
+        }, 1000);
+    }
+
+    /**
+     * Starts the interval that triggers random jumps.
+     */
     startJumpingInterval() {
         setInterval(() => {
-            this.Jumping()
+            this.Jumping();
         }, 1000 + Math.random() * 3400);
     }
 
+    /**
+     * Initiates a jump if the endboss is not already jumping.
+     */
     Jumping() {
         if (this.isJumping) return;
         this.isJumping = true;
@@ -84,6 +116,9 @@ class Endboss extends MovableObject {
         this.applyGravity();
     }
 
+    /**
+     * Applies gravity to the endboss recursively until it lands.
+     */
     applyGravity() {
         this.y += this.velocity;
         this.velocity += this.gravity;
@@ -96,17 +131,20 @@ class Endboss extends MovableObject {
         }
     }
 
-
-
+    /**
+     * Reduces endboss energy and updates the boss health bar.
+     */
     hit() {
         this.energy -= 20;
-        this.playAnimation(this.imageHurt)
-        this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);       
+        this.playAnimation(this.imageHurt);
+        this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);
     }
 
+    /**
+     * Returns whether the endboss is dead.
+     * @returns {boolean}
+     */
     isDead() {
         return this.energy <= 0;
     }
-
-
 }

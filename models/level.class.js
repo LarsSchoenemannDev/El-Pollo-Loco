@@ -1,5 +1,8 @@
+/**
+ * Represents a game level with all its objects.
+ */
 class Level {
-    enemies;    
+    enemies;
     clouds;
     backgroundObjects;
     coins;
@@ -8,8 +11,16 @@ class Level {
     levelEndX = 2200;
     levelEnd = 2760;
 
+    /**
+     * Creates a Level instance with all game objects.
+     * @param {MovableObject[]} enemies - Array of enemy instances.
+     * @param {Clouds[]} clouds - Array of cloud instances.
+     * @param {BackgroundObjects[]} backgroundObjects - Array of background layer instances.
+     * @param {CoinObject[]} coins - Array of coin instances.
+     * @param {BottlesObject[]} bottles - Array of bottle instances.
+     */
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
-        this.enemies = enemies;        
+        this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;

@@ -1,3 +1,7 @@
+/**
+ * Returns the HTML string for the game control tutorial overlay.
+ * @returns {string} HTML content for the tutorial modal.
+ */
 function gameControlNoticeHTML() {
     return `<div class="modal-content">
             <div class="modal-text">
@@ -42,7 +46,10 @@ function gameControlNoticeHTML() {
 
 }
 
-
+/**
+ * Returns the HTML string for the impressum tutorial overlay.
+ * @returns {string} HTML content for the tutorial modal.
+ */
 function impressumContentHTML() {
     return `<div class="modal-content">
             <div class="impressum">

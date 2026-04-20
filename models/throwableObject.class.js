@@ -1,3 +1,7 @@
+/**
+ * Represents a throwable salsa bottle projectile.
+ * @extends MovableObject
+ */
 class ThrowableObject extends MovableObject {
     bottleImg = ["./img/6_salsa_bottle/salsa_bottle.png"];
 
@@ -10,9 +14,15 @@ class ThrowableObject extends MovableObject {
         "./img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
     ];
 
+    /**
+     * Creates a ThrowableObject at the given position.
+     * @param {number} x - Horizontal start position.
+     * @param {number} y - Vertical start position.
+     * @param {boolean} facingLeft - Whether the bottle is thrown to the left.
+     */
     constructor(x, y, facingLeft) {
         super();
-        this.loadImage("img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png")
+        this.loadImage("img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png");
         this.loadImages(this.bottleImg);
         this.loadImages(this.bottleImgSplash);
         this.x = x;
@@ -29,8 +39,10 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Updates the bottle's position based on speed and gravity.
+     */
     move() {
-
         if (this.isThrown && !this.isSplashing) {
             this.x += this.speedX;
             this.y += this.speedY;
@@ -38,6 +50,11 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Returns whether the bottle is colliding with another object.
+     * @param {DrawableObject} otherObject
+     * @returns {boolean}
+     */
     isCollidingBottle(otherObject) {
         return (
             this.x < otherObject.x + otherObject.width &&
@@ -47,6 +64,9 @@ class ThrowableObject extends MovableObject {
         );
     }
 
+    /**
+     * Plays the rotation or splash animation based on current state.
+     */
     animate() {
         setInterval(() => {
             if (this.isThrown && !this.isSplashing) {
@@ -57,10 +77,16 @@ class ThrowableObject extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Activates the throwing state.
+     */
     throw() {
         this.isThrown = true;
     }
 
+    /**
+     * Switches from thrown to splash animation state.
+     */
     playSplashAnimation() {
         this.isSplashing = true;
         this.isThrown = false;

@@ -1,6 +1,10 @@
+/**
+ * Represents a movable game object with physics and collision logic.
+ * @extends DrawableObject
+ */
 class MovableObject extends DrawableObject {
     speed = 0.15;
-    movementWalkSpeed = 0.10
+    movementWalkSpeed = 0.10;
     otherDirection = false;
     speedY = 0;
     acceleration = 3;
@@ -9,6 +13,9 @@ class MovableObject extends DrawableObject {
     coin = 0;
     bottles = 1000;
 
+    /**
+     * Applies gravity by reducing y position over time.
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -18,6 +25,10 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+     * Returns whether the object is above the ground level.
+     * @returns {boolean}
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -26,6 +37,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Plays the next frame of an animation.
+     * @param {string[]} images - Array of image paths for the animation.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -33,75 +48,77 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-
+    /**
+     * Moves the object to the left.
+     */
     moveLeft() {
         this.x -= this.speed;
-        this.otherDirection = false
+        this.otherDirection = false;
     }
 
+    /**
+     * Moves the object to the right.
+     */
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
     }
 
+    /**
+     * Makes the object jump by setting vertical speed.
+     */
     jump() {
         this.speedY = 30;
     }
 
+    /**
+     * Returns the hitbox bounds of a given object.
+     * @param {DrawableObject} obj
+     * @returns {{x: number, y: number, w: number, h: number}}
+     */
+    getHitbox(obj) {
+        return {
+            x: obj.x + (obj.hitboxOffsetX || 0),
+            y: obj.y + (obj.hitboxOffsetY || 0),
+            w: obj.hitboxWidth || obj.width,
+            h: obj.hitboxHeight || obj.height
+        };
+    }
 
-
+    /**
+     * Returns whether this object is colliding with another object.
+     * @param {DrawableObject} otherObject
+     * @returns {boolean}
+     */
     isColliding(otherObject) {
-        const otherX = otherObject.x + (otherObject.hitboxOffsetX || 0);
-        const otherY = otherObject.y + (otherObject.hitboxOffsetY || 0);
-        const otherW = otherObject.hitboxWidth || otherObject.width;
-        const otherH = otherObject.hitboxHeight || otherObject.height;
-        const selfX = this.x + (this.hitboxOffsetX || 0);
-        const selfY = this.y + (this.hitboxOffsetY || 0);
-        const selfW = this.hitboxWidth || this.width;
-        const selfH = this.hitboxHeight || this.height;
+        const o = this.getHitbox(otherObject);
+        const s = this.getHitbox(this);
         return (
-            selfX < otherX + otherW &&
-            selfX + selfW > otherX &&
-            selfY < otherY + otherH &&
-            selfY + selfH > otherY
+            s.x < o.x + o.w &&
+            s.x + s.w > o.x &&
+            s.y < o.y + o.h &&
+            s.y + s.h > o.y
         );
     }
-    
+
+    /**
+     * Returns whether this object is landing on top of another object.
+     * @param {DrawableObject} otherObject
+     * @returns {boolean}
+     */
     isCollidingFromTop(otherObject) {
-        const otherX = otherObject.x + (otherObject.hitboxOffsetX || 0);
-        const otherY = otherObject.y + (otherObject.hitboxOffsetY || 0);
-        const otherW = otherObject.hitboxWidth || otherObject.width;
-
-        const selfX = this.x + (this.hitboxOffsetX || 0);
-        const selfY = this.y + (this.hitboxOffsetY || 0);
-        const selfW = this.hitboxWidth || this.width;
-        const selfH = this.hitboxHeight || this.height;
-
-        // aktuelle Füße
-        const selfBottom = selfY + selfH;
-
-        // alte Füße (WICHTIG!)
-        const lastSelfBottom =
-            this.lastY + (this.hitboxOffsetY || 0) + (this.hitboxHeight || this.height);
-
-        // Kopf vom Enemy
-        const otherTop = otherY;
-
-        // horizontale Überlappung (gleich wie vorher)
-        const horizontalOverlap =
-            selfX < otherX + otherW &&
-            selfX + selfW > otherX;
-
-        // fällt von oben rein
-        const fallingFromAbove =
-            this.speedY < 0 &&
-            lastSelfBottom <= otherTop &&
-            selfBottom >= otherTop;
-
+        const o = this.getHitbox(otherObject);
+        const s = this.getHitbox(this);
+        const selfBottom = s.y + s.h;
+        const lastSelfBottom = this.lastY + (this.hitboxOffsetY || 0) + (this.hitboxHeight || this.height);
+        const horizontalOverlap = s.x < o.x + o.w && s.x + s.w > o.x;
+        const fallingFromAbove = this.speedY < 0 && lastSelfBottom <= o.y && selfBottom >= o.y;
         return horizontalOverlap && fallingFromAbove;
     }
 
-
+    /**
+     * Reduces energy when hurt and plays game end sound if dead.
+     */
     hitHurt() {
         this.energy -= 3;
         if (this.energy <= 0) {
@@ -112,24 +129,37 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Increases coin count and plays coin sound.
+     */
     hitCollectCoin() {
         this.coin += 20;
         this.world.audio.play("coin");
     }
 
+    /**
+     * Increases bottle count and plays bottle sound.
+     */
     hitCollectBottles() {
         this.bottles += 20;
         this.world.audio.play("bottles");
     }
 
+    /**
+     * Returns whether the object is dead.
+     * @returns {boolean}
+     */
     isDead() {
         return this.energy == 0;
     }
 
+    /**
+     * Returns whether the object was recently hurt.
+     * @returns {boolean}
+     */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 0.2;
     }
-
 }

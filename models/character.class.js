@@ -1,7 +1,11 @@
+/**
+ * Represents the playable character Pepe.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
-    x = 2200; 
+    x = 80;
     y = 250;
-    height = 180;
+    height = 200;
     width = 140;
     speed = 10;
 
@@ -37,7 +41,6 @@ class Character extends MovableObject {
         "./img/2_character_pepe/3_jump/J-37.png",
         "./img/2_character_pepe/3_jump/J-38.png",
         "./img/2_character_pepe/3_jump/J-39.png"
-
     ];
 
     imagesDead = [
@@ -69,11 +72,14 @@ class Character extends MovableObject {
         "img/2_character_pepe/1_idle/long_idle/I-20.png"
     ];
 
-
+    /**
+     * Creates the character, loads all images and starts animation loops.
+     * @param {World} world - The game world instance.
+     */
     constructor(world) {
         super();
         this.loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
-        this.world = world
+        this.world = world;
         this.keyTrigger = this.world.keyboard;
         this.loadImages(this.imagesNormal);
         this.loadImages(this.imagesWalking);
@@ -83,73 +89,92 @@ class Character extends MovableObject {
         this.loadImages(this.imagesWaiting);
         this.applyGravity();
         this.animate();
-        this.animateFrame()
-        this.hitboxOffsetX = +20;
-        this.hitboxOffsetY = +70;
+        this.animateFrame();
+        this.hitboxOffsetX = 20;
+        this.hitboxOffsetY = 70;
         this.hitboxWidth = 100;
         this.hitboxHeight = 100;
     }
 
+    /**
+     * Handles movement, gravity and collision checks at 60fps.
+     */
     animate() {
         setInterval(() => {
-            this.lastY = this.y;
-
-            this.world.cameraX = -this.x + 50;
-
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            }
-
-            if (this.keyTrigger.right && this.x < this.world.level.levelEndX) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.lastAction = new Date().getTime();
-            }
-
-            if (this.keyTrigger.left && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.lastAction = new Date().getTime();
-            }
-
-            if (this.keyTrigger.space && !this.isAboveGround()) {
-                this.jump();
-                this.world.audio.play("jump");
-                this.lastAction = new Date().getTime();
-            }
-
+            this.updateCamera();
+            this.updateGravity();
+            this.handleMovement();
             this.world.checkCollisions();
-
         }, 1000 / 60);
     }
 
+    /**
+     * Updates the camera position based on the character's x position.
+     */
+    updateCamera() {
+        this.world.cameraX = -this.x + 50;
+    }
 
+    /**
+     * Applies gravity to the character if above ground.
+     */
+    updateGravity() {
+        if (this.isAboveGround() || this.speedY > 0) {
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        }
+    }
+
+    /**
+     * Handles keyboard input for movement and jumping.
+     */
+    handleMovement() {
+        if (this.keyTrigger.right && this.x < this.world.level.levelEndX) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.lastAction = new Date().getTime();
+        }
+        if (this.keyTrigger.left && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.lastAction = new Date().getTime();
+        }
+        if (this.keyTrigger.space && !this.isAboveGround()) {
+            this.jump();
+            this.world.audio.play("jump");
+            this.lastAction = new Date().getTime();
+        }
+    }
+
+    /**
+     * Updates the character's animation frame based on current state.
+     */
     animateFrame() {
         setInterval(() => {
             let idleTime = (new Date().getTime() - this.lastAction) / 200;
-
             if (this.isDead()) {
                 this.playAnimation(this.imagesDead);
-            }
-            else if (this.isHurt()) {
+            } else if (this.isHurt()) {
                 this.playAnimation(this.imagesHurt);
-            }
-            else if (this.isAboveGround()) {
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.imagesJumping);
-            }
-            else if (this.keyTrigger.right || this.keyTrigger.left) {
+            } else if (this.keyTrigger.right || this.keyTrigger.left) {
                 this.playAnimation(this.imagesWalking);
-            }
-            else {
-                if (idleTime > 8) {
-                    this.playAnimation(this.imagesWaiting);
-                }
-                else if (idleTime > 3) {
-                    this.playAnimation(this.imagesNormal);
-                }
+            } else {
+                this.playIdleAnimation(idleTime);
             }
         }, 100);
     }
 
+    /**
+     * Plays idle or waiting animation based on how long the character has been idle.
+     * @param {number} idleTime - Time in units since last action.
+     */
+    playIdleAnimation(idleTime) {
+        if (idleTime > 8) {
+            this.playAnimation(this.imagesWaiting);
+        } else if (idleTime > 3) {
+            this.playAnimation(this.imagesNormal);
+        }
+    }
 }

@@ -67,22 +67,25 @@ window.addEventListener('resize', toggleWidthLimit);
 
 function resetGame() {
     if (world.statusBarImageHealtBoss?.percentage <= 0 || world.statusBarImageHealt?.percentage <= 0) {
-        document.getElementById("main-menu").style.display = "flex";
-
+        // document.getElementById("main-menu").style.display = "flex";
+        console.log(world.setWorld());
+        
+        
+        // console.log(world);
+        // console.log(level1);
+        // world = 0;
+        // level1 = 0;
         // console.log(world);
         // console.log(level1);
         // world = 0
         // level1 = 0
         // console.log(world);
         // console.log(level1);
-
-
-
-
     }
 }
 
-// jump on enemy 
-// end screen 
-// mobile fix controll scalierung 
+
+
+// end screen
+// mobile fix controll scalierung
 // last sound add 

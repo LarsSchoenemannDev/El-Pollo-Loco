@@ -1,10 +1,9 @@
 class Character extends MovableObject {
-    x = 80;
+    x = 2200; 
     y = 250;
     height = 180;
     width = 140;
     speed = 10;
-
 
     imagesNormal = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -27,6 +26,7 @@ class Character extends MovableObject {
         "./img/2_character_pepe/2_walk/W-25.png",
         "./img/2_character_pepe/2_walk/W-26.png"
     ];
+
     imagesJumping = [
         "./img/2_character_pepe/3_jump/J-31.png",
         "./img/2_character_pepe/3_jump/J-32.png",

@@ -25,20 +25,17 @@ class World { // nur die Maske  Bauplan
     }
 
     run() {
-        setInterval(() => {            
-            // this.checkCollisions();
+        setInterval(() => {
             this.checkThrowObjects();
             this.checkCollisionsCoin();
             this.checkCollisionsBottles();
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
             this.bossLayout();
-
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
             resetGame()
         }, 1000 / 60);
     }
-
 
     bossLayout() {
         if (!this.bossFightActive && this.character.x >= this.level.bossArea) {
@@ -135,6 +132,7 @@ class World { // nur die Maske  Bauplan
     }
 
     draw() {
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
         this.addObjectToMap(this.level.backgroundObjects);
@@ -187,6 +185,15 @@ class World { // nur die Maske  Bauplan
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+
+    resetGame() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        console.log("clear world");
+        
+        
+
     }
 
 }   

@@ -10,7 +10,7 @@ function initLevel1() {
         createBottles()
     );
 }
-initLevel1();
+
 /**
  * Creates the enemies for level 1.
  * @returns {Array} Array of enemy instances.

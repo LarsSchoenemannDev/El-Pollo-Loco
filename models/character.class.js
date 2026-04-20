@@ -7,7 +7,7 @@ class Character extends MovableObject {
     y = 250;
     height = 200;
     width = 140;
-    speed = 10;
+    speed = 8;
 
     imagesNormal = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -112,7 +112,7 @@ class Character extends MovableObject {
      * Updates the camera position based on the character's x position.
      */
     updateCamera() {
-        this.world.cameraX = -this.x + 50;
+        this.world.cameraX = -this.x + 40;
     }
 
     /**

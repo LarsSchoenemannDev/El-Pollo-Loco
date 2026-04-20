@@ -136,7 +136,7 @@ class Endboss extends MovableObject {
      */
     hit() {
         this.energy -= 20;
-        this.playAnimation(this.imageHurt);
+        this.playAnimation(this.imageHurt);        
         this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);
     }
 

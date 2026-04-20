@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject {
     movementWalkSpeed = 0.10;
     otherDirection = false;
     speedY = 0;
-    acceleration = 3;
+    acceleration = 2;
     energy = 100;
     lastHit = 0;
     coin = 0;
@@ -77,12 +77,7 @@ class MovableObject extends DrawableObject {
      * @returns {{x: number, y: number, w: number, h: number}}
      */
     getHitbox(obj) {
-        return {
-            x: obj.x + (obj.hitboxOffsetX || 0),
-            y: obj.y + (obj.hitboxOffsetY || 0),
-            w: obj.hitboxWidth || obj.width,
-            h: obj.hitboxHeight || obj.height
-        };
+        return { x: obj.x + (obj.hitboxOffsetX || 0), y: obj.y + (obj.hitboxOffsetY || 0), w: obj.hitboxWidth || obj.width, h: obj.hitboxHeight || obj.height };
     }
 
     /**
@@ -93,12 +88,7 @@ class MovableObject extends DrawableObject {
     isColliding(otherObject) {
         const o = this.getHitbox(otherObject);
         const s = this.getHitbox(this);
-        return (
-            s.x < o.x + o.w &&
-            s.x + s.w > o.x &&
-            s.y < o.y + o.h &&
-            s.y + s.h > o.y
-        );
+        return (s.x < o.x + o.w && s.x + s.w > o.x && s.y < o.y + o.h && s.y + s.h > o.y);
     }
 
     /**
@@ -110,10 +100,13 @@ class MovableObject extends DrawableObject {
         const o = this.getHitbox(otherObject);
         const s = this.getHitbox(this);
         const selfBottom = s.y + s.h;
-        const lastSelfBottom = this.lastY + (this.hitboxOffsetY || 0) + (this.hitboxHeight || this.height);
+        // Use previous hitbox instead of reconstructing it
+        const lastHitbox = this.getLastHitbox ? this.getLastHitbox() : { y: this.lastY, h: s.h };
+        const lastSelfBottom = lastHitbox.y + lastHitbox.h;
         const horizontalOverlap = s.x < o.x + o.w && s.x + s.w > o.x;
-        const fallingFromAbove = this.speedY < 0 && lastSelfBottom <= o.y && selfBottom >= o.y;
-        return horizontalOverlap && fallingFromAbove;
+        const falling = this.speedY > 0;
+        const crossedTopSurface = lastSelfBottom <= o.y && selfBottom >= o.y;
+        return horizontalOverlap && falling && crossedTopSurface;
     }
 
     /**
@@ -126,6 +119,7 @@ class MovableObject extends DrawableObject {
             this.world.audio.play("gameEnd");
         } else {
             this.lastHit = new Date().getTime();
+            this.world.audio.play("hurtCharakter");
         }
     }
 
@@ -159,7 +153,7 @@ class MovableObject extends DrawableObject {
      */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
-        return timepassed < 0.2;
+        timepassed = timepassed / 1000;        
+        return timepassed < 0.1;
     }
 }

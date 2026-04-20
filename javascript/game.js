@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+window.addEventListener('resize', toggleWidthLimit);
 
 /**
  * Initializes the game by creating the canvas and world instance.
@@ -8,8 +9,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById("canvas");
     initLevel1();
-    world = new World(canvas, keyboard);
-    
+    world = new World(canvas, keyboard);    
 }
 
 /**
@@ -83,9 +83,6 @@ function toggleWidthLimit() {
     }
 }
 
-window.addEventListener('resize', toggleWidthLimit);
-
-
 /**
  * Checks if the game is over due to player or boss death.
  * @returns {boolean}
@@ -107,12 +104,12 @@ function getGameResult() {
  * Shows the game over screen with win or lose state.
  * @param {"win"|"lose"} result
  */
-function showGameOverScreen(result) {
-    const screen = document.getElementById("game-over-screen");
-    const text = document.getElementById("game-over-text");
-    text.innerText = result === "win" ? "You Win!" : "Game Over";
-    screen.classList.remove("hidden");
-}
+// function showGameOverScreen(result) {
+//     const screen = document.getElementById("game-over-screen");
+//     const text = document.getElementById("game-over-text");
+//     text.innerText = result === "win" ? "You Win!" : "Game Over";
+//     screen.classList.remove("hidden");
+// }
 
 /**
  * Stops all active intervals and animation frames by overwriting them.
@@ -147,7 +144,7 @@ function resetGame() {
 }
 
 
-
-// end screen
+// hit on top not work anymore
+// end screen fix
 // mobile fix controll scalierung
 // last sound add 

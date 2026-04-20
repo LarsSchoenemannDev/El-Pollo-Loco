@@ -100,13 +100,10 @@ class MovableObject extends DrawableObject {
         const o = this.getHitbox(otherObject);
         const s = this.getHitbox(this);
         const selfBottom = s.y + s.h;
-        // Use previous hitbox instead of reconstructing it
-        const lastHitbox = this.getLastHitbox ? this.getLastHitbox() : { y: this.lastY, h: s.h };
-        const lastSelfBottom = lastHitbox.y + lastHitbox.h;
+        const lastSelfBottom = this.lastY + (this.hitboxOffsetY || 0) + (this.hitboxHeight || this.height);
         const horizontalOverlap = s.x < o.x + o.w && s.x + s.w > o.x;
-        const falling = this.speedY > 0;
-        const crossedTopSurface = lastSelfBottom <= o.y && selfBottom >= o.y;
-        return horizontalOverlap && falling && crossedTopSurface;
+        const fallingFromAbove = this.speedY < 0 && lastSelfBottom <= o.y && selfBottom >= o.y;
+        return horizontalOverlap && fallingFromAbove;
     }
 
     /**
@@ -153,7 +150,7 @@ class MovableObject extends DrawableObject {
      */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;        
+        timepassed = timepassed / 1000;
         return timepassed < 0.1;
     }
 }

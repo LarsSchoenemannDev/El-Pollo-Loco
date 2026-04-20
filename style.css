@@ -214,6 +214,18 @@ canvas {
 
 }
 
+.end-screen{
+    display: flex;
+    justify-content: center;
+}
+
+.won-screen{
+    height: 100%;
+    width: 100%;
+
+}
+
+
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;

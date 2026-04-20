@@ -4,12 +4,12 @@ let keyboard = new Keyboard();
 window.addEventListener('resize', toggleWidthLimit);
 
 /**
- * Initializes the game by creating the canvas and world instance.
+ * Initializes the game by creating the canvas and set the level and world instance.
  */
 function init() {
     canvas = document.getElementById("canvas");
     initLevel1();
-    world = new World(canvas, keyboard);    
+    world = new World(canvas, keyboard);
 }
 
 /**
@@ -97,20 +97,26 @@ function isGameOver() {
  * @returns {"win"|"lose"}
  */
 function getGameResult() {
-    return world.statusBarImageHealtBoss?.percentage <= 0 ? "win" : "lose";
+    return world.statusBarImageHealtBoss?.percentage <= 0 ? showGameOverScreen() : showGameWonScreen();
 }
 
 /**
- * Shows the game over screen with win or lose state.
- * @param {"win"|"lose"} result
+ * Shows the game over screen with lose state.
+ * 
  */
-// function showGameOverScreen(result) {
-//     const screen = document.getElementById("game-over-screen");
-//     const text = document.getElementById("game-over-text");
-//     text.innerText = result === "win" ? "You Win!" : "Game Over";
-//     screen.classList.remove("hidden");
-// }
+function showGameOverScreen() {
+    const screen = document.getElementById("end-Screen-modal");
+    screen.classList.remove("hidden")
+}
 
+/**
+ * Shows the won screen with win state.
+ * 
+ */
+function showGameWonScreen() {
+    const screen = document.getElementById("won-screen-modal");
+    screen.classList.remove("hidden")
+}
 /**
  * Stops all active intervals and animation frames by overwriting them.
  */

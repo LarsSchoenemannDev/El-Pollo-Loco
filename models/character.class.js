@@ -105,6 +105,7 @@ class Character extends MovableObject {
             this.updateGravity();
             this.handleMovement();
             this.world.checkCollisions();
+            this.lastY = this.y
         }, 1000 / 60);
     }
 

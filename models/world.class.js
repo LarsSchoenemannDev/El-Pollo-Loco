@@ -42,7 +42,7 @@ class World {
             this.checkCollisionsThrowableObject();
             this.bossLayout();
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
-            resetGame();
+            winLoseModal();
         }, 1000 / 60);
     }
 

@@ -1,9 +1,10 @@
 /**
  * Starts the game by hiding the menu, showing the canvas and initializing the world.
  */
-function startGame() {    
+function startGame() {
     document.getElementById("main-menu").style.display = "none";
     document.querySelector("canvas").style.display = "block";
+    document.getElementById("canvas").classList.remove("hidden");
     init();
 }
 

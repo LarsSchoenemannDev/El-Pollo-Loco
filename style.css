@@ -1,3 +1,16 @@
+:root {
+    --color-primary: #d86d16;
+    --color-btn-text: #ffffff;
+    --color-overlay: rgba(0, 0, 0, 0.85);
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 15px;
+    --font-size-sm: 18px;
+    --font-size-md: 24px;
+    --transition-default: all 0.3s ease;
+    --scale-hover: scale(1.10);
+}
+
 @font-face {
     font-family: "Sancreek";
     src: url("./font/Sancreek-Regular.ttf") format("truetype");
@@ -33,11 +46,12 @@ h1 {
 
 canvas {
     background-color: rgba(230, 182, 78, 0.521);
-    border-radius: 8px;
-    display: none;
-    position: relative;
+    border-radius: var(--border-radius-sm);
+    display: block;
+    position: absolute;
     z-index: 10;
     margin: 0 auto;
+    top: 210px;
 }
 
 .game-title {
@@ -56,8 +70,7 @@ canvas {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    border-radius: 8px;
-
+    border-radius: var(--border-radius-sm);
 }
 
 .menu {
@@ -67,7 +80,6 @@ canvas {
     gap: 12px;
 }
 
-
 .center-play {
     display: flex;
     margin-top: 200px;
@@ -75,45 +87,46 @@ canvas {
 }
 
 .game-btn {
-    background: #d86d16;
-    color: #fff;
+    background: var(--color-primary);
+    color: var(--color-btn-text);
     padding: 6px 8px;
-    font-size: 18px;
+    font-size: var(--font-size-sm);
     font-weight: bold;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     letter-spacing: 1px;
+    transition: var(--transition-default);
 }
 
 .game-btn:hover {
-    transform: scale(1.1);
+    transform: var(--scale-hover);
 }
 
 #btn-mute {
     padding: 6px 8px;
-    font-size: 18px;
+    font-size: var(--font-size-sm);
     min-width: 50px;
     margin-right: 8px;
 }
 
 .play-btn {
     background: rgb(26, 192, 26);
-    color: #ffffff;
+    color: var(--color-btn-text);
     padding: 6px 60px;
-    font-size: 24px;
+    font-size: var(--font-size-md);
     font-weight: bold;
     cursor: pointer;
-    border-radius: 12px;
-
+    border-radius: var(--border-radius-md);
     letter-spacing: 4px;
+    transition: var(--transition-default);
 }
 
 .play-btn:hover {
-    transform: scale(1.10);
+    transform: var(--scale-hover);
 }
 
 .play-btn:active {
-    transform: scale(1.10);
+    transform: var(--scale-hover);
 }
 
 .modal {
@@ -122,19 +135,18 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: var(--color-overlay);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 200;
-
 }
 
 .modal-content {
     max-height: 100vh;
     background: #c4c2c2;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: var(--border-radius-lg);
     max-width: 700px;
     width: 90%;
     text-align: center;
@@ -142,14 +154,14 @@ canvas {
 
 .modal-content h2 {
     color: #000000;
-    font-size: 24px;
+    font-size: var(--font-size-md);
     margin-bottom: 25px;
     text-transform: uppercase;
 }
 
 .modal-text {
     color: #fff;
-    font-size: 18px;
+    font-size: var(--font-size-sm);
     line-height: 1.8;
     margin-bottom: 30px;
 }
@@ -157,22 +169,23 @@ canvas {
 .btn-close {
     background: rgba(214, 141, 141, 0.753);
     border: 3px solid #000000;
-    color: #fff;
+    color: var(--color-btn-text);
     padding: 12px 40px;
-    font-size: 18px;
+    font-size: var(--font-size-sm);
     font-weight: bold;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
 }
 
 .btn-close:hover {
-    transform: scale(1.10);
+    transform: var(--scale-hover);
 }
 
 .hidden {
     display: none !important;
+    visibility: hidden !important;
 }
 
 .controll {
@@ -180,7 +193,7 @@ canvas {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px
+    gap: 20px;
 }
 
 .controll-left-svg,
@@ -191,19 +204,20 @@ canvas {
     justify-content: center;
     font-weight: 700;
     font-size: 20px;
-    color: black
+    color: black;
 }
 
 .controll-mobile {
     width: 720px;
-    height: 680px;
+    height: 480px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
     position: absolute;
+    top: 210px;
     padding-bottom: 12px;
-    
+    z-index: 11;
 }
 
 .run-control,
@@ -211,20 +225,18 @@ canvas {
     display: flex;
     padding-left: 16px;
     gap: 24px;
-
 }
 
-.end-screen{
+.end-screen,
+.won-screen {
+    position: absolute;
+    z-index: 12;
+    top: 220px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
-
-.won-screen{
-    height: 100%;
-    width: 100%;
-
-}
-
 
 @media only screen and (max-width: 720px) {
     canvas {

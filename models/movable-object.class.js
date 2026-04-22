@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y <= 250;
+            return this.y <= 230;
         }
     }
 
@@ -86,9 +86,9 @@ class MovableObject extends DrawableObject {
      * @returns {boolean}
      */
     isColliding(otherObject) {
-        const o = this.getHitbox(otherObject);
-        const s = this.getHitbox(this);
-        return (s.x < o.x + o.w && s.x + s.w > o.x && s.y < o.y + o.h && s.y + s.h > o.y);
+        const enemy = this.getHitbox(otherObject);
+        const hitbox = this.getHitbox(this);
+        return (hitbox.x < enemy.x + enemy.w && hitbox.x + hitbox.w > enemy.x && hitbox.y < enemy.y + enemy.h && hitbox.y + hitbox.h > enemy.y);
     }
 
     /**
@@ -98,10 +98,10 @@ class MovableObject extends DrawableObject {
      */
     isCollidingFromTop(otherObject) {
         const o = this.getHitbox(otherObject);
-        const s = this.getHitbox(this);
-        const selfBottom = s.y + s.h;
+        const hitbox = this.getHitbox(this);
+        const selfBottom = hitbox.y + hitbox.h;
         const lastSelfBottom = this.lastY + (this.hitboxOffsetY || 0) + (this.hitboxHeight || this.height);
-        const horizontalOverlap = s.x < o.x + o.w && s.x + s.w > o.x;
+        const horizontalOverlap = hitbox.x < o.x + o.w && hitbox.x + hitbox.w > o.x;
         const fallingFromAbove = this.speedY < 0 && lastSelfBottom <= o.y && selfBottom >= o.y;
         return horizontalOverlap && fallingFromAbove;
     }

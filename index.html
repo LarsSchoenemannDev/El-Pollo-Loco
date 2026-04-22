@@ -87,13 +87,24 @@
             </svg>
         </div>
     </div>
-    <div id="end-screen-modal" class="end-screen hidden">
-        <img src="img\You won, you lost\You lost.png">
+    <div id="endModal" class="end-screen hidden">
+        <img src="img\You won, you lost\You lost.png" alt="Win Pic" width="400" height="350">
+        <button class="game-btn" onclick="resetGame()">
+            Play Again
+        </button>
+        <button id="game-btn" class="game-btn" onclick="exitGameLost()">
+            Exit Game
+        </button>
     </div>
-    <div id="won-screen-modal" class="won-screen hidden">
-        <img src="img\You won, you lost\You won A.png">
+    <div id="wonModal" class="won-screen hidden">
+        <img src="img\You won, you lost\You won A.png" alt="Lose Pic" width="300" height="300">
+        <button class="game-btn" onclick="resetGame()">
+            Play Again
+        </button>
+        <button id="game-btn" class="game-btn" onclick="exitGameWon()">
+            Exit Game
+        </button>
     </div>
-
 </body>
 
 </html>

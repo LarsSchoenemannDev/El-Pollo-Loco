@@ -74,12 +74,9 @@ function toggleWidthLimit() {
     let element = document.getElementById("controll-mobile");
     if (windowWidth >= 820) {
         element.classList.add("hidden");
-        console.log("yes");
 
     } else {
         element.classList.remove("hidden");
-        console.log("no");
-
     }
 }
 
@@ -88,16 +85,20 @@ function toggleWidthLimit() {
  * @returns {boolean}
  */
 function isGameOver() {
-    return world.statusBarImageHealtBoss?.percentage <= 0 ||
-        world.statusBarImageHealt?.percentage <= 0;
+    return world.statusBarImageHealtBoss?.percentage <= 0 || world.statusBarImageHealt?.percentage <= 0;
 }
 
 /**
  * Returns whether the player won or lost.
- * @returns {"win"|"lose"}
+ * @returns {"winModal"|"loseModal"}
  */
 function getGameResult() {
-    return world.statusBarImageHealtBoss?.percentage <= 0 ? showGameOverScreen() : showGameWonScreen();
+    if (world.statusBarImageHealtBoss.percentage <= 0) {
+        showGameWonScreen();
+        return "winModal"
+    }
+    showGameOverScreen();
+    return "loseModal";
 }
 
 /**
@@ -105,8 +106,8 @@ function getGameResult() {
  * 
  */
 function showGameOverScreen() {
-    const screen = document.getElementById("end-Screen-modal");
-    screen.classList.remove("hidden")
+    document.getElementById("endModal").classList.remove("hidden")
+    clearAllIntervals();
 }
 
 /**
@@ -114,8 +115,8 @@ function showGameOverScreen() {
  * 
  */
 function showGameWonScreen() {
-    const screen = document.getElementById("won-screen-modal");
-    screen.classList.remove("hidden")
+    document.getElementById("wonModal").classList.remove("hidden")
+    clearAllIntervals();
 }
 /**
  * Stops all active intervals and animation frames by overwriting them.
@@ -136,19 +137,43 @@ function resetWorld() {
     keyboard = new Keyboard();
     initLevel1();
     world = new World(canvas, keyboard);
+    document.getElementById("wonModal").classList.add("hidden")
+    document.getElementById("endModal").classList.add("hidden")
+}
+
+/**
+ * Show the Win or Lose Modal.
+ */
+function winLoseModal() {
+    if (!isGameOver()) return;
+    getGameResult();
 }
 
 /**
  * Resets the game fully without reloading the page and shows the game over screen.
  */
 function resetGame() {
-    if (!isGameOver()) return;
-    const result = getGameResult();
     clearAllIntervals();
     resetWorld();
-    showGameOverScreen(result);
 }
 
+
+function exitGameWon() {
+    level1 = 0;
+    world = 0;
+    document.querySelector("canvas").classList.add("hidden");
+    document.getElementById("wonModal").classList.add("hidden");
+    document.getElementById("main-menu").style.display = "flex"
+
+
+}
+function exitGameLost() {
+    level1 = 0;
+    world = 0;
+    document.querySelector("canvas").classList.add("hidden");
+    document.getElementById("endModal").classList.add("hidden");
+    document.getElementById("main-menu").style.display = "flex"
+}
 
 // hit on top not work anymore
 // end screen fix

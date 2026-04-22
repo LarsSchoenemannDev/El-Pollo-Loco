@@ -3,8 +3,8 @@
  * @extends MovableObject
  */
 class Character extends MovableObject {
-    x = 80;
-    y = 250;
+    x = 2200;
+    y = 230;
     height = 200;
     width = 140;
     speed = 8;

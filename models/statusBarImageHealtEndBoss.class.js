@@ -22,15 +22,14 @@ class StatusBarImageHealtBoss extends DrawableObject {
         this.width = 200;
         this.height = 65;
         this.x = 490;
-        this.y = 0;
+        this.y = 10;
     }
 
     /**
      * Updates the displayed image based on the given percentage.
      * @param {number} percentage - Current boss health percentage (0-100).
      */
-    setPercentageHealtBoss(percentage) {
-        this.y = 0;
+    setPercentageHealtBoss(percentage) {        
         this.percentage = percentage;
         let path = this.imageHealtBoss[this.resolveImageIndex()];
         this.img = this.imageCache[path];

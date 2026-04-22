@@ -3,6 +3,7 @@
  */
 function startGame() {
     document.getElementById("main-menu").style.display = "none";
+    document.getElementById
     document.querySelector("canvas").style.display = "block";
     document.getElementById("canvas").classList.remove("hidden");
     init();
@@ -38,11 +39,18 @@ function toggleMute() {
     const currentAudioSetting = localStorage.getItem("audio");
     if (currentAudioSetting === null) {
         localStorage.setItem("audio", "false");
+        world.audio?.stop("gameMusic");
     } else {
         if (currentAudioSetting === "true") {
             localStorage.setItem("audio", "false");
+            document.querySelector(".audio-mute").classList.toggle("hidden");
+            document.querySelector(".audio-on").classList.toggle("hidden");
+            world?.audio.stop("gameMusic");
         } else {
             localStorage.setItem("audio", "true");
+            document.querySelector(".audio-on").classList.toggle("hidden");
+            document.querySelector(".audio-mute").classList.toggle("hidden");
+            world?.audio?.play("gameMusic");
         }
     }
 }

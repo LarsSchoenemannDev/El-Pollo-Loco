@@ -5,32 +5,32 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>El Pollo Loco</title>
-    <link rel="shortcut icon" href="..//img/8_coin/coin_2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/8_coin/coin_2.png" type="image/x-icon">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-    <script src="/javascript/menu.js"></script>
-    <script src="/models/drawableObject.class.js"></script>
-    <script src="/models/movable-object.class.js"></script>
-    <script src="/models/character.class.js"></script>
-    <script src="/models/chicken.class.js"></script>
-    <script src="/models/smallChicken.class.js"></script>
-    <script src="/models/world.class.js"></script>
-    <script src="/models/statusBarImageHealt.class.js"></script>
-    <script src="/models/statusBarImageCoin.class.js"></script>
-    <script src="/models/statusBarImageBottles.class.js"></script>
-    <script src="/models/statusBarImageHealtEndBoss.class.js"></script>
-    <script src="/models/clouds.class.js"></script>
-    <script src="/models/backgroundObject.class.js"></script>
-    <script src="/models/air.class.js"></script>
-    <script src="/models/throwableObject.class.js"></script>
-    <script src="/models/level.class.js"></script>
-    <script src="/models/coin.class.js"></script>
-    <script src="/models/bottel.class.js"></script>
-    <script src="/models/keyboard.class.js"></script>
-    <script src="/models/audioObject.class.js"></script>
-    <script src="/models/endboss.class.js"></script>
-    <script src="/levels/level1.js"></script>
-    <script src="/javascript/game.js"></script>
+    <script src="javascript/menu.js"></script>
+    <script src="models/drawableObject.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/smallChicken.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="models/statusBarImageHealt.class.js"></script>
+    <script src="models/statusBarImageCoin.class.js"></script>
+    <script src="models/statusBarImageBottles.class.js"></script>
+    <script src="models/statusBarImageHealtEndBoss.class.js"></script>
+    <script src="models/clouds.class.js"></script>
+    <script src="models/backgroundObject.class.js"></script>
+    <script src="models/air.class.js"></script>
+    <script src="models/throwableObject.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/bottel.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/audioObject.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="javascript/game.js"></script>
     <script src="javascript/overlay.js"></script>
     <script src="javascript/overlayHTML.js"></script>
 </head>
@@ -46,10 +46,6 @@
                     </button>
                 </section>
                 <section class="top-right-buttons">
-                    <button id="btn-mute" class="game-btn" onclick="toggleMute()">
-                        Sound - On/Off
-                    </button>
-
                     <button id="btn-tutorial" class="game-btn" onclick="gameControlNotice()">
                         Game Control Setting
                     </button>
@@ -118,6 +114,34 @@
             Exit Game
         </button>
     </div>
+    <section class="mute-full-screen">
+        <button id="btn-mute" onclick="toggleMute()">
+            <svg class="audio-on" fill="#000000" height="40px" width="40px" version="1.1" id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329 329"
+                xml:space="preserve">
+                <g id="XMLID_795_">
+                    <polygon style=" fill:#dbebdcde ;stroke:black"
+                        points="42.392,103.5 0,103.5 0,225.5 42.392,225.5 171.86,322 211.519,322 211.519,7 171.86,7  " />
+                    <path style=" fill:#dbebdcde ;stroke:black"
+                        d="M254.16,129.118l-16.336,25.162c5.655,3.672,9.032,9.874,9.032,16.589c0,6.716-3.376,12.918-9.031,16.589   l16.334,25.163c14.213-9.226,22.697-24.834,22.697-41.752C276.856,153.953,268.372,138.344,254.16,129.118z" />
+                    <path style=" fill:#67e95bde ;stroke:black"
+                        d="M292.88,93.049l-19.377,22.902C289.707,129.661,299,149.678,299,170.87s-9.293,41.209-25.497,54.918   l19.377,22.902C315.835,229.269,329,200.905,329,170.87S315.835,112.47,292.88,93.049z" />
+                </g>
+            </svg>
+            <svg class="audio-mute hidden" fill="#000000" width="40px" height="40px" version="1.1" id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px"
+                height="800px" viewBox="0 0 518.516 518.516" xml:space="preserve">
+                <g>
+                    <g>
+                        <path style="fill:#dbebdcde ;stroke:black"
+                            d="M257.269,78.412L91.494,196.757H26.775C12.01,196.757,0,208.844,0,223.532v71.451c0,14.765,12.087,26.774,26.775,26.774    h64.719l165.775,118.346c12.086,8.645,21.727,3.596,21.727-11.169V89.581C279.072,74.816,269.355,69.768,257.269,78.412z" />
+                        <path style="fill:#e97c5bde ;stroke:black"
+                            d="M452.115,260.329l62.5-62.501c5.201-5.202,5.201-13.846,0-19.048l-12.623-12.623c-5.201-5.202-13.846-5.202-19.049,0    l-62.5,62.5l-62.041-62.042c-5.201-5.202-13.846-5.202-19.049,0l-12.623,12.623c-5.201,5.202-5.201,13.847,0,19.048l62.043,62.042    L326.73,322.37c-5.201,5.202-5.201,13.847,0,19.049l12.623,12.622c5.203,5.202,13.848,5.202,19.049,0L420.443,292l62.041,62.041    c5.203,5.202,13.848,5.202,19.049,0l12.623-12.622c5.201-5.202,5.201-13.847,0-19.049L452.115,260.329z" />
+                    </g>
+                </g>
+            </svg>
+        </button>
+    </section>
 </body>
 
 </html>

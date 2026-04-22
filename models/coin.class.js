@@ -7,7 +7,7 @@ class CoinObject extends DrawableObject {
     y = 120;
 
     imageCoin = [
-        'img/8_coin/coin_1.png',
+        './img/8_coin/coin_1.png',
     ];
 
     /**

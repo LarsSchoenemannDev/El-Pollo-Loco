@@ -10,16 +10,16 @@ class Character extends MovableObject {
     speed = 8;
 
     imagesNormal = [
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png",
-        "img/2_character_pepe/1_idle/idle/I-1.png"
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png",
+        "./img/2_character_pepe/1_idle/idle/I-1.png"
     ];
 
     imagesWalking = [
@@ -44,32 +44,32 @@ class Character extends MovableObject {
     ];
 
     imagesDead = [
-        "img/2_character_pepe/5_dead/D-51.png",
-        "img/2_character_pepe/5_dead/D-52.png",
-        "img/2_character_pepe/5_dead/D-53.png",
-        "img/2_character_pepe/5_dead/D-54.png",
-        "img/2_character_pepe/5_dead/D-55.png",
-        "img/2_character_pepe/5_dead/D-56.png",
-        "img/2_character_pepe/5_dead/D-57.png"
+        "./img/2_character_pepe/5_dead/D-52.png",
+        "./img/2_character_pepe/5_dead/D-53.png",
+        "./img/2_character_pepe/5_dead/D-54.png",
+        "./img/2_character_pepe/5_dead/D-51.png",
+        "./img/2_character_pepe/5_dead/D-55.png",
+        "./img/2_character_pepe/5_dead/D-56.png",
+        "./img/2_character_pepe/5_dead/D-57.png"
     ];
 
     imagesHurt = [
-        "img/2_character_pepe/4_hurt/H-41.png",
-        "img/2_character_pepe/4_hurt/H-42.png",
-        "img/2_character_pepe/4_hurt/H-43.png"
+        "./img/2_character_pepe/4_hurt/H-41.png",
+        "./img/2_character_pepe/4_hurt/H-42.png",
+        "./img/2_character_pepe/4_hurt/H-43.png"
     ];
 
     imagesWaiting = [
-        "img/2_character_pepe/1_idle/long_idle/I-11.png",
-        "img/2_character_pepe/1_idle/long_idle/I-12.png",
-        "img/2_character_pepe/1_idle/long_idle/I-13.png",
-        "img/2_character_pepe/1_idle/long_idle/I-14.png",
-        "img/2_character_pepe/1_idle/long_idle/I-15.png",
-        "img/2_character_pepe/1_idle/long_idle/I-16.png",
-        "img/2_character_pepe/1_idle/long_idle/I-17.png",
-        "img/2_character_pepe/1_idle/long_idle/I-18.png",
-        "img/2_character_pepe/1_idle/long_idle/I-19.png",
-        "img/2_character_pepe/1_idle/long_idle/I-20.png"
+        "./img/2_character_pepe/1_idle/long_idle/I-11.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-12.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-13.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-14.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-15.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-16.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-17.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-18.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-19.png",
+        "./img/2_character_pepe/1_idle/long_idle/I-20.png"
     ];
 
     /**

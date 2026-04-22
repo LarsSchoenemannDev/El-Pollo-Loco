@@ -4,7 +4,7 @@
  */
 class BottlesObject extends DrawableObject {
     imageBottle = [
-        "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+        "./img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
     ];
     currentImageIndex = 0;
 

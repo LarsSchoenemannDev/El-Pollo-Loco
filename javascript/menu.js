@@ -6,6 +6,7 @@ function startGame() {
     document.querySelector("canvas").style.display = "block";
     document.getElementById("canvas").classList.remove("hidden");
     init();
+    initMobileControls()
 }
 
 /**

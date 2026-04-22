@@ -65,7 +65,7 @@ class World {
                 enemy.hit();
                 this.character.speedY = 20;
             } else if (this.character.isColliding(enemy)) {
-                this.character.hitHurt();                
+                this.character.hitHurt();
             }
         });
         this.statusBarImageHealt.setPercentageHealt(this.character.energy);

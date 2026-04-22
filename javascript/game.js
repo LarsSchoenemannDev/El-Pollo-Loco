@@ -10,6 +10,8 @@ function init() {
     canvas = document.getElementById("canvas");
     initLevel1();
     world = new World(canvas, keyboard);
+    initMobileControls();
+    world.audio.play("gameMusic");
 }
 
 /**
@@ -18,6 +20,7 @@ function init() {
  * @param {boolean} isPressed
  */
 window.addEventListener("keydown", (event) => {
+    console.log(event.code)
     if (event.code === "ArrowLeft") {
         keyboard.left = true;
     }
@@ -66,6 +69,29 @@ window.addEventListener("keyup", (event) => {
 });
 
 /**
+ * Binds touchstart and touchend on a button to a keyboard key.
+ * @param {string} id - The button element ID.
+ * @param {string} key - The keyboard key to toggle.
+ */
+function bindTouchButton(id, key) {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener("touchstart", (e) => { e.preventDefault(); keyboard[key] = true; });
+    btn.addEventListener("touchend", (e) => { e.preventDefault(); keyboard[key] = false; });
+}
+
+/**
+ * Binds touch events for mobile control buttons to the keyboard state.
+ */
+function initMobileControls() {
+    bindTouchButton("btn-left", "left");
+    bindTouchButton("btn-right", "right");
+    bindTouchButton("btn-jump", "space");
+    bindTouchButton("btn-throw", "d");
+}
+
+
+/**
  * Shows or hides the mobile controls based on window width.
  */
 
@@ -102,21 +128,26 @@ function getGameResult() {
 }
 
 /**
- * Shows the game over screen with lose state.
+ * Shows the game over screen and stop all intervals
  * 
  */
 function showGameOverScreen() {
     document.getElementById("endModal").classList.remove("hidden")
     clearAllIntervals();
+    world.audio.play("gameOver")
+    world.audio.stop("gameMusic");
+    world.audio.stop("gameEnd");
 }
 
 /**
- * Shows the won screen with win state.
+ * Shows the won screen and stop all intervals
  * 
  */
 function showGameWonScreen() {
     document.getElementById("wonModal").classList.remove("hidden")
     clearAllIntervals();
+    world.audio.stop("gameMusic");
+    world.audio.play("gameEnd");
 }
 /**
  * Stops all active intervals and animation frames by overwriting them.
@@ -139,6 +170,7 @@ function resetWorld() {
     world = new World(canvas, keyboard);
     document.getElementById("wonModal").classList.add("hidden")
     document.getElementById("endModal").classList.add("hidden")
+    initMobileControls();
 }
 
 /**
@@ -155,18 +187,25 @@ function winLoseModal() {
 function resetGame() {
     clearAllIntervals();
     resetWorld();
+    world.audio.play("gameMusic")
 }
 
-
+/**
+ * Resets all game data and change canvas won or main menu css
+ */
 function exitGameWon() {
     level1 = 0;
     world = 0;
     document.querySelector("canvas").classList.add("hidden");
     document.getElementById("wonModal").classList.add("hidden");
     document.getElementById("main-menu").style.display = "flex"
-
-
+    initMobileControls();
 }
+
+
+/**
+ *  * Resets all game data and change canvas won or main menu css
+ */
 function exitGameLost() {
     level1 = 0;
     world = 0;
@@ -175,7 +214,3 @@ function exitGameLost() {
     document.getElementById("main-menu").style.display = "flex"
 }
 
-// hit on top not work anymore
-// end screen fix
-// mobile fix controll scalierung
-// last sound add 

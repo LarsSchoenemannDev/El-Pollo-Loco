@@ -13,6 +13,6 @@ class Air extends MovableObject {
      */
     constructor() {
         super();
-        this.loadImage("./img/5_background/layers/air.png");
+        this.loadImage("img/5_background/layers/air.png");
     }
 }

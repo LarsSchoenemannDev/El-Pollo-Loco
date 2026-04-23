@@ -42,7 +42,7 @@ class World {
             this.checkCollisionsThrowableObject();
             this.bossLayout();
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
-            winLoseModal();
+            winLoseModal();            
         }, 1000 / 60);
     }
 
@@ -221,7 +221,7 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
-        mo.drawFrameHitBox(this.ctx);
+        // mo.drawFrameHitBox(this.ctx);
         if (mo.otherDirection) this.flipImageBack(mo);
     }
 

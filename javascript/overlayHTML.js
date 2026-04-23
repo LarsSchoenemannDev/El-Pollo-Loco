@@ -5,7 +5,7 @@
 function gameControlNoticeHTML() {
     return `<div class="modal-content">
 
-    
+
             <div class="modal-text">
                 <h2><strong>Steuerung:</strong></h2>
                 <div class="controll">
@@ -57,7 +57,6 @@ function impressumContentHTML() {
             <div class="impressum">
                 <div class="impressum">
                     <h1>Impressum</h1>
-
                     <h2>Angaben gemäß § 5 TMG</h2>
                     <p>
                         Lars Schönemann<br>

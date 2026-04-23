@@ -214,3 +214,10 @@ function exitGameLost() {
     document.getElementById("main-menu").style.display = "flex"
 }
 
+function maxWidth() {   
+    if (window.innerWidth < 750) {
+        document.querySelector(".rotate-phone").classList.remove("hidden")
+    } else
+        document.querySelector(".rotate-phone").classList.add("hidden")
+}
+window.addEventListener("resize", maxWidth)

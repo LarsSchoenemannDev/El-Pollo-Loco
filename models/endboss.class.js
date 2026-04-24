@@ -100,14 +100,14 @@ class Endboss extends MovableObject {
      */
     startJumpingInterval() {
         setInterval(() => {
-            this.Jumping();
+            this.jumping();
         }, 1000 + Math.random() * 3400);
     }
 
     /**
      * Initiates a jump if the endboss is not already jumping.
      */
-    Jumping() {
+    jumping() {
         if (this.isJumping) return;
         this.isJumping = true;
         this.y = 90;
@@ -136,8 +136,8 @@ class Endboss extends MovableObject {
      */
     hit() {
         this.energy -= 20;
-        this.playAnimation(this.imageHurt);        
         this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);
+        this.playAnimation(this.imageHurt);  
     }
 
     /**

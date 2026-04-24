@@ -4,11 +4,11 @@
  */
 class StatusBarImageHealtBoss extends DrawableObject {
     imageHealtBoss = [
+        "./img/7_statusbars/2_statusbar_endboss/orange/orange0.png",
         "./img/7_statusbars/2_statusbar_endboss/orange/orange20.png",
         "./img/7_statusbars/2_statusbar_endboss/orange/orange40.png",
         "./img/7_statusbars/2_statusbar_endboss/orange/orange60.png",
         "./img/7_statusbars/2_statusbar_endboss/orange/orange80.png",
-        "./img/7_statusbars/2_statusbar_endboss/orange/orange0.png",
         "./img/7_statusbars/2_statusbar_endboss/orange/orange100.png"
     ];
 
@@ -29,7 +29,7 @@ class StatusBarImageHealtBoss extends DrawableObject {
      * Updates the displayed image based on the given percentage.
      * @param {number} percentage - Current boss health percentage (0-100).
      */
-    setPercentageHealtBoss(percentage) {        
+    setPercentageHealtBoss(percentage) {
         this.percentage = percentage;
         let path = this.imageHealtBoss[this.resolveImageIndex()];
         this.img = this.imageCache[path];
@@ -41,14 +41,14 @@ class StatusBarImageHealtBoss extends DrawableObject {
      */
     resolveImageIndex() {
         if (this.percentage === 100)
-             return 5;
-        if (this.percentage > 80) 
+            return 5;
+        if (this.percentage > 80)
             return 4;
-        if (this.percentage > 60) 
+        if (this.percentage > 60)
             return 3;
-        if (this.percentage > 40) 
+        if (this.percentage > 40)
             return 2;
-        if (this.percentage > 30) 
+        if (this.percentage > 30)
             return 1;
         return 0;
     }

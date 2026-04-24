@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject {
     movementWalkSpeed = 0.08;
     otherDirection = false;
     speedY = 0;
-    acceleration = 2;
+    acceleration = 1.6;
     energy = 100;
     lastHit = 0;
 
@@ -66,7 +66,7 @@ class MovableObject extends DrawableObject {
      * Makes the object jump by setting vertical speed.
      */
     jump() {
-        this.speedY = 30;
+        this.speedY = 24;
     }
 
     /**

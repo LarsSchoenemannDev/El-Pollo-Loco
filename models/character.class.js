@@ -8,6 +8,8 @@ class Character extends MovableObject {
     height = 200;
     width = 140;
     speed = 8;
+    coin = 0;
+    bottles = 60;
 
     imagesNormal = [
         "./img/2_character_pepe/1_idle/idle/I-1.png",

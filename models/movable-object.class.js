@@ -10,8 +10,6 @@ class MovableObject extends DrawableObject {
     acceleration = 2;
     energy = 100;
     lastHit = 0;
-    coin = 0; 
-    bottles = 0;
 
     /**
      * Applies gravity by reducing y position over time.

@@ -42,7 +42,7 @@ class World {
             this.checkCollisionsThrowableObject();
             this.bossLayout();
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
-            winLoseModal();            
+            winLoseModal();
         }, 1000 / 60);
     }
 
@@ -153,13 +153,15 @@ class World {
         if (this.lastThrow && Date.now() - this.lastThrow < 300) return;
         this.lastThrow = Date.now();
         const bottle = new ThrowableObject(
-            this.character.x + 50,
-            this.character.y + 50,
+            this.character.x + 40,
+            this.character.y + 40,
             this.character.otherDirection
         );
         this.ThrowableObject.push(bottle);
         bottle.throw();
         this.character.bottles -= 20;
+        console.log(this.character.bottles);
+
         this.statusBarImageBottel.setPercentageBottles(this.character.bottles);
     }
 
@@ -221,7 +223,7 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
-        // mo.drawFrameHitBox(this.ctx);
+        mo.drawFrameHitBox(this.ctx);
         if (mo.otherDirection) this.flipImageBack(mo);
     }
 

@@ -10,9 +10,11 @@
     --font-size-md: 24px;
     --transition-default: all 0.3s ease;
     --scale-hover: scale(1.10);
-
     --game-width: 720px;
     --game-height: 480px;
+    --sb-track-color: #e8a516;
+    --sb-thumb-color: #d86d16;
+    --sb-size: 12px;
 }
 
 @font-face {
@@ -28,6 +30,21 @@
 
 body {
     font-family: "Sancreek", Arial, Helvetica, sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 8px;
+    border: 2px solid #846246;
 }
 
 main {
@@ -151,6 +168,21 @@ canvas {
     transform: var(--scale-hover);
 }
 
+.modal-content::-webkit-scrollbar {
+    width: var(--sb-size);
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 8px;
+    border: 2px solid #846246;
+}
+
 .modal {
     position: fixed;
     top: 0;
@@ -240,7 +272,7 @@ canvas {
     right: 0;
     padding: 8px 16px;
     z-index: 12;
-    
+
 }
 
 .mobile-btn {
@@ -256,7 +288,7 @@ canvas {
 .misc-controll {
     display: flex;
     padding-left: 16px;
-    gap: 24px;    
+    gap: 24px;
 }
 
 .end-screen,
@@ -353,11 +385,14 @@ canvas {
 
     .end-screen,
     .won-screen {
+        position: relative;
+        justify-content: center;
+
         img {
-            width: 260px;
-            height: 260px;
+            height: 130px;
         }
     }
+
     .rotate-phone {
         display: none !important;
     }

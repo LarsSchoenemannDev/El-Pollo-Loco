@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-window.addEventListener('resize', toggleWidthLimit);
+
 
 /**
  * Initializes the game by creating the canvas and set the level and world instance.
@@ -87,22 +87,6 @@ function initMobileControls() {
     bindTouchButton("btn-right", "right");
     bindTouchButton("btn-jump", "space");
     bindTouchButton("btn-throw", "d");
-}
-
-
-/**
- * Shows or hides the mobile controls based on window width.
- */
-
-function toggleWidthLimit() {
-    let windowWidth = window.innerWidth;
-    let element = document.getElementById("controll-mobile");
-    if (windowWidth >= 820) {
-        element.classList.add("hidden");
-
-    } else {
-        element.classList.remove("hidden");
-    }
 }
 
 /**
@@ -212,12 +196,3 @@ function exitGameLost() {
     document.getElementById("endModal").classList.add("hidden");
     document.getElementById("main-menu").style.display = "flex"
 }
-
-// function maxWidth() {   
-//     if (window.innerWidth < 750) {
-//         document.querySelector(".rotate-phone").classList.remove("hidden")
-        
-//     } else
-//         document.querySelector(".rotate-phone").classList.add("hidden")
-// }
-// window.addEventListener("resize", maxWidth)

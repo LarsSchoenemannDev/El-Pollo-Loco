@@ -33,35 +33,41 @@ function closeModal(modalId) {
 }
 
 /**
- * Toggles the mute state in localStorage.
+ * Read audio setting from localStorage and set the state
  */
 function toggleMute() {
-    const currentAudioSetting = localStorage.getItem("audio");
-    if (currentAudioSetting === null) {
-        localStorage.setItem("audio", "false");
-        world.audio?.stop("gameMusic");
+    let currentSetting = localStorage.getItem("audio");
+    if (currentSetting === null || currentSetting === "true") {
+        setAudioState("false");
     } else {
-        if (currentAudioSetting === "true") {
-            localStorage.setItem("audio", "false");
-            document.querySelector(".audio-mute").classList.toggle("hidden");
-            document.querySelector(".audio-on").classList.toggle("hidden");
-            world?.audio.stop("gameMusic");
-        } else {
-            localStorage.setItem("audio", "true");
-            document.querySelector(".audio-on").classList.toggle("hidden");
-            document.querySelector(".audio-mute").classList.toggle("hidden");
-            world?.audio?.play("gameMusic");
-        }
+        setAudioState("true");
     }
 }
 
 /**
- * Toggles fullscreen mode on and off.
+ * Change the css style 
  */
-function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
+function setAudioState(state) {
+    localStorage.setItem("audio", state);
+    const iconOn = document.querySelector(".audio-on");
+    const iconMute = document.querySelector(".audio-mute");
+
+    if (state === "true") {
+        iconOn.classList.remove("hidden");
+        iconMute.classList.add("hidden");
+        world?.audio?.play("gameMusic");
     } else {
-        document.exitFullscreen();
+        iconOn.classList.add("hidden");
+        iconMute.classList.remove("hidden");
+        world?.audio?.stop("gameMusic");
     }
 }
+
+/**
+ * read the state on document loaded 
+ */
+window.addEventListener("DOMContentLoaded", () => {
+    const savedState = localStorage.getItem("audio") || "true";
+    setAudioState(savedState);
+});
+

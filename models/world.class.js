@@ -21,7 +21,7 @@ class World {
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
-        this.canvas = canvas;
+        this.canvas = canvas;        
         this.character = new Character(this);
         this.endboss = new Endboss(this);
         this.audio = new AudioObject();
@@ -138,7 +138,7 @@ class World {
             const hitEnemy = this.checkBottleEnemyHit(bottle);
             if (bottle.isSplashing) return this.handleSplashingBottle(bottle);
             if (!hitEnemy && (bottle.y > 350 || bottle.x > 2900)) {
-                this.audio.play("bottlesSplash");                
+                this.audio.play("bottlesSplash");
                 return false;
             }
             return true;

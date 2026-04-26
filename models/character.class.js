@@ -122,11 +122,14 @@ class Character extends MovableObject {
      * Applies gravity to the character if above ground.
      */
     updateGravity() {
-        if (this.isAboveGround() || this.speedY > 0) {    
+        if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
-            console.log(this.acceleration);
-            
+            if (this.y > 230) {
+                this.y = 230; // Boden festnageln
+                this.speedY = 0;
+            }
+
         }
     }
 

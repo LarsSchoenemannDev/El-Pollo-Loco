@@ -4,7 +4,7 @@
  */
 class Endboss extends MovableObject {
     height = 350;
-    width = 150;
+    width = 190;
     y = 90;
     energy = 100;
     lastHit = 0;
@@ -137,7 +137,7 @@ class Endboss extends MovableObject {
     hit() {
         this.energy -= 20;
         this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);
-        this.playAnimation(this.imageHurt);  
+        this.playAnimation(this.imageHurt);
     }
 
     /**

@@ -14,6 +14,13 @@ class ThrowableObject extends MovableObject {
         "./img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
     ];
 
+    bottlethrow = [
+        "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+        "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
+        "img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
+        "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png"
+    ]
+
     /**
      * Creates a ThrowableObject at the given position.
      * @param {number} x - Horizontal start position.
@@ -25,6 +32,7 @@ class ThrowableObject extends MovableObject {
         this.loadImage("img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png");
         this.loadImages(this.bottleImg);
         this.loadImages(this.bottleImgSplash);
+        this.loadImages(this.bottlethrow);
         this.x = x;
         this.y = y;
         this.width = 69;

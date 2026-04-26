@@ -150,7 +150,7 @@ class World {
      */
     checkThrowObjects() {
         if (!this.keyboard.d || this.character.bottles <= 0) return;
-        if (this.lastThrow && Date.now() - this.lastThrow < 300) return;
+        if (this.lastThrow && Date.now() - this.lastThrow < 600) return;
         this.lastThrow = Date.now();
         const bottle = new ThrowableObject(
             this.character.x + 40,
@@ -159,8 +159,7 @@ class World {
         );
         this.ThrowableObject.push(bottle);
         bottle.throw();
-        this.character.bottles -= 20;
-        console.log(this.character.bottles);
+        this.character.bottles -= 20;        
 
         this.statusBarImageBottel.setPercentageBottles(this.character.bottles);
     }

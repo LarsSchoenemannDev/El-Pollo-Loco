@@ -81,7 +81,6 @@ class Endboss extends MovableObject {
                 setTimeout(() => {
                     winLoseModal()
                 }, 750);
-
             } else {
                 this.playAnimation(this.imagesWalking);
             }
@@ -140,7 +139,7 @@ class Endboss extends MovableObject {
      */
     hit() {
         this.energy -= 20;
-        this.world.statusBarImageHealtBoss.setPercentageHealtBoss(this.energy);
+        this.world.statusBarImageHealtBoss.setPercentage(this.energy);
         this.playAnimation(this.imageHurt);
     }
 

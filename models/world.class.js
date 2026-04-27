@@ -7,10 +7,10 @@ class World {
     canvas;
     keyboard;
     cameraX = 0;
-    statusBarImageHealt = new StatusBarImageHealt();
-    statusBarImageCoin = new StatusBarImageCoin();
-    statusBarImageBottel = new StatusBarImageBottle();
-    statusBarImageHealtBoss = new StatusBarImageHealtBoss();
+    statusBarImageHealt = new StatusBarHealth();
+    statusBarImageCoin = new StatusBarCoin();
+    statusBarImageBottel = new StatusBarBottle();
+    statusBarImageHealtBoss = new StatusBarBoss();
     ThrowableObject = [];
 
     /**
@@ -41,8 +41,7 @@ class World {
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
             this.bossLayout();
-            this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
-            // winLoseModal();
+            this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);           
         }, 1000 / 60);
     }
 
@@ -68,7 +67,7 @@ class World {
                 this.character.hitHurt();
             }
         });
-        this.statusBarImageHealt.setPercentageHealt(this.character.energy);
+        this.statusBarImageHealt.setPercentage(this.character.energy);
     }
 
     /**
@@ -79,7 +78,7 @@ class World {
             if (this.character.isColliding(coinCollect)) {
                 this.level.coins.splice(i, 1);
                 this.character.hitCollectCoin();
-                this.statusBarImageCoin.setPercentageCoin(this.character.coin);
+                this.statusBarImageCoin.setPercentage(this.character.coin);
             }
         });
     }
@@ -92,7 +91,7 @@ class World {
             if (this.character.isColliding(bottlesCollect)) {
                 this.level.bottles.splice(i, 1);
                 this.character.hitCollectBottles();
-                this.statusBarImageBottel.setPercentageBottles(this.character.bottles);
+                this.statusBarImageBottel.setPercentage(this.character.bottles);
             }
         });
     }
@@ -161,7 +160,7 @@ class World {
         bottle.throw();
         this.character.bottles -= 20;        
 
-        this.statusBarImageBottel.setPercentageBottles(this.character.bottles);
+        this.statusBarImageBottel.setPercentage(this.character.bottles);
     }
 
     /**

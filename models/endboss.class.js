@@ -78,6 +78,10 @@ class Endboss extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.imageDead);
+                setTimeout(() => {
+                    winLoseModal()
+                }, 750);
+
             } else {
                 this.playAnimation(this.imagesWalking);
             }

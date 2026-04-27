@@ -108,7 +108,7 @@ class MovableObject extends DrawableObject {
      * Reduces energy when hurt and plays game end sound if dead.
      */
     hitHurt() {
-        this.energy -= 3;
+        this.energy -= 3;    
         if (this.energy <= 0) {
             this.energy = 0;
             this.world.audio.play("gameEnd");

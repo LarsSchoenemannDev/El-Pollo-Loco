@@ -4,7 +4,6 @@
 * @param {number} x 
 * @param {number} y
 */
-
 class StatusBarHealth extends StatusBar {
     constructor() {
         super([
@@ -24,7 +23,6 @@ class StatusBarHealth extends StatusBar {
 * @param {number} x 
 * @param {number} y
 */
-
 class StatusBarCoin extends StatusBar {
     constructor() {
         super([
@@ -37,13 +35,13 @@ class StatusBarCoin extends StatusBar {
         ], 20, 50, 0);
     }
 }
+
 /**
 * Updates the displayed image and set the coordinates on x and y
 * @param {string[]} images 
 * @param {number} x 
 * @param {number} y
 */
-
 class StatusBarBottle extends StatusBar {
     constructor() {
         super([
@@ -56,13 +54,13 @@ class StatusBarBottle extends StatusBar {
         ], 20, 105, 0);
     }
 }
+
 /**
 * Updates the displayed image and set the coordinates on x and y
 * @param {string[]} images 
 * @param {number} x 
 * @param {number} y
 */
-
 class StatusBarBoss extends StatusBar {
     constructor() {
         super([

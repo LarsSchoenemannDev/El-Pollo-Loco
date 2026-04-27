@@ -3,13 +3,13 @@
  * @extends MovableObject
  */
 class Character extends MovableObject {
-    x = 1200;
+    x = 70;
     y = 230;
     height = 200;
     width = 140;
     speed = 8;
     coin = 0;
-    bottles = 300;
+    bottles = 0;
 
     imagesNormal = [
         "./img/2_character_pepe/1_idle/idle/I-1.png",

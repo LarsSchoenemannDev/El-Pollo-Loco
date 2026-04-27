@@ -19,7 +19,8 @@ class ThrowableObject extends MovableObject {
         "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
         "img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
         "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png"
-    ]
+    ];
+
 
     /**
      * Creates a ThrowableObject at the given position.
@@ -78,10 +79,10 @@ class ThrowableObject extends MovableObject {
     animate() {
         setInterval(() => {
             if (this.isThrown && !this.isSplashing) {
-                this.playAnimation(this.bottleImg);
-            } else if (this.isSplashing) {
+                this.playAnimation(this.bottlethrow);
+            } if (this.isSplashing) {
                 this.playAnimation(this.bottleImgSplash);
-            }
+            } 
         }, 1000 / 60);
     }
 

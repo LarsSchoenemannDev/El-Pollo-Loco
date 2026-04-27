@@ -129,7 +129,6 @@ class Character extends MovableObject {
                 this.y = 230; 
                 this.speedY = 0;
             }
-
         }
     }
 

@@ -88,7 +88,7 @@ class World {
      */
     checkCollisionsBottles() {
         this.level.bottles.forEach((bottlesCollect, i) => {
-            if (this.character.isColliding(bottlesCollect)) {
+            if (this.character.isColliding(bottlesCollect)) {                
                 this.level.bottles.splice(i, 1);
                 this.character.hitCollectBottles();
                 this.statusBarImageBottel.setPercentage(this.character.bottles);

@@ -3,7 +3,7 @@
  * @extends MovableObject
  */
 class Character extends MovableObject {
-    x = 2200;
+    x = 1200;
     y = 230;
     height = 200;
     width = 140;
@@ -126,7 +126,7 @@ class Character extends MovableObject {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
             if (this.y > 230) {
-                this.y = 230; // Boden festnageln
+                this.y = 230; 
                 this.speedY = 0;
             }
 
@@ -162,6 +162,9 @@ class Character extends MovableObject {
             let idleTime = (new Date().getTime() - this.lastAction) / 200;
             if (this.isDead()) {
                 this.playAnimation(this.imagesDead);
+                setInterval(() => {
+                    winLoseModal()
+                }, 300);
             } else if (this.isHurt()) {
                 this.playAnimation(this.imagesHurt);
             } else if (this.isAboveGround()) {

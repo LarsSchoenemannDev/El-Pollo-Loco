@@ -21,7 +21,7 @@ class World {
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
-        this.canvas = canvas;        
+        this.canvas = canvas;
         this.character = new Character(this);
         this.endboss = new Endboss(this);
         this.audio = new AudioObject();
@@ -41,7 +41,7 @@ class World {
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
             this.bossLayout();
-            this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);           
+            this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
         }, 1000 / 60);
     }
 
@@ -88,7 +88,7 @@ class World {
      */
     checkCollisionsBottles() {
         this.level.bottles.forEach((bottlesCollect, i) => {
-            if (this.character.isColliding(bottlesCollect)) {                
+            if (this.character.isColliding(bottlesCollect)) {
                 this.level.bottles.splice(i, 1);
                 this.character.hitCollectBottles();
                 this.statusBarImageBottel.setPercentage(this.character.bottles);
@@ -158,7 +158,7 @@ class World {
         );
         this.ThrowableObject.push(bottle);
         bottle.throw();
-        this.character.bottles -= 20;        
+        this.character.bottles -= 20;
 
         this.statusBarImageBottel.setPercentage(this.character.bottles);
     }

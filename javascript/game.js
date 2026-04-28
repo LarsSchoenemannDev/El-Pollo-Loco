@@ -196,3 +196,18 @@ function exitGameLost() {
     document.getElementById("endModal").classList.add("hidden");
     document.getElementById("main-menu").style.display = "flex"
 }
+
+
+
+
+
+// Play Button mittig
+// responsiv tablet moddus ipad pro ipad mini // pointer coarse
+// anmition stuck jaumping
+// chrakter offset passt immer noch nicht ?
+// bei flaschen werfen peppe wach machen 
+
+// end boss komplett überarbeiten ist wohl zu leicht
+
+
+// das gesammte game prauch mehr anpereschnung

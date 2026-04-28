@@ -88,8 +88,7 @@ class Character extends MovableObject {
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
-        this.loadImages(this.imagesWaiting);
-        this.applyGravity();
+        this.loadImages(this.imagesWaiting);        
         this.animate();
         this.animateFrame();
         this.hitboxOffsetX = 20;
@@ -103,11 +102,11 @@ class Character extends MovableObject {
      */
     animate() {
         setInterval(() => {
+            this.lastY = this.y
             this.updateCamera();
             this.updateGravity();
             this.handleMovement();
-            this.world.checkCollisions();
-            this.lastY = this.y
+            this.world.checkCollisions();            
         }, 1000 / 60);
     }
 
@@ -125,7 +124,7 @@ class Character extends MovableObject {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
-            if (this.y > 230) {
+            if (this.y >= 230) {
                 this.y = 230; 
                 this.speedY = 0;
             }
@@ -165,9 +164,9 @@ class Character extends MovableObject {
                     winLoseModal()
                 }, 300);
             } else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);
+                this.playAnimation(this.imagesHurt); // fühlt sich auch nicht sauber an 
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.imagesJumping);
+                this.playAnimation(this.imagesJumping); // stottert 
             } else if (this.keyTrigger.right || this.keyTrigger.left) {
                 this.playAnimation(this.imagesWalking);
             } else {

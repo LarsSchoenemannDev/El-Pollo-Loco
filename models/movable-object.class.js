@@ -39,15 +39,15 @@ class MovableObject extends DrawableObject {
      * Plays the next frame of an animation.
      * @param {string[]} images - Array of image paths for the animation.
      */
-playAnimation(images) {
-    if (this.currentAnimation !== images) {
-        this.currentAnimation = images;
-        this.currentImage = 0;
+    playAnimation(images) {
+        if (this.currentAnimation !== images) {
+            this.currentAnimation = images;
+            this.currentImage = 0;
+        }
+        let i = this.currentImage % images.length;
+        this.img = this.imageCache[images[i]];
+        this.currentImage++;
     }
-    let i = this.currentImage % images.length;
-    this.img = this.imageCache[images[i]];
-    this.currentImage++;
-}
 
     /**
      * Moves the object to the left.

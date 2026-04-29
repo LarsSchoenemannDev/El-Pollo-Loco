@@ -122,7 +122,7 @@ canvas {
 
 .game-btn {
     background: var(--color-primary);
-    color: var(--color-btn-text);    
+    color: var(--color-btn-text);
     padding: 6px 8px;
     font-size: var(--font-size-sm);
     font-weight: bold;
@@ -359,7 +359,7 @@ canvas {
     }
 }
 
-@media only screen and (orientation: landscape) and (max-height: 550px) {
+@media only screen and (orientation: landscape) and (min-width:600px) {
     main {
         h1 {
             display: none;
@@ -381,10 +381,6 @@ canvas {
         max-width: 100vw;
     }
 
-    .controll-mobile {
-        display: flex;
-    }
-
     .end-screen,
     .won-screen {
         position: relative;
@@ -398,6 +394,22 @@ canvas {
     .rotate-phone {
         display: none !important;
     }
+}
 
+@media (pointer: coarse) {
+    .controll-mobile {
+        display: flex !important;
+    }
+}
 
+@media only screen and (min-width: 640px) {
+    #canvas {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: fill;
+    }
+
+    .controll-mobile {
+        opacity: 0.6;
+    }
 }

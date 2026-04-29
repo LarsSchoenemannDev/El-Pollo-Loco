@@ -30,7 +30,7 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
-        } else {            
+        } else {
             return this.y < 230;
         }
     }
@@ -39,12 +39,15 @@ class MovableObject extends DrawableObject {
      * Plays the next frame of an animation.
      * @param {string[]} images - Array of image paths for the animation.
      */
-    playAnimation(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+playAnimation(images) {
+    if (this.currentAnimation !== images) {
+        this.currentAnimation = images;
+        this.currentImage = 0;
     }
+    let i = this.currentImage % images.length;
+    this.img = this.imageCache[images[i]];
+    this.currentImage++;
+}
 
     /**
      * Moves the object to the left.
@@ -108,7 +111,7 @@ class MovableObject extends DrawableObject {
      * Reduces energy when hurt and plays game end sound if dead.
      */
     hitHurt() {
-        this.energy -= 3;    
+        this.energy -= 3;
         if (this.energy <= 0) {
             this.energy = 0;
             this.world.audio.play("gameEnd");

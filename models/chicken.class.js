@@ -55,7 +55,7 @@ class Chicken extends MovableObject {
                 setTimeout(() => {
                     this.isReadyToRemove = true;
                 }, 1200);
-            } this.moveLeft();
+            } else { this.moveLeft() };
         }, 1000 / 60);
     }
 

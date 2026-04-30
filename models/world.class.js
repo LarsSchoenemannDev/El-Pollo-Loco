@@ -59,7 +59,7 @@ class World {
      */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (enemy.isDead) return;
+            if (enemy.isDead && enemy.isDead()) return;
             if (this.character.isCollidingFromTop(enemy)) {
                 enemy.hit();
                 this.character.speedY = 20;
@@ -159,7 +159,6 @@ class World {
         this.ThrowableObject.push(bottle);
         bottle.throw();
         this.character.bottles -= 20;
-
         this.statusBarImageBottel.setPercentage(this.character.bottles);
     }
 

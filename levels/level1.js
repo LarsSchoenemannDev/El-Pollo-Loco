@@ -7,7 +7,8 @@ function initLevel1() {
         createClouds(),
         createBackgrounds(),
         createCoins(),
-        createBottles()
+        createBottles(),
+        assetsObject()
     );
 }
 
@@ -72,6 +73,7 @@ function createBackgrounds() {
         new BackgroundObjects("./img/5_background/layers/3_third_layer/2.png", 720 * 3),
         new BackgroundObjects("./img/5_background/layers/2_second_layer/2.png", 720 * 3),
         new BackgroundObjects("./img/5_background/layers/1_first_layer/2.png", 720 * 3),
+
     ];
 }
 
@@ -111,3 +113,10 @@ function createBottles() {
     ];
 }
 
+
+function assetsObject() {
+    return [
+        new MapAssets("./img/woodarrowshildstart.png", 325, 30),
+        new MapAssets("./img/woodarrowshildend.png", 325, 2766)
+    ]
+}

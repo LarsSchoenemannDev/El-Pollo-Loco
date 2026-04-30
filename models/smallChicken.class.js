@@ -2,7 +2,7 @@
  * Represents a small chicken enemy that walks and jumps.
  * @extends MovableObject
  */class SmallChicken extends MovableObject {
-    y = 366;
+    y = 350;
     height = 75;
     width = 70;
     speedY = 0;
@@ -97,7 +97,7 @@
         if (this.isDead()) return;
         if (this.isJumping) return;
         this.isJumping = true;
-        this.y = 366;
+        this.y = 350;
         this.velocity = -8;
         this.gravity = 0.5;
         this.applyGravity();
@@ -109,8 +109,8 @@
     applyGravity() {
         this.y += this.velocity;
         this.velocity += this.gravity;
-        if (this.y >= 366) {
-            this.y = 366;
+        if (this.y >= 350) {
+            this.y = 350;
             this.velocity = 0;
             this.isJumping = false;
         } else {

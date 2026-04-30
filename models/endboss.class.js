@@ -44,9 +44,9 @@ class Endboss extends MovableObject {
         this.loadImages(this.imageDead);
         this.loadImages(this.imageHurt);
         this.x = 2500;
-        this.hitboxOffsetX = 0;
+        this.hitboxOffsetX = 20;
         this.hitboxOffsetY = 80;
-        this.hitboxWidth = 130;
+        this.hitboxWidth = 110;
         this.hitboxHeight = 260;
         this.animate();
         this.startJumpingInterval();

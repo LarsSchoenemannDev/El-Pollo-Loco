@@ -72,7 +72,7 @@ class ThrowableObject extends MovableObject {
             this.y + this.height > otherObject.y
         );
     }
-
+v
     /**
      * Plays the rotation or splash animation based on current state.
      */
@@ -83,7 +83,7 @@ class ThrowableObject extends MovableObject {
             } if (this.isSplashing) {
                 this.playAnimation(this.bottleImgSplash);
             } 
-        }, 1000 / 60);
+        }, 1000 / 20);
     }
 
     /**

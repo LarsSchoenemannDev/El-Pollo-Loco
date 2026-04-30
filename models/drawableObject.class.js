@@ -37,29 +37,29 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    // // /**
-    // //  * Returns whether this object should have a hitbox drawn.
-    // //  * @returns {boolean}
-    // //  */
-    // hasHitbox() {
-    //     return this instanceof Character || this instanceof CoinObject || this instanceof Endboss || this instanceof BottlesObject || this instanceof SmallChicken || this instanceof Chicken;
-    // }
+    // /**
+    //  * Returns whether this object should have a hitbox drawn.
+    //  * @returns {boolean}
+    //  */
+    hasHitbox() {
+        return this instanceof Character || this instanceof CoinObject || this instanceof Endboss || this instanceof BottlesObject || this instanceof SmallChicken || this instanceof Chicken || this instanceof ThrowableObject;
+    }
 
-    // // /**
-    // //  * Draws the hitbox rectangle for debugging purposes.
-    // //  * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-    // //  */
-    // drawFrameHitBox(ctx) {
-    //     if (!this.hasHitbox()) return;
-    //     ctx.beginPath();
-    //     ctx.lineWidth = "2";
-    //     ctx.strokeStyle = "blue";
-    //     ctx.strokeRect(
-    //         this.x + this.hitboxOffsetX,
-    //         this.y + this.hitboxOffsetY,
-    //         this.hitboxWidth,
-    //         this.hitboxHeight
-    //     );
-    //     ctx.stroke();
-    // }
+    // /**
+    //  * Draws the hitbox rectangle for debugging purposes.
+    //  * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+    //  */
+    drawFrameHitBox(ctx) {
+        if (!this.hasHitbox()) return;
+        ctx.beginPath();
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "blue";
+        ctx.strokeRect(
+            this.x + this.hitboxOffsetX,
+            this.y + this.hitboxOffsetY,
+            this.hitboxWidth,
+            this.hitboxHeight
+        );
+        ctx.stroke();
+    }
 }

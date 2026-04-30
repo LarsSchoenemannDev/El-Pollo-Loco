@@ -187,6 +187,7 @@ class World {
         this.ctx.translate(this.cameraX, 0);
         this.addObjectToMap(this.level.coins);
         this.addObjectToMap(this.level.bottles);
+        this.addObjectToMap(this.level.mapAssets);
         this.addObjectToMap(this.ThrowableObject);
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
@@ -211,7 +212,11 @@ class World {
      * @param {DrawableObject[]} objects
      */
     addObjectToMap(objects) {
-        objects.forEach(o => this.addToMap(o));
+        objects.forEach(o => {
+            this.addToMap(o)
+            // console.log(o.img);
+
+        });
     }
 
     /**
@@ -221,7 +226,7 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
-        // mo.drawFrameHitBox(this.ctx);
+        mo.drawFrameHitBox(this.ctx);
         if (mo.otherDirection) this.flipImageBack(mo);
     }
 

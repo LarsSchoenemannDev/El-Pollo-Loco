@@ -3,13 +3,13 @@
  * @extends MovableObject
  */
 class Character extends MovableObject {
-    x = 70;
+    x = 2200;
     y = 230;
     height = 200;
     width = 140;
     speed = 8;
     coin = 0;
-    bottles = 0;
+    bottles = 100;
 
     imagesNormal = [
         "./img/2_character_pepe/1_idle/idle/I-1.png",
@@ -93,7 +93,7 @@ class Character extends MovableObject {
         this.animateFrame();
         this.hitboxOffsetX = 20;
         this.hitboxOffsetY = 90;
-        this.hitboxWidth = 100;
+        this.hitboxWidth = 90;
         this.hitboxHeight = 100;
     }
 

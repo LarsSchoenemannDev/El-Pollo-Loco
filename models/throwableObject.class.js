@@ -6,12 +6,12 @@ class ThrowableObject extends MovableObject {
     bottleImg = ["./img/6_salsa_bottle/salsa_bottle.png"];
 
     bottleImgSplash = [
-        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
-        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
-        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
-        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
-        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
-        "./img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
     ];
 
     bottlethrow = [
@@ -22,9 +22,6 @@ class ThrowableObject extends MovableObject {
     ];
 
     bottleImgSplashGround = [
-        "img/6_salsa_bottle/bottle_splash_ground/bottle1.png",
-        "img/6_salsa_bottle/bottle_splash_ground/bottle2.png",
-        "img/6_salsa_bottle/bottle_splash_ground/bottle3.png",
         "img/6_salsa_bottle/bottle_splash_ground/bottle4.png",
         "img/6_salsa_bottle/bottle_splash_ground/bottle5.png",
         "img/6_salsa_bottle/bottle_splash_ground/bottle6.png"
@@ -54,8 +51,6 @@ class ThrowableObject extends MovableObject {
         this.isThrown = false;
         this.isSplashing = false;
         this.splashingGround = false;
-        // this.lastHit = false;
-        this.animate();
     }
 
     /**
@@ -87,15 +82,14 @@ class ThrowableObject extends MovableObject {
     //  * Plays the rotation or splash animation based on current state.
     //  */
     animate() {
-        setInterval(() => {
-            if (this.isThrown && !this.isSplashing) {
-                this.playAnimation(this.bottlethrow);
-            } if (this.isSplashing) {
-                this.playAnimation(this.bottleImgSplashGround);
-            }
-        }, 1000 / 20);
+        if (this.isThrown && !this.isSplashing) {
+            this.playAnimation(this.bottlethrow);
+        } else if (this.isSplashing && this.hitType === 'enemy') {
+            this.playAnimation(this.bottleImgSplash);           
+        } else if (this.isSplashing && this.hitType === 'ground') {
+            this.playAnimation(this.bottleImgSplashGround);           
+        }
     }
-
 
     /**
      * Activates the throwing state.

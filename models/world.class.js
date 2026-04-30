@@ -41,6 +41,7 @@ class World {
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
             this.bossLayout();
+            this.ThrowableObject.forEach(bottle => bottle.animate());
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
         }, 1000 / 60);
     }
@@ -108,7 +109,7 @@ class World {
                 otherObject.hit();
                 bottle.playSplashAnimation();
                 bottle.hasHit = true;
-                hitEnemy = true;
+                bottle.hitType = 'enemy'; // ← fehlt
                 this.audio.play("bottlesSplashEnemy");
             }
         });
@@ -137,8 +138,11 @@ class World {
             const hitEnemy = this.checkBottleEnemyHit(bottle);
             if (bottle.isSplashing) return this.handleSplashingBottle(bottle);
             if (!hitEnemy && (bottle.y > 350 || bottle.x > 2900)) {
-                this.audio.play("bottlesSplash");
-                return false;
+                bottle.hitType = 'ground';     
+                bottle.isSplashing = true;      
+                bottle.hasHit = true;           
+                this.audio.play("bottlesSplash");                
+                return true;
             }
             return true;
         });
@@ -213,8 +217,6 @@ class World {
     addObjectToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o)
-            // console.log(o.img);
-
         });
     }
 

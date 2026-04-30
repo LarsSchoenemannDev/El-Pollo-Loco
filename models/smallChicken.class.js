@@ -44,7 +44,6 @@
     animate() {
         this.startMovementLoop();
         this.startFrameLoop();
-        this.startRemovalLoop();
     }
 
     /**
@@ -52,8 +51,11 @@
      */
     startMovementLoop() {
         setInterval(() => {
-            if (this.isDead()) return;
-            this.moveLeft();
+            if (this.isDead()) {
+                setTimeout(() => {
+                    this.isReadyToRemove = true;
+                }, 1200);
+            } this.moveLeft();
         }, 1000 / 60);
     }
 
@@ -68,17 +70,6 @@
                 this.playAnimation(this.imagesWalking);
             }
         }, 200);
-    }
-
-    /**
-     * Marks the chicken for removal after the death animation completes.
-     */
-    startRemovalLoop() {
-        setInterval(() => {
-            if (this.isDead()) {
-                this.isReadyToRemove = true;
-            }
-        }, 3000);
     }
 
     /**

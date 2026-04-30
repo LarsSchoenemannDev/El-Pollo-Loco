@@ -21,6 +21,14 @@ class ThrowableObject extends MovableObject {
         "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png"
     ];
 
+    bottleImgSplashGround = [
+        "img/6_salsa_bottle/bottle_splash_ground/bottle1.png",
+        "img/6_salsa_bottle/bottle_splash_ground/bottle2.png",
+        "img/6_salsa_bottle/bottle_splash_ground/bottle3.png",
+        "img/6_salsa_bottle/bottle_splash_ground/bottle4.png",
+        "img/6_salsa_bottle/bottle_splash_ground/bottle5.png",
+        "img/6_salsa_bottle/bottle_splash_ground/bottle6.png"
+    ];
 
     /**
      * Creates a ThrowableObject at the given position.
@@ -34,6 +42,7 @@ class ThrowableObject extends MovableObject {
         this.loadImages(this.bottleImg);
         this.loadImages(this.bottleImgSplash);
         this.loadImages(this.bottlethrow);
+        this.loadImages(this.bottleImgSplashGround)
         this.x = x;
         this.y = y;
         this.width = 69;
@@ -44,7 +53,8 @@ class ThrowableObject extends MovableObject {
         this.gravity = 0.8;
         this.isThrown = false;
         this.isSplashing = false;
-        this.lastHit = false;
+        this.splashingGround = false;
+        // this.lastHit = false;
         this.animate();
     }
 
@@ -72,19 +82,20 @@ class ThrowableObject extends MovableObject {
             this.y + this.height > otherObject.y
         );
     }
-v
-    /**
-     * Plays the rotation or splash animation based on current state.
-     */
+
+    // /**
+    //  * Plays the rotation or splash animation based on current state.
+    //  */
     animate() {
         setInterval(() => {
             if (this.isThrown && !this.isSplashing) {
                 this.playAnimation(this.bottlethrow);
             } if (this.isSplashing) {
-                this.playAnimation(this.bottleImgSplash);
-            } 
+                this.playAnimation(this.bottleImgSplashGround);
+            }
         }, 1000 / 20);
     }
+
 
     /**
      * Activates the throwing state.
@@ -99,5 +110,7 @@ v
     playSplashAnimation() {
         this.isSplashing = true;
         this.isThrown = false;
+
+
     }
 }

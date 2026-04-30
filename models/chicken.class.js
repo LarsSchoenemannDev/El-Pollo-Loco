@@ -43,7 +43,7 @@ class Chicken extends MovableObject {
     animate() {
         this.startMovementLoop();
         this.startFrameLoop();
-        this.startRemovalLoop();
+        // this.startRemovalLoop();
     }
 
     /**
@@ -51,8 +51,11 @@ class Chicken extends MovableObject {
      */
     startMovementLoop() {
         setInterval(() => {
-            if (this.isDead()) return;
-            this.moveLeft();
+            if (this.isDead()) {
+                setTimeout(() => {
+                    this.isReadyToRemove = true;
+                }, 1200);
+            } this.moveLeft();
         }, 1000 / 60);
     }
 
@@ -70,17 +73,6 @@ class Chicken extends MovableObject {
     }
 
     /**
-     * Marks the chicken for removal after the death animation completes.
-     */
-    startRemovalLoop() {
-        setInterval(() => {
-            if (this.isDead()) {
-                this.isReadyToRemove = true;
-            }
-        }, 3000);
-    }
-
-    /**
      * Reduces energy to zero, killing the chicken instantly.
      */
     hit() {
@@ -92,6 +84,6 @@ class Chicken extends MovableObject {
      * @returns {boolean}
      */
     isDead() {
-        return this.energy <= 0;
+        return this.energy <= 0
     }
 }

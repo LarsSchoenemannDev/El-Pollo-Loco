@@ -59,7 +59,7 @@ class World {
      */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (enemy.isDead && enemy.isDead()) return;
+            if (enemy.isDead) return;
             if (this.character.isCollidingFromTop(enemy)) {
                 enemy.hit();
                 this.character.speedY = 20;

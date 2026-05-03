@@ -37,18 +37,24 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    // /**
-    //  * Returns whether this object should have a hitbox drawn.
-    //  * @returns {boolean}
-    //  */
+    /**
+      * Returns whether this object should have a hitbox drawn.
+     * @returns {boolean}
+     */
     hasHitbox() {
-        return this instanceof Character || this instanceof CoinObject || this instanceof Endboss || this instanceof BottlesObject || this instanceof SmallChicken || this instanceof Chicken || this instanceof ThrowableObject;
+        return this instanceof Character ||
+            this instanceof CoinObject ||
+            this instanceof Endboss ||
+            this instanceof BottlesObject ||
+            this instanceof SmallChicken ||
+            this instanceof Chicken ||
+            this instanceof ThrowableObject; 
     }
 
-    // /**
-    //  * Draws the hitbox rectangle for debugging purposes.
-    //  * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-    //  */
+    /**
+     * Draws the hitbox rectangle for debugging purposes.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     drawFrameHitBox(ctx) {
         if (!this.hasHitbox()) return;
         ctx.beginPath();

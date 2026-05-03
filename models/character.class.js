@@ -3,13 +3,13 @@
  * @extends MovableObject
  */
 class Character extends MovableObject {
-    x = 2200;
+    x = 80;
     y = 230;
     height = 200;
     width = 140;
     speed = 8;
     coin = 0;
-    bottles = 100;
+    bottles = 1000;
 
     imagesNormal = [
         "./img/2_character_pepe/1_idle/idle/I-1.png",
@@ -88,13 +88,13 @@ class Character extends MovableObject {
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
-        this.loadImages(this.imagesWaiting);        
-        this.animate();
-        this.animateFrame();
+        this.loadImages(this.imagesWaiting);
+        this.animate();       
         this.hitboxOffsetX = 20;
         this.hitboxOffsetY = 90;
         this.hitboxWidth = 90;
         this.hitboxHeight = 100;
+        this.lastAction = 0;
     }
 
     /**
@@ -106,7 +106,7 @@ class Character extends MovableObject {
             this.updateCamera();
             this.updateGravity();
             this.handleMovement();
-            this.world.checkCollisions();            
+            this.world.checkCollisions();
         }, 1000 / 60);
     }
 
@@ -125,7 +125,7 @@ class Character extends MovableObject {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
             if (this.y >= 230) {
-                this.y = 230; 
+                this.y = 230;
                 this.speedY = 0;
             }
         }
@@ -156,28 +156,26 @@ class Character extends MovableObject {
      * Updates the character's animation frame based on current state.
      */
     animateFrame() {
-        setInterval(() => {
-            let idleTime = (new Date().getTime() - this.lastAction) / 200;
+            const idleTime = (new Date().getTime() - this.lastAction) / 100;
+            console.log(idleTime);
+            
             if (this.isDead()) {
                 this.playAnimation(this.imagesDead);
-                setInterval(() => {
-                    winLoseModal()
-                }, 300);
+                winLoseModal();
             } else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt); // fühlt sich auch nicht sauber an 
+                this.playAnimation(this.imagesHurt);
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.imagesJumping); // stottert 
+                this.playAnimation(this.imagesJumping);
             } else if (this.keyTrigger.right || this.keyTrigger.left) {
                 this.playAnimation(this.imagesWalking);
             } else {
                 this.playIdleAnimation(idleTime);
-            }
-        }, 100);
+            }    
     }
 
     /**
      * Plays idle or waiting animation based on how long the character has been idle.
-     * @param {number} idleTime - Time in units since last action.
+     * @param {number} idleTime - Seconds since last action.
      */
     playIdleAnimation(idleTime) {
         if (idleTime > 8) {

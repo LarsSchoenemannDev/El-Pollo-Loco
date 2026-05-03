@@ -104,7 +104,5 @@ class ThrowableObject extends MovableObject {
     playSplashAnimation() {
         this.isSplashing = true;
         this.isThrown = false;
-
-
     }
 }

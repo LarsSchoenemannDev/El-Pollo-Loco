@@ -24,6 +24,8 @@ class World {
         this.canvas = canvas;
         this.character = new Character(this);
         this.endboss = new Endboss(this);
+        this.bossEggs = [];
+        this.checkBossEggCollisions();
         this.audio = new AudioObject();
         this.setWorld();
         this.draw();
@@ -40,10 +42,15 @@ class World {
             this.checkCollisionsBottles();
             this.ThrowableObject.forEach(bottle => bottle.move());
             this.checkCollisionsThrowableObject();
+            this.checkBossEggCollisions();
             this.bossLayout();
             this.ThrowableObject.forEach(bottle => bottle.animate());
             this.level.enemies = this.level.enemies.filter(enemy => !enemy.isReadyToRemove);
         }, 1000 / 60);
+        setInterval(()=>{
+            this.character.animateFrame();
+        },100);
+
     }
 
     /**
@@ -138,10 +145,10 @@ class World {
             const hitEnemy = this.checkBottleEnemyHit(bottle);
             if (bottle.isSplashing) return this.handleSplashingBottle(bottle);
             if (!hitEnemy && (bottle.y > 350 || bottle.x > 2900)) {
-                bottle.hitType = 'ground';     
-                bottle.isSplashing = true;      
-                bottle.hasHit = true;           
-                this.audio.play("bottlesSplash");                
+                bottle.hitType = 'ground';
+                bottle.isSplashing = true;
+                bottle.hasHit = true;
+                this.audio.play("bottlesSplash");
                 return true;
             }
             return true;
@@ -155,6 +162,7 @@ class World {
         if (!this.keyboard.d || this.character.bottles <= 0) return;
         if (this.lastThrow && Date.now() - this.lastThrow < 600) return;
         this.lastThrow = Date.now();
+        this.character.lastAction = new Date().getTime();
         const bottle = new ThrowableObject(
             this.character.x + 40,
             this.character.y + 40,
@@ -192,6 +200,7 @@ class World {
         this.addObjectToMap(this.level.bottles);
         this.addObjectToMap(this.level.mapAssets);
         this.addObjectToMap(this.ThrowableObject);
+        this.addObjectToMap(this.bossEggs);
         this.addToMap(this.character);
         this.addObjectToMap(this.level.enemies);
         this.ctx.translate(-this.cameraX, 0);
@@ -256,5 +265,37 @@ class World {
      */
     resetGame() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    /**
+     * Spawns a boss egg projectile at the given position.
+     * @param {number} x
+     * @param {number} y
+     */
+    spawnBossEgg(x, y) {
+        const egg = new BossEgg(x, y);
+        this.bossEggs.push(egg);
+    }
+
+    /**
+     * Checks boss egg collisions with the character and removes finished eggs.
+     */
+    checkBossEggCollisions() {
+        this.bossEggs = this.bossEggs.filter((egg) => {
+            egg.move();
+            if (!egg.isSplashing && egg.isCollidingBottle(this.character)) { // fix
+                this.character.hitHurt();
+                this.audio.play("hurtCharakter");
+                egg.playSplashAnimation();
+            }
+            if (egg.isSplashing) {
+                if (!egg.splashTimer) {
+                    egg.splashTimer = setTimeout(() => egg.isReadyToRemove = true, 300);
+                }
+                return !egg.isReadyToRemove;
+            }
+            if (egg.y > 400 || egg.x < -100) return false;
+            return true;
+        });
     }
 }

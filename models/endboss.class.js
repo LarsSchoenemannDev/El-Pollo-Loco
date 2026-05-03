@@ -10,20 +10,16 @@ class Endboss extends MovableObject {
     lastHit = 0;
 
     imagesWalking = [
-        "./img/4_enemie_boss_chicken/2_alert/G5.png",
-        "./img/4_enemie_boss_chicken/2_alert/G6.png",
-        "./img/4_enemie_boss_chicken/2_alert/G7.png",
-        "./img/4_enemie_boss_chicken/2_alert/G8.png",
-        "./img/4_enemie_boss_chicken/2_alert/G9.png",
-        "./img/4_enemie_boss_chicken/2_alert/G10.png",
-        "./img/4_enemie_boss_chicken/2_alert/G11.png",
-        "./img/4_enemie_boss_chicken/2_alert/G12.png"
+        "./img/4_enemie_boss_chicken/1_walk/G1.png",
+        "./img/4_enemie_boss_chicken/1_walk/G2.png",
+        "./img/4_enemie_boss_chicken/1_walk/G3.png",
+        "./img/4_enemie_boss_chicken/1_walk/G4.png"
     ];
 
     imageDead = [
         "./img/4_enemie_boss_chicken/5_dead/G24.png",
         "./img/4_enemie_boss_chicken/5_dead/G25.png",
-        "./img/4_enemie_boss_chicken/5_dead/G26.png",
+        "./img/4_enemie_boss_chicken/5_dead/G26.png"
     ];
 
     imageHurt = [
@@ -32,17 +28,42 @@ class Endboss extends MovableObject {
         "./img/4_enemie_boss_chicken/4_hurt/G23.png"
     ];
 
+    imageAlert = [
+        "./img/4_enemie_boss_chicken/2_alert/G5.png",
+        "./img/4_enemie_boss_chicken/2_alert/G6.png",
+        "./img/4_enemie_boss_chicken/2_alert/G7.png",
+        "./img/4_enemie_boss_chicken/2_alert/G8.png",
+        "./img/4_enemie_boss_chicken/2_alert/G9.png",
+        "./img/4_enemie_boss_chicken/2_alert/G10.png",
+        "./img/4_enemie_boss_chicken/2_alert/G11.png",
+        "./img/4_enemie_boss_chicken/2_alert/G12.png",
+    ];
+
+    imageAtk = [
+        "img/4_enemie_boss_chicken/3_attack/G13.png",
+        "img/4_enemie_boss_chicken/3_attack/G14.png",
+        "img/4_enemie_boss_chicken/3_attack/G15.png",
+        "img/4_enemie_boss_chicken/3_attack/G16.png",
+        "img/4_enemie_boss_chicken/3_attack/G17.png",
+        "img/4_enemie_boss_chicken/3_attack/G18.png",
+        "img/4_enemie_boss_chicken/3_attack/G19.png",
+        "img/4_enemie_boss_chicken/3_attack/G20.png",
+    ];
+
     /**
      * Creates an Endboss instance and starts all animation loops.
      * @param {World} world - The game world instance.
      */
     constructor(world) {
+
         super();
         this.loadImage(this.imagesWalking[0]);
-        this.world = world;
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imageDead);
         this.loadImages(this.imageHurt);
+        this.loadImages(this.imageAlert);
+        this.loadImages(this.imageAtk);
+        this.world = world;
         this.x = 2500;
         this.hitboxOffsetX = 20;
         this.hitboxOffsetY = 80;
@@ -50,7 +71,9 @@ class Endboss extends MovableObject {
         this.hitboxHeight = 260;
         this.animate();
         this.startJumpingInterval();
-    }
+        this.stateJump = false
+        this.hitCounter = 0;
+    };
 
     /**
      * Starts all animation intervals for movement, frames and removal.
@@ -59,7 +82,7 @@ class Endboss extends MovableObject {
         this.startMovementLoop();
         this.startFrameLoop();
         this.startRemovalLoop();
-    }
+    };
 
     /**
      * Moves the endboss left at 60fps unless dead.
@@ -69,7 +92,7 @@ class Endboss extends MovableObject {
             if (this.isDead()) return;
             this.moveLeft();
         }, 1000 / 60);
-    }
+    };
 
     /**
      * Updates the animation frame based on alive or dead state.
@@ -81,11 +104,18 @@ class Endboss extends MovableObject {
                 setTimeout(() => {
                     winLoseModal()
                 }, 750);
-            } else {
+            } else if (this.hitCounter <= 0) {
                 this.playAnimation(this.imagesWalking);
+            } else if (this.hitCounter >= 0) {
+                setTimeout(() => {
+                    this.playAnimation(this.imageAtk);
+                }, 60)
+            } else if (this.hitCounter >= 3) {
+                this.playAnimation(this.enemyAtk)
+                console.log("his move");
             }
         }, 280);
-    }
+    };
 
     /**
      * Marks the endboss for removal after death animation completes.
@@ -96,7 +126,7 @@ class Endboss extends MovableObject {
                 this.isReadyToRemove = true;
             }
         }, 1000);
-    }
+    };
 
     /**
      * Starts the interval that triggers random jumps.
@@ -104,20 +134,24 @@ class Endboss extends MovableObject {
     startJumpingInterval() {
         setInterval(() => {
             this.jumping();
+            this.stateJump = true
+            setTimeout(() => {
+            }, 100)
         }, 1000 + Math.random() * 3400);
-    }
+    };
 
     /**
      * Initiates a jump if the endboss is not already jumping.
      */
     jumping() {
+
         if (this.isJumping) return;
         this.isJumping = true;
         this.y = 90;
         this.velocity = -8;
         this.gravity = 0.5;
         this.applyGravity();
-    }
+    };
 
     /**
      * Applies gravity to the endboss recursively until it lands.
@@ -132,7 +166,7 @@ class Endboss extends MovableObject {
         } else {
             setTimeout(() => this.applyGravity(), 20);
         }
-    }
+    };
 
     /**
      * Reduces endboss energy and updates the boss health bar.
@@ -141,7 +175,19 @@ class Endboss extends MovableObject {
         this.energy -= 20;
         this.world.statusBarImageHealtBoss.setPercentage(this.energy);
         this.playAnimation(this.imageHurt);
-    }
+        this.hitCounter++;
+        if (this.hitCounter >= 3) {
+            this.shootEgg()
+            this.hitCounter = 0;
+        }
+    };
+
+    /**
+    * Shoots an egg with a after 3times in arrow hit 
+    */
+    shootEgg() {
+        this.world.spawnBossEgg(this.x, this.y + 260);
+    };
 
     /**
      * Returns whether the endboss is dead.
@@ -149,5 +195,5 @@ class Endboss extends MovableObject {
      */
     isDead() {
         return this.energy <= 0;
-    }
+    };
 }

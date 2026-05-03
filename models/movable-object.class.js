@@ -78,7 +78,12 @@ class MovableObject extends DrawableObject {
      * @returns {{x: number, y: number, w: number, h: number}}
      */
     getHitbox(obj) {
-        return { x: obj.x + (obj.hitboxOffsetX || 0), y: obj.y + (obj.hitboxOffsetY || 0), w: obj.hitboxWidth || obj.width, h: obj.hitboxHeight || obj.height };
+        return {
+            x: obj.x + (obj.hitboxOffsetX || 0)
+            , y: obj.y + (obj.hitboxOffsetY || 0)
+            , w: obj.hitboxWidth || obj.width,
+            h: obj.hitboxHeight || obj.height
+        };
     }
 
     /**
@@ -110,6 +115,7 @@ class MovableObject extends DrawableObject {
     /**
      * Reduces energy when hurt and plays game end sound if dead.
      */
+
     hitHurt() {
         this.energy -= 3;
         if (this.energy <= 0) {
@@ -117,9 +123,10 @@ class MovableObject extends DrawableObject {
             this.world.audio.play("gameEnd");
         } else {
             this.lastHit = new Date().getTime();
-            this.world.audio.play("hurtCharakter");
+            this.lastAction = new Date().getTime();
         }
     }
+
 
     /**
      * Increases coin count and plays coin sound.

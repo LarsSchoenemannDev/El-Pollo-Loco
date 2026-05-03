@@ -42,8 +42,7 @@ class Chicken extends MovableObject {
      */
     animate() {
         this.startMovementLoop();
-        this.startFrameLoop();
-        // this.startRemovalLoop();
+        this.startFrameLoop();      
     }
 
     /**

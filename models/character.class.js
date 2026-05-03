@@ -156,9 +156,7 @@ class Character extends MovableObject {
      * Updates the character's animation frame based on current state.
      */
     animateFrame() {
-            const idleTime = (new Date().getTime() - this.lastAction) / 100;
-            console.log(idleTime);
-            
+            const idleTime = (new Date().getTime() - this.lastAction) / 100;            
             if (this.isDead()) {
                 this.playAnimation(this.imagesDead);
                 winLoseModal();

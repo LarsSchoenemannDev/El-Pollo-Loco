@@ -111,8 +111,7 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.imageAtk);
                 }, 60)
             } else if (this.hitCounter >= 3) {
-                this.playAnimation(this.enemyAtk)
-                console.log("his move");
+                this.playAnimation(this.enemyAtk)                
             }
         }, 280);
     };

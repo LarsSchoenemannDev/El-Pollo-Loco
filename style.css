@@ -262,6 +262,7 @@ canvas {
     font-weight: 700;
     font-size: 20px;
     color: black;
+    gap: 8px;
 }
 
 .controll-mobile {

@@ -13,15 +13,15 @@ class Character extends MovableObject {
 
     idle = [
         "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png",
-        "./img/2_character_pepe/1_idle/idle/I-1.png"
+        "./img/2_character_pepe/1_idle/idle/I-2.png",
+        "./img/2_character_pepe/1_idle/idle/I-3.png",
+        "./img/2_character_pepe/1_idle/idle/I-4.png",
+        "./img/2_character_pepe/1_idle/idle/I-5.png",
+        "./img/2_character_pepe/1_idle/idle/I-6.png",
+        "./img/2_character_pepe/1_idle/idle/I-7.png",
+        "./img/2_character_pepe/1_idle/idle/I-8.png",
+        "./img/2_character_pepe/1_idle/idle/I-9.png",
+        "./img/2_character_pepe/1_idle/idle/I-10.png"
     ];
 
     imagesWalking = [
@@ -89,12 +89,13 @@ class Character extends MovableObject {
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
         this.loadImages(this.longIdle);
-        this.animate();       
+        this.animate();
         this.hitboxOffsetX = 20;
         this.hitboxOffsetY = 90;
         this.hitboxWidth = 90;
         this.hitboxHeight = 100;
         this.lastAction = 0;
+        this.idleTime = 0;
     }
 
     /**
@@ -156,30 +157,36 @@ class Character extends MovableObject {
      * Updates the character's animation frame based on current state.
      */
     animateFrame() {
-            const idleTime = (new Date().getTime() - this.lastAction) / 100;            
-            if (this.isDead()) {
-                this.playAnimation(this.imagesDead);
-                winLoseModal();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.imagesHurt);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.imagesJumping);
-            } else if (this.keyTrigger.right || this.keyTrigger.left) {
-                this.playAnimation(this.imagesWalking);
-            } else {
-                this.playIdleAnimation(idleTime);
-            }    
+        const now = new Date().getTime();
+        if (this.isDead()) {
+            this.playAnimation(this.imagesDead);
+            winLoseModal();
+            this.idleTime = 0;
+        } else if (this.isHurt()) {
+            this.playAnimation(this.imagesHurt);
+            this.idleTime = 0;
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.imagesJumping);
+            this.idleTime = 0;
+        } else if (this.keyTrigger.right || this.keyTrigger.left) {
+            this.playAnimation(this.imagesWalking);
+            this.idleTime = 0;
+        } else {
+            if (this.idleTime === 0) {
+                this.idleTime = now;
+            }
+            this.playIdleAnimation(now);
+        }
     }
 
     /**
      * Plays idle or waiting animation based on how long the character has been idle.
      * @param {number} idleTime - Seconds since last action.
      */
-    playIdleAnimation(idleTime) {
-        if (idleTime > 8) {
+    playIdleAnimation(now) {
+        const thePast = now - this.idleTime;
+        if (thePast >= 5000) {
             this.playAnimation(this.longIdle);
-        } else if (idleTime > 3) {
-            this.playAnimation(this.idle);
-        }
+        } else this.playAnimation(this.idle);
     }
 }

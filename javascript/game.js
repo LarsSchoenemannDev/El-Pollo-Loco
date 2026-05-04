@@ -74,12 +74,12 @@ function bindTouchButton(id, key) {
     const btn = document.getElementById(id);
     if (!btn) return;
     btn.addEventListener("touchstart", (e) => {
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         keyboard[key] = true;
     }, { passive: false });
     btn.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        keyboard[key] = false;
+        if (e.cancelable) e.preventDefault();
+        keyboard[key] = false;        
     }, { passive: false }); 
 }
 

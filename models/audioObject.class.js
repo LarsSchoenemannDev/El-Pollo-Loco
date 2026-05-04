@@ -2,7 +2,6 @@
  * Manages all game audio sounds.
  */
 class AudioObject {
-
     /**
      * Creates an AudioObject and initializes all sound instances.
      */
@@ -33,14 +32,12 @@ class AudioObject {
         const sound = this.sounds[soundName];
         if (sound) {
             if ("src = ./sfx/gameMusic.mp3") {
-                sound.volume = 0.03
-                           
+                sound.volume = 0.03                           
             }
             sound.volume = 0.06
             sound.currentTime = 0;
             sound.play();
         }
-
     }
 
     /**

@@ -23,7 +23,7 @@ class AudioObject {
     }
 
     /**
-     * Plays a sound by name if audio is not muted.
+     * Plays a sound by name if audio is not muted and change the game Music too lower volume
      * @param {string} soundName - Key of the sound in this.sounds.
      */
     play(soundName) {
@@ -32,7 +32,11 @@ class AudioObject {
         }
         const sound = this.sounds[soundName];
         if (sound) {
-            sound.volume = 0.05
+            if ("src = ./sfx/gameMusic.mp3") {
+                sound.volume = 0.03
+                           
+            }
+            sound.volume = 0.06
             sound.currentTime = 0;
             sound.play();
         }

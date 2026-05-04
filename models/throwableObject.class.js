@@ -78,16 +78,16 @@ class ThrowableObject extends MovableObject {
         );
     }
 
-    // /**
-    //  * Plays the rotation or splash animation based on current state.
-    //  */
+    /**
+     * Plays the rotation or splash animation based on current state.
+     */
     animate() {
         if (this.isThrown && !this.isSplashing) {
             this.playAnimation(this.bottlethrow);
         } else if (this.isSplashing && this.hitType === 'enemy') {
-            this.playAnimation(this.bottleImgSplash);           
+            this.playAnimation(this.bottleImgSplash);
         } else if (this.isSplashing && this.hitType === 'ground') {
-            this.playAnimation(this.bottleImgSplashGround);           
+            this.playAnimation(this.bottleImgSplashGround);
         }
     }
 

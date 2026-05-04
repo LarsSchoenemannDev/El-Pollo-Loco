@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
     y = 90;
     energy = 100;
     lastHit = 0;
+    rageSpeed = 1.5;
 
     imagesWalking = [
         "./img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -55,7 +56,6 @@ class Endboss extends MovableObject {
      * @param {World} world - The game world instance.
      */
     constructor(world) {
-
         super();
         this.loadImage(this.imagesWalking[0]);
         this.loadImages(this.imagesWalking);
@@ -90,8 +90,13 @@ class Endboss extends MovableObject {
     startMovementLoop() {
         setInterval(() => {
             if (this.isDead()) return;
-            this.moveLeft();
+            else if (this.hitCounter >= 1) {
+                this.rageMoveLeft();
+            } else {
+                this.moveLeft();
+            }
         }, 1000 / 60);
+
     };
 
     /**
@@ -111,7 +116,7 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.imageAtk);
                 }, 60)
             } else if (this.hitCounter >= 3) {
-                this.playAnimation(this.enemyAtk)                
+                this.playAnimation(this.enemyAtk)
             }
         }, 280);
     };
@@ -182,10 +187,13 @@ class Endboss extends MovableObject {
     };
 
     /**
-    * Shoots an egg with a after 3times in arrow hit 
+    * Shoots an eggs with a after 3times in arrow hit 
     */
     shootEgg() {
-        this.world.spawnBossEgg(this.x, this.y + 260);
+        this.world.spawnBossEgg(this.x + 15, this.y + 15);
+        this.world.spawnBossEgg(this.x + 30, this.y + 30);
+        this.world.spawnBossEgg(this.x + 45, this.y + 45);
+        this.world.spawnBossEgg(this.x + 60, this.y + 60);
     };
 
     /**
@@ -195,4 +203,12 @@ class Endboss extends MovableObject {
     isDead() {
         return this.energy <= 0;
     };
+
+    /**
+     * Makes the boss move at increased speed if the hit counter is greater than 0
+     */
+    rageMoveLeft() {
+        this.x -= this.rageSpeed;
+    }
+
 }

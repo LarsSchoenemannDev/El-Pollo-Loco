@@ -18,7 +18,7 @@ function init() {
  * @param {KeyboardEvent} event
  * @param {boolean} isPressed
  */
-window.addEventListener("keydown", (event) => {    
+window.addEventListener("keydown", (event) => {
     if (event.code === "ArrowLeft") {
         keyboard.left = true;
     }
@@ -44,7 +44,6 @@ window.addEventListener("keydown", (event) => {
  * @param {KeyboardEvent} event
  * @param {boolean} isUnpressed  
  */
-
 window.addEventListener("keyup", (event) => {
     if (event.code === "ArrowLeft") {
         keyboard.left = false;
@@ -74,8 +73,14 @@ window.addEventListener("keyup", (event) => {
 function bindTouchButton(id, key) {
     const btn = document.getElementById(id);
     if (!btn) return;
-    btn.addEventListener("touchstart", (e) => { e.preventDefault(); keyboard[key] = true; });
-    btn.addEventListener("touchend", (e) => { e.preventDefault(); keyboard[key] = false; });
+    btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        keyboard[key] = true;
+    }, { passive: false });
+    btn.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        keyboard[key] = false;
+    }, { passive: false }); 
 }
 
 /**
@@ -131,6 +136,7 @@ function showGameWonScreen() {
     world.audio.stop("gameMusic");
     world.audio.play("gameEnd");
 }
+
 /**
  * Stops all active intervals and animation frames by overwriting them.
  */

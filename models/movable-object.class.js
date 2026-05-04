@@ -115,18 +115,19 @@ class MovableObject extends DrawableObject {
     /**
      * Reduces energy when hurt and plays game end sound if dead.
      */
-
     hitHurt() {
+        if (this.isHurt()) return;
         this.energy -= 3;
-        if (this.energy <= 0) {
+        this.lastHit = Date.now();
+        this.lastAction = Date.now();
+        if (this.energy <= 20) {
             this.energy = 0;
             this.world.audio.play("gameEnd");
         } else {
             this.lastHit = new Date().getTime();
-            this.lastAction = new Date().getTime();
+            this.world.audio.play("hurtCharakter");
         }
     }
-
 
     /**
      * Increases coin count and plays coin sound.
@@ -158,7 +159,7 @@ class MovableObject extends DrawableObject {
      */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
+        timepassed = timepassed / 1000;        
         return timepassed < 0.1;
     }
 }

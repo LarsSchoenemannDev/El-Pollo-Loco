@@ -25,11 +25,11 @@ class BossEgg extends ThrowableObject {
         this.loadImage(this.eggImg[0]);
         this.loadImages(this.eggImg);
         this.speedX = -8;
-        this.speedY = -10;
+        this.speedY = -8;
         this.gravity = 0.6;
         this.isThrown = true;
-        this.hitboxOffsetX = 0;
-        this.hitboxOffsetY = 0;
+        this.hitboxOffsetX = +10;
+        this.hitboxOffsetY = +10;
         this.animate();
     }
 
@@ -39,7 +39,7 @@ class BossEgg extends ThrowableObject {
     animate() {
         setInterval(() => {
             if (!this.isSplashing) {
-                this.playAnimation(this.eggImg);
+                this.playAnimation(this.eggImg);                
             } else {
                 this.playAnimation(this.bottleImgSplash);
             }

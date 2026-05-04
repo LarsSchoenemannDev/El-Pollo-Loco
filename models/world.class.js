@@ -116,7 +116,7 @@ class World {
                 otherObject.hit();
                 bottle.playSplashAnimation();
                 bottle.hasHit = true;
-                bottle.hitType = 'enemy'; // ← fehlt
+                bottle.hitType = 'enemy'; 
                 this.audio.play("bottlesSplashEnemy");
             }
         });
@@ -283,7 +283,7 @@ class World {
     checkBossEggCollisions() {
         this.bossEggs = this.bossEggs.filter((egg) => {
             egg.move();
-            if (!egg.isSplashing && egg.isCollidingBottle(this.character)) { // fix
+            if (!egg.isSplashing && egg.isCollidingBottle(this.character)) {
                 this.character.hitHurt();
                 this.audio.play("hurtCharakter");
                 egg.playSplashAnimation();

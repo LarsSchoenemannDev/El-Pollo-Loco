@@ -9,9 +9,9 @@ class Character extends MovableObject {
     width = 140;
     speed = 8;
     coin = 0;
-    bottles = 1000;
+    bottles = 0;
 
-    imagesNormal = [
+    idle = [
         "./img/2_character_pepe/1_idle/idle/I-1.png",
         "./img/2_character_pepe/1_idle/idle/I-1.png",
         "./img/2_character_pepe/1_idle/idle/I-1.png",
@@ -61,7 +61,7 @@ class Character extends MovableObject {
         "./img/2_character_pepe/4_hurt/H-43.png"
     ];
 
-    imagesWaiting = [
+    longIdle = [
         "./img/2_character_pepe/1_idle/long_idle/I-11.png",
         "./img/2_character_pepe/1_idle/long_idle/I-12.png",
         "./img/2_character_pepe/1_idle/long_idle/I-13.png",
@@ -83,12 +83,12 @@ class Character extends MovableObject {
         this.loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
         this.world = world;
         this.keyTrigger = this.world.keyboard;
-        this.loadImages(this.imagesNormal);
+        this.loadImages(this.idle);
         this.loadImages(this.imagesWalking);
         this.loadImages(this.imagesJumping);
         this.loadImages(this.imagesDead);
         this.loadImages(this.imagesHurt);
-        this.loadImages(this.imagesWaiting);
+        this.loadImages(this.longIdle);
         this.animate();       
         this.hitboxOffsetX = 20;
         this.hitboxOffsetY = 90;
@@ -177,9 +177,9 @@ class Character extends MovableObject {
      */
     playIdleAnimation(idleTime) {
         if (idleTime > 8) {
-            this.playAnimation(this.imagesWaiting);
+            this.playAnimation(this.longIdle);
         } else if (idleTime > 3) {
-            this.playAnimation(this.imagesNormal);
+            this.playAnimation(this.idle);
         }
     }
 }
